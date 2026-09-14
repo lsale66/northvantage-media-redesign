@@ -1,0 +1,194 @@
+---
+const columns = [
+  {
+    title: 'Work',
+    links: [
+      { label: 'Gallery', href: '/gallery' },
+      { label: 'Recent frames', href: '#work' },
+      { label: 'Why us', href: '#why' },
+    ],
+  },
+  {
+    title: 'Services',
+    links: [
+      { label: 'Photography', href: '/services' },
+      { label: 'Cinematic video', href: '/services' },
+      { label: 'iGuide 3D tours', href: '/services' },
+      { label: 'Drone', href: '/services' },
+      { label: 'Virtual staging', href: '/services' },
+    ],
+  },
+  {
+    title: 'Booking',
+    links: [
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'Book online', href: '#contact' },
+      { label: 'Call or text', href: '#contact' },
+    ],
+  },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <img class="foot__logo" src="/images/redesign/logo.png" alt="Northvantage Media" width="180" height="180" loading="lazy" />
+        <p class="foot__tag">
+          Calgary's listing media partner for agents who sell homes that deserve
+          more than a phone-camera walkthrough.
+        </p>
+        <p class="foot__areas">
+          Calgary · Cochrane · Airdrie · Chestermere · Okotoks
+        </p>
+      </div>
+
+      <nav class="foot__cols" aria-label="Footer">
+        {columns.map((col) => (
+          <div class="foot__col">
+            <h2 class="foot__colTitle">{col.title}</h2>
+            <ul>
+              {col.links.map((l) => (
+                <li><a href={l.href}>{l.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </nav>
+    </div>
+
+    <!-- MOTIF 9: the last horizon on the page — the light finally going out -->
+    <div class="horizon foot__rule" aria-hidden="true"></div>
+
+    <div class="foot__signoff">
+      <p class="foot__line">
+        Shot in Calgary — usually about twenty minutes after everyone else
+        has packed up and driven home.
+      </p>
+      <p class="foot__legal">
+        <span>&copy; {year} Northvantage Media</span>
+        <span class="foot__sep" aria-hidden="true"></span>
+        <a href="#top">Back to the top</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    position: relative;
+    padding-block: clamp(3.5rem, 7vw, 6rem) clamp(2rem, 4vw, 3rem);
+    background: linear-gradient(to bottom, rgb(16 24 40 / 0.5), var(--bh-bg));
+  }
+
+  .foot__top {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .foot__logo {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    object-position: left center;
+    margin-bottom: 1.5rem;
+  }
+  .foot__tag {
+    margin: 0;
+    max-width: 34ch;
+    font-family: var(--font-heading);
+    font-weight: 200;
+    font-size: clamp(1.05rem, 1.7vw, 1.4rem);
+    line-height: 1.42;
+    letter-spacing: -0.02em;
+    color: rgb(245 242 236 / 0.86);
+  }
+  .foot__areas {
+    margin: 1.4rem 0 0;
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bh-muted);
+  }
+
+  .foot__cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 2rem;
+  }
+  .foot__colTitle {
+    margin: 0 0 1.1rem;
+    font-family: var(--font-body);
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--bh-accent);
+  }
+  .foot__cols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+  .foot__cols a {
+    font-size: 0.875rem;
+    text-decoration: none;
+    color: var(--bh-muted);
+    transition: color 0.5s var(--ease), transform 0.5s var(--ease);
+    display: inline-block;
+  }
+  .foot__cols a:hover { color: var(--bh-text); transform: translateX(4px); }
+
+  .foot__rule { opacity: 0.4; }
+
+  .foot__signoff {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem 2.5rem;
+    padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  .foot__line {
+    margin: 0;
+    max-width: 46ch;
+    font-family: var(--font-heading);
+    font-weight: 200;
+    font-style: italic;
+    font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
+    line-height: 1.55;
+    letter-spacing: -0.015em;
+    color: rgb(245 242 236 / 0.68);
+  }
+  .foot__legal {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin: 0;
+    font-size: 0.625rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bh-muted);
+  }
+  .foot__legal a {
+    color: var(--bh-muted);
+    text-decoration: none;
+    transition: color 0.5s var(--ease);
+  }
+  .foot__legal a:hover { color: var(--bh-accent); }
+  .foot__sep {
+    width: 4px;
+    height: 4px;
+    background: rgb(var(--glow) / 0.6);
+    transform: rotate(45deg);
+    flex: none;
+  }
+
+  @media (min-width: 860px) {
+    .foot__top {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      gap: clamp(3rem, 7vw, 7rem);
+    }
+    .foot__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+</style>

@@ -1,0 +1,163 @@
+---
+/**
+ * Night Showing — motion layer.
+ * Scroll reveals, stat counters, scroll-aware nav, light parallax,
+ * and the mobile menu. All of it no-ops under prefers-reduced-motion.
+ */
+---
+
+<script>
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── 1. Scroll reveal ─────────────────────────────────────────
+     Note: an element whose resting state is fully clipped (our type
+     wipe and photo wipe both use clip-path) reports an empty
+     intersection rect and would never fire. Those get watched through
+     their unclipped parent instead. */
+  const revealables = Array.from(document.querySelectorAll('[data-reveal]'));
+
+  if (reduced) {
+    revealables.forEach((el) => el.classList.add('is-in'));
+  } else {
+    const watched = new Map();
+
+    revealables.forEach((el) => {
+      const clipped = getComputedStyle(el).clipPath !== 'none';
+      const proxy = (clipped && el.parentElement) || el;
+      const group = watched.get(proxy);
+      if (group) group.push(el);
+      else watched.set(proxy, [el]);
+    });
+
+    const revealer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const group = watched.get(entry.target) || [];
+          group.forEach((el) => el.classList.add('is-in'));
+          watched.delete(entry.target);
+          revealer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+    );
+
+    watched.forEach((_group, proxy) => revealer.observe(proxy));
+  }
+
+  /* ── 2. Stat counters ─────────────────────────────────────── */
+  const easeOutExpo = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -9 * t));
+
+  const counters = Array.from(
+    document.querySelectorAll('[data-count]:not([data-plain])')
+  );
+
+  const runCount = (el) => {
+    const target = Number(el.dataset.count || 0);
+    if (reduced) {
+      el.textContent = String(target);
+      return;
+    }
+    const duration = 1800;
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      el.textContent = String(Math.round(easeOutExpo(p) * target));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  if (counters.length) {
+    const countObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          runCount(entry.target);
+          countObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.5 }
+    );
+    counters.forEach((el) => countObserver.observe(el));
+  }
+
+  /* ── 3. Nav: shrink, blur, progress + parallax ────────────── */
+  const nav = document.querySelector('[data-nav]');
+  const progress = document.getElementById('nv-progress');
+  const parallaxEls = Array.from(document.querySelectorAll('[data-parallax]'));
+
+  let ticking = false;
+
+  const onFrame = () => {
+    ticking = false;
+    const y = window.scrollY;
+
+    if (nav) nav.classList.toggle('is-scrolled', y > 24);
+
+    if (progress) {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = max > 0 ? Math.min(y / max, 1) : 0;
+      progress.style.transform = 'scaleX(' + ratio + ')';
+    }
+
+    if (!reduced) {
+      const vh = window.innerHeight;
+      for (const el of parallaxEls) {
+        const rect = el.getBoundingClientRect();
+        if (rect.bottom < -240 || rect.top > vh + 240) continue;
+        const factor = Number(el.dataset.parallax || 0.1);
+        const fromCentre = rect.top + rect.height / 2 - vh / 2;
+        el.style.setProperty('--py', (-fromCentre * factor).toFixed(2) + 'px');
+      }
+    }
+  };
+
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(onFrame);
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onFrame();
+
+  /* ── 4. Mobile menu ───────────────────────────────────────── */
+  const burger = document.getElementById('nv-burger');
+  const menu = document.getElementById('nv-menu');
+
+  if (burger && menu) {
+    const setMenu = (open) => {
+      burger.setAttribute('aria-expanded', String(open));
+      document.body.classList.toggle('nv-locked', open);
+      if (open) {
+        menu.hidden = false;
+        requestAnimationFrame(() => menu.classList.add('is-open'));
+      } else {
+        menu.classList.remove('is-open');
+        window.setTimeout(() => {
+          if (!menu.classList.contains('is-open')) menu.hidden = true;
+        }, 500);
+      }
+    };
+
+    burger.addEventListener('click', () => {
+      setMenu(burger.getAttribute('aria-expanded') !== 'true');
+    });
+
+    menu.addEventListener('click', (e) => {
+      if (e.target.closest && e.target.closest('a')) setMenu(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (
+        e.key === 'Escape' &&
+        burger.getAttribute('aria-expanded') === 'true'
+      ) {
+        setMenu(false);
+        burger.focus();
+      }
+    });
+  }
+</script>

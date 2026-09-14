@@ -1,0 +1,220 @@
+---
+import Eyebrow from '../Eyebrow.astro';
+import PriceIcon from './PriceIcon.astro';
+
+/* Standalone services + à la carte pricing — copied 1:1 from
+   northvantagemedia.com/pricing. */
+const groups = [
+  {
+    eyebrow: 'À la carte',
+    title: 'Add-Ons & Standalone Services',
+    copy: 'Select individual media services for your property.',
+    items: [
+      {
+        icon: 'camera',
+        name: 'Photos Only',
+        copy: 'Show every space in its best light with up to 50 crisp, premium-quality HDR images. Includes blue-sky replacement for overcast days. Delivered within 24 hours.',
+        price: 'Starting from $149',
+      },
+      {
+        icon: 'floorplan',
+        name: 'iGuide Services',
+        copy: 'Accurate RMS measurements, a 2D floor plan, and an immersive virtual tour.',
+        price: 'Starting from $149',
+      },
+      {
+        icon: 'drone',
+        name: 'Aerial Drone',
+        copy: 'Up to 10 high-resolution drone photos or a 60-second aerial video. Optional property-line overlays to clearly show the lot boundaries.',
+        tiers: [
+          { label: 'Aerial Photos', price: '$125' },
+          { label: 'Aerial Video', price: '$150' },
+          { label: 'Aerial Photos + Video', price: '$250' },
+        ],
+      },
+      {
+        icon: 'twilight',
+        name: 'Twilight Photography',
+        copy: 'Twilight shots help listings stand out and leave a lasting impression on potential buyers.',
+        price: 'Starting from $199',
+      },
+      {
+        icon: 'staging',
+        name: 'Virtual Staging',
+        copy: 'Give a sense of space and size by filling the room with digital furniture using AI editing.',
+        price: '$6 / photo',
+      },
+    ],
+  },
+  {
+    eyebrow: 'Videography',
+    title: 'Video that makes you unforgettable',
+    copy: 'Content built for the feed and for the listing.',
+    items: [
+      {
+        icon: 'video',
+        name: 'Social Media Property Reel',
+        copy: 'A 30–45 second vertical video built to stop the scroll — fast-paced, music-driven, and edited specifically for Instagram and Facebook Reels. Includes a custom script and personalized on-camera coaching so you show up confident every time.',
+        price: 'Starting from $499',
+      },
+      {
+        icon: 'showcase',
+        name: 'Cinematic Property Showcase',
+        copy: 'A 60–90 second horizontal walkthrough of the property, professionally edited with music and colour grade. Perfect for MLS, YouTube, or sharing directly with buyers.',
+        price: 'Starting from $499',
+      },
+      {
+        icon: 'agent',
+        name: 'Agent Branding Videos',
+        copy: 'A 30–40 second vertical video built around you — not a listing. Professionally scripted and edited to position you as the trusted expert in your market.',
+        price: 'From $399 · 4-video package from $1,199',
+      },
+    ],
+  },
+];
+---
+
+<section class="nv-section nv-addon" id="add-ons">
+  <div class="nv-wrap">
+    {
+      groups.map((g, gi) => (
+        <div class:list={['nv-addon__group', gi > 0 && 'nv-addon__group--sep']}>
+          <header class="nv-addon__head">
+            <Eyebrow>{g.eyebrow}</Eyebrow>
+            <h2 class="nv-h2 nv-addon__title" data-reveal="clip">
+              {g.title}
+            </h2>
+            <p class="nv-body nv-addon__copy" data-reveal="up" style="--d:100ms">
+              {g.copy}
+            </p>
+          </header>
+
+          <ul class="nv-addon__grid">
+            {g.items.map((item, i) => (
+              <li
+                class="nv-acard nv-frame nv-frame--hover"
+                data-reveal="up"
+                style={`--d:${i * 90}ms`}
+              >
+                <span class="nv-acard__mark">
+                  <PriceIcon name={item.icon} size={20} />
+                </span>
+                <h3 class="nv-h3 nv-acard__name">{item.name}</h3>
+                <p class="nv-acard__copy">{item.copy}</p>
+
+                {item.tiers ? (
+                  <ul class="nv-acard__tiers">
+                    {item.tiers.map((t) => (
+                      <li>
+                        <span>{t.label}</span>
+                        <span class="nv-acard__tierprice">{t.price}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p class="nv-acard__price">{item.price}</p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .nv-addon {
+    background: var(--color-brand-surface);
+  }
+  .nv-addon__group--sep {
+    margin-top: clamp(3.5rem, 7vw, 6rem);
+    padding-top: clamp(3.5rem, 7vw, 6rem);
+    border-top: 1px solid var(--nv-hairline);
+  }
+  .nv-addon__head {
+    max-width: 52ch;
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .nv-addon__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+  }
+  .nv-addon__copy {
+    margin: 1.1rem 0 0;
+  }
+
+  .nv-addon__grid {
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.5rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  @media (min-width: 640px) {
+    .nv-addon__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1000px) {
+    .nv-addon__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .nv-acard {
+    --nv-frame-size: 15px;
+    --nv-frame-inset: -1px;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.5rem, 2.4vw, 2rem);
+    border: 1px solid var(--nv-hairline);
+    background: var(--color-brand-bg);
+  }
+  .nv-acard__mark {
+    display: inline-flex;
+    margin-bottom: 0.9rem;
+  }
+  .nv-acard__name {
+    margin: 0;
+    color: var(--color-brand-text);
+  }
+  .nv-acard__copy {
+    margin: 0.75rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.62;
+    color: rgb(243 239 231 / 0.58);
+    flex: 1;
+  }
+  .nv-acard__price {
+    margin: 1.4rem 0 0;
+    font-family: var(--font-heading);
+    font-weight: 350;
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-accent);
+  }
+  .nv-acard__tiers {
+    margin: 1.3rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+  }
+  .nv-acard__tiers li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--nv-hairline);
+    font-size: 0.8125rem;
+    color: rgb(243 239 231 / 0.66);
+  }
+  .nv-acard__tierprice {
+    font-family: var(--font-heading);
+    font-weight: 350;
+    font-size: 0.9375rem;
+    color: var(--color-brand-accent);
+    white-space: nowrap;
+  }
+</style>

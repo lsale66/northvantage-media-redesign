@@ -1,0 +1,155 @@
+---
+import FrameMark from './FrameMark.astro';
+
+const stats = [
+  {
+    prefix: '',
+    value: 335,
+    suffix: '+',
+    label: 'Homes photographed',
+    note: 'Calgary, Cochrane, Airdrie, Chestermere, Okotoks',
+  },
+  {
+    prefix: '$',
+    value: 230,
+    suffix: 'M+',
+    label: 'In listed property',
+    note: 'Across every price bracket we shoot',
+  },
+  {
+    prefix: '',
+    value: 2023,
+    suffix: '',
+    label: 'First Calgary shoot',
+    note: 'October — and we have not stopped since',
+    plain: true,
+  },
+];
+---
+
+<section class="nv-stats" aria-label="Northvantage Media by the numbers">
+  <div class="nv-wrap">
+    <div class="nv-rule nv-stats__top" data-reveal="rule" style="--nv-tick-x:0">
+    </div>
+
+    <dl class="nv-stats__grid">
+      {
+        stats.map((s, i) => (
+          <div class="nv-stat" data-reveal="up" style={`--d:${i * 110}ms`}>
+            <dt class="nv-stat__value">
+              <span class="nv-stat__affix">{s.prefix}</span>
+              <span
+                class="nv-stat__num"
+                data-count={s.value}
+                data-plain={s.plain ? '' : undefined}
+              >
+                {s.plain ? s.value : 0}
+              </span>
+              <span class="nv-stat__affix nv-stat__affix--suffix">
+                {s.suffix}
+              </span>
+            </dt>
+            <dd class="nv-stat__meta">
+              <span class="nv-stat__label">
+                <FrameMark size={10} dot={false} />
+                {s.label}
+              </span>
+              <span class="nv-stat__note">{s.note}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .nv-stats {
+    position: relative;
+    z-index: 4;
+    background: var(--color-brand-surface);
+    padding-block: clamp(3rem, 6vw, 5.25rem);
+    border-bottom: 1px solid var(--nv-hairline);
+  }
+
+  .nv-stats__top {
+    margin-bottom: clamp(2.2rem, 4vw, 3.4rem);
+  }
+
+  .nv-stats__grid {
+    display: grid;
+    gap: clamp(2.2rem, 4vw, 1rem);
+    margin: 0;
+  }
+  @media (min-width: 780px) {
+    .nv-stats__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+    }
+  }
+
+  .nv-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  @media (min-width: 780px) {
+    .nv-stat {
+      padding-inline: clamp(1.5rem, 3vw, 3rem);
+      border-left: 1px solid var(--nv-hairline);
+    }
+    .nv-stat:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+    .nv-stat:last-child {
+      padding-right: 0;
+    }
+  }
+
+  .nv-stat__value {
+    display: flex;
+    align-items: baseline;
+    font-family: var(--font-heading);
+    font-weight: 250;
+    font-size: clamp(3.25rem, 6.4vw, 5.4rem);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    color: var(--color-brand-text);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .nv-stat__affix {
+    font-size: 0.46em;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--color-brand-accent);
+  }
+  .nv-stat__affix--suffix {
+    margin-left: 0.06em;
+  }
+
+  .nv-stat__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--nv-hairline);
+  }
+  .nv-stat__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-brand-text);
+  }
+  .nv-stat__note {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: var(--color-brand-muted);
+    max-width: 30ch;
+  }
+</style>

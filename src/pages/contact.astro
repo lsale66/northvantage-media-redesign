@@ -1,0 +1,203 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Styles from '../components/direction-1/Styles.astro';
+import Nav from '../components/direction-1/Nav.astro';
+import Eyebrow from '../components/direction-1/Eyebrow.astro';
+import FrameMark from '../components/direction-1/FrameMark.astro';
+import SocialIcon from '../components/direction-1/SocialIcon.astro';
+import Footer from '../components/direction-1/Footer.astro';
+import Motion from '../components/direction-1/Motion.astro';
+
+const methods = [
+  {
+    label: 'Call or Text',
+    value: '(587) 885-6499',
+    href: 'tel:+15878856499',
+    note: 'Monday – Saturday, 9am – 6pm',
+  },
+  {
+    label: 'Email',
+    value: 'hello@northvantagemedia.com',
+    href: 'mailto:hello@northvantagemedia.com',
+    note: 'Booking, general requests, or information.',
+  },
+  {
+    label: 'Book Online',
+    value: 'Order Form',
+    href: 'https://northvantagemedia.hd.pics/order',
+    note: 'Enter listing details, get booked in under 5 minutes.',
+  },
+];
+
+const social = [
+  { label: 'Instagram', icon: 'instagram' as const, href: 'https://www.instagram.com/northvantagemedia/' },
+  { label: 'Facebook', icon: 'facebook' as const, href: 'https://www.facebook.com/northvantagemedia' },
+];
+---
+
+<Layout
+  title="Contact — Northvantage Media"
+  description="Call, text, or email Northvantage Media to book Calgary real estate photography, video, iGuide, drone, or virtual staging. Or book directly online."
+>
+  <style is:global>
+    :root {
+      --color-brand-primary: #1b2a45;
+      --color-brand-secondary: #2e4877;
+      --color-brand-accent: #e8843c;
+      --color-brand-bg: #0a0e17;
+      --color-brand-surface: #131b2c;
+      --color-brand-text: #f3efe7;
+      --color-brand-muted: #8d93a3;
+      --font-heading: 'Fraunces Variable', Georgia, serif;
+      --font-body: 'Inter Variable', system-ui, sans-serif;
+    }
+  </style>
+
+  <Styles />
+
+  <div class="nv-grain" aria-hidden="true"></div>
+
+  <Nav />
+
+  <main>
+    <header class="nv-section nv-pghero">
+      <div class="nv-wrap">
+        <Eyebrow>Contact</Eyebrow>
+        <h1 class="nv-h2 nv-pghero__title" data-reveal="clip">
+          Let's Get Your <span class="nv-accent-word">Listing</span> Booked
+        </h1>
+        <p class="nv-lead nv-pghero__lead" data-reveal="up" style="--d:120ms">
+          Text, call, or email your questions — or use the online form to book
+          your next shoot in under five minutes.
+        </p>
+      </div>
+    </header>
+
+    <section class="nv-section nv-contact">
+      <div class="nv-wrap">
+        <div class="nv-contact__grid">
+          {
+            methods.map((m, i) => (
+              <a
+                href={m.href}
+                class="nv-contact__card"
+                data-reveal="up"
+                style={`--d:${i * 80}ms`}
+              >
+                <FrameMark size={13} />
+                <p class="nv-eyebrow nv-contact__label">{m.label}</p>
+                <p class="nv-h3 nv-contact__value">{m.value}</p>
+                <p class="nv-micro nv-contact__note">{m.note}</p>
+              </a>
+            ))
+          }
+        </div>
+
+        <div class="nv-contact__follow" data-reveal="fade" style="--d:280ms">
+          <p class="nv-body">Stay up to date — follow along on:</p>
+          <div class="nv-contact__social">
+            {
+              social.map((s) => (
+                <a href={s.href} target="_blank" rel="noopener noreferrer" class="nv-link">
+                  <SocialIcon name={s.icon} size={18} />
+                  <span>{s.label}</span>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <Motion />
+
+  <style>
+    .nv-pghero {
+      padding-bottom: 0;
+    }
+    .nv-pghero__title {
+      margin: clamp(1.2rem, 2.4vw, 1.9rem) 0 0;
+      max-width: 18ch;
+    }
+    .nv-pghero__lead {
+      margin: clamp(1.4rem, 2.4vw, 1.9rem) 0 0;
+      max-width: 52ch;
+    }
+
+    .nv-contact__grid {
+      display: grid;
+      gap: 1.25rem;
+    }
+    @media (min-width: 800px) {
+      .nv-contact__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+    }
+
+    .nv-contact__card {
+      container-type: inline-size;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      padding: clamp(1.5rem, 2.75vw, 2.25rem);
+      border: 1px solid var(--nv-hairline);
+      background: var(--color-brand-surface);
+      text-decoration: none;
+      color: inherit;
+      transition:
+        border-color 0.5s var(--nv-ease),
+        transform 0.5s var(--nv-ease);
+    }
+    .nv-contact__card:hover {
+      border-color: var(--color-brand-accent);
+      transform: translateY(-3px);
+    }
+    .nv-contact__card :global(.nv-mark) {
+      color: var(--color-brand-accent);
+    }
+
+    .nv-contact__label {
+      margin: 0.5rem 0 0;
+      font-size: 0.8125rem;
+      letter-spacing: 0.24em;
+    }
+    .nv-contact__value {
+      margin: 0;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* Scales off the card's own width (not the viewport) so the value —
+         longest for the email — always fits on one line at any card size. */
+      font-size: clamp(1rem, 7.5cqi, 1.75rem);
+    }
+    .nv-contact__note {
+      margin: 0;
+      color: rgb(243 239 231 / 0.45);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .nv-contact__follow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: clamp(3rem, 5vw, 4rem);
+      padding-top: clamp(2.5rem, 4vw, 3rem);
+      border-top: 1px solid var(--nv-hairline);
+    }
+    .nv-contact__social {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+    .nv-contact__social .nv-link:hover {
+      color: var(--color-brand-accent);
+    }
+  </style>
+</Layout>

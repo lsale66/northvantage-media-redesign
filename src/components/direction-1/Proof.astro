@@ -1,0 +1,244 @@
+---
+import Eyebrow from './Eyebrow.astro';
+import FrameMark from './FrameMark.astro';
+
+const testimonials = [
+  {
+    quote:
+      "I've been using Northvantage Media for real estate services for all my clients homes. Lee's attention to details in lighting, the use of professional equipment and video editing makes the homes stand out. I highly recommend Northvantage Media.",
+    name: 'Anthony Luong',
+    role: 'First Place Realty',
+    img: '/images/redesign/image-04.jpg',
+  },
+  {
+    quote:
+      'Lee is amazing, easy to work with such a professional eye to my needs in how to place photos and where to properly placement and clear wording for all to understand, getting the message across to my clients on what my business offers. Thank you Lee',
+    name: 'Brenda Moffat',
+    role: 'Business Owner',
+    img: '/images/redesign/image-05.jpg',
+  },
+  {
+    quote:
+      'Great photos. Excellent video creation, giving positive direction and suggestions to create effective videos in a short amount of time. Highly recommend',
+    name: 'Lionel Sale',
+    role: 'First Place Realty',
+    img: '/images/redesign/image-06.jpg',
+  },
+];
+---
+
+<section class="nv-section nv-proof" id="proof">
+  <div class="nv-wrap">
+    <header class="nv-proof__head">
+      <div>
+        <Eyebrow>In Their Words</Eyebrow>
+        <h2 class="nv-h2 nv-proof__title" data-reveal="clip">
+          Hear From Our <span class="nv-accent-word">Partners</span>.
+        </h2>
+      </div>
+
+      <div class="nv-badge nv-frame" data-reveal="up" style="--d:160ms">
+        <img
+          class="nv-badge__g"
+          src="/images/redesign/image-01.png"
+          alt="Google"
+          width="512"
+          height="512"
+          loading="lazy"
+        />
+        <div class="nv-badge__body">
+          <div class="nv-badge__stars" aria-hidden="true">
+            {
+              Array.from({ length: 5 }).map(() => (
+                <svg viewBox="0 0 20 19" width="12" height="12">
+                  <path
+                    d="M10 0l2.65 6.18 6.7.55-5.08 4.4 1.53 6.55L10 14.2 4.2 17.68l1.53-6.55L.65 6.73l6.7-.55z"
+                    fill="currentColor"
+                  />
+                </svg>
+              ))
+            }
+          </div>
+          <p class="nv-badge__text">
+            <strong>5.0</strong> on Google Reviews
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="nv-quotes">
+      {
+        testimonials.map((t, i) => (
+          <article
+            class="nv-quote nv-frame nv-frame--hover"
+            data-reveal="up"
+            style={`--d:${i * 120}ms`}
+          >
+            <span class="nv-quote__mark" aria-hidden="true">
+              <FrameMark size={22} dot={false} />
+            </span>
+
+            <blockquote class="nv-quote__text">{t.quote}</blockquote>
+
+            <figcaption class="nv-quote__by">
+              <span class="nv-quote__rule" aria-hidden="true" />
+              <span class="nv-quote__shot">
+                <img src={t.img} alt="" width="88" height="88" loading="lazy" />
+              </span>
+              <span class="nv-quote__id">
+                <span class="nv-quote__name">{t.name}</span>
+                <span class="nv-micro">{t.role}</span>
+              </span>
+            </figcaption>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .nv-proof {
+    background: var(--color-brand-bg);
+  }
+
+  .nv-proof__head {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3rem);
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  @media (min-width: 860px) {
+    .nv-proof__head {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+  }
+  .nv-proof__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    max-width: 15ch;
+  }
+
+  /* ── Google rating chip ── */
+  .nv-badge {
+    --nv-frame-size: 13px;
+    --nv-frame-inset: -9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.95rem;
+    padding: 0.95rem 1.35rem;
+    background: var(--color-brand-surface);
+    border-radius: 2px;
+    justify-self: start;
+  }
+  .nv-badge__g {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex: none;
+  }
+  .nv-badge__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .nv-badge__stars {
+    display: flex;
+    gap: 2px;
+    color: var(--color-brand-accent);
+  }
+  .nv-badge__text {
+    margin: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: rgb(243 239 231 / 0.68);
+  }
+  .nv-badge__text strong {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: var(--color-brand-text);
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Testimonial cards ── */
+  .nv-quotes {
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  @media (min-width: 860px) {
+    .nv-quotes {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .nv-quote {
+    --nv-frame-size: 18px;
+    --nv-frame-inset: -1px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-brand-bg);
+    border: 1px solid var(--nv-hairline);
+    padding: clamp(2rem, 3vw, 2.5rem) clamp(1.75rem, 2.6vw, 2.25rem) clamp(1.75rem, 2.4vw, 2rem);
+    transition: background 0.6s var(--nv-ease), border-color 0.6s var(--nv-ease);
+  }
+  .nv-quote:hover {
+    background: var(--color-brand-surface);
+  }
+
+  .nv-quote__mark {
+    display: block;
+    color: var(--color-brand-accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .nv-quote__text {
+    flex: 1;
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    line-height: 1.48;
+    letter-spacing: -0.016em;
+    color: rgb(243 239 231 / 0.94);
+    text-wrap: pretty;
+  }
+
+  .nv-quote__by {
+    display: block;
+    margin-top: clamp(2rem, 3vw, 2.5rem);
+  }
+  .nv-quote__rule {
+    display: block;
+    height: 1px;
+    margin-bottom: 1.5rem;
+    background: var(--nv-hairline);
+  }
+  .nv-quote__shot {
+    display: block;
+    width: 52px;
+    aspect-ratio: 1;
+    margin-bottom: 1rem;
+  }
+  .nv-quote__shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 22%;
+    border-radius: 2px;
+  }
+  .nv-quote__id {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .nv-quote__name {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: -0.015em;
+    color: var(--color-brand-text);
+  }
+</style>

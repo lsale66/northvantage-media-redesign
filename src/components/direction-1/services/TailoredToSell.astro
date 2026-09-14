@@ -1,0 +1,83 @@
+---
+import Eyebrow from '../Eyebrow.astro';
+---
+
+<section class="nv-section nv-svsell" id="tailored">
+  <div class="nv-wrap nv-svsell__grid">
+    <figure class="nv-svsell__shot nv-frame nv-frame--hover">
+      <div class="nv-media" data-reveal="shot">
+        <img
+          src="/images/real-estate-photography/DSC07013-Large-1536x1024.jpg"
+          alt="Bright white open concept kitchen with dark blue highlights"
+          width="1536"
+          height="1024"
+          loading="lazy"
+        />
+      </div>
+      <figcaption class="nv-micro nv-svsell__cap">
+        Bright white open concept kitchen with dark blue highlights
+      </figcaption>
+    </figure>
+
+    <div class="nv-svsell__main">
+      <Eyebrow>Strategy</Eyebrow>
+      <h2 class="nv-h2 nv-svsell__title" data-reveal="clip">
+        Tailored To <span class="nv-accent-word">Sell</span>
+      </h2>
+      <p class="nv-body nv-svsell__copy" data-reveal="up" style="--d:120ms">
+        We understand what catches a buyer's eye in Calgary's competitive
+        market. Our photography isn't just about documenting spaces, it's
+        strategic marketing designed to generate interest and offers. Years
+        of experience have taught us which angles, features, and lighting
+        make properties irresistible online. When buyers fall in love with
+        our images, they're already emotionally invested before the first
+        showing.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nv-svsell {
+    background: var(--color-brand-surface);
+    border-top: 1px solid var(--nv-hairline);
+    border-bottom: 1px solid var(--nv-hairline);
+  }
+
+  .nv-svsell__grid {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+  @media (min-width: 900px) {
+    .nv-svsell__grid {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      align-items: center;
+      gap: clamp(3rem, 6vw, 6rem);
+    }
+  }
+
+  .nv-svsell__shot {
+    --nv-frame-size: 20px;
+    --nv-frame-inset: -11px;
+    margin: 0;
+  }
+  .nv-svsell__shot .nv-media {
+    aspect-ratio: 3 / 2;
+  }
+  .nv-svsell__cap {
+    display: block;
+    margin-top: 0.9rem;
+    color: rgb(243 239 231 / 0.42);
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nv-svsell__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    max-width: 14ch;
+  }
+  .nv-svsell__copy {
+    margin: 1.4rem 0 0;
+    max-width: 46ch;
+  }
+</style>

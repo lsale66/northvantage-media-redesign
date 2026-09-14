@@ -1,0 +1,60 @@
+---
+/** The edge of the contact sheet — frame codes running past, film-rebate style. */
+const frames = [
+  'NV·0341 Elbow Park',
+  'NV·0338 Bow River',
+  'NV·0333 Mount Royal',
+  'NV·0329 Discovery Ridge',
+  'NV·0327 Aspen Woods',
+  'NV·0318 Cochrane',
+  'NV·0312 Beltline',
+  'NV·0309 Bridgeland',
+  'NV·0305 Springbank Hill',
+  'NV·0301 Chestermere',
+  'NV·0296 Okotoks',
+  'NV·0290 Watermark',
+];
+---
+
+<div class="relative overflow-hidden border-y border-brand-text/10 bg-brand-surface" aria-hidden="true">
+  <div class="ticks" aria-hidden="true"></div>
+  <div class="rebate flex w-max items-center py-3.5">
+    {[...frames, ...frames].map((f) => (
+      <span class="rebate-item">
+        <span class="mark"></span>
+        <span class="meta text-[9.5px] text-brand-text/45">{f}</span>
+      </span>
+    ))}
+  </div>
+  <div class="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-brand-surface to-transparent"></div>
+  <div class="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-brand-surface to-transparent"></div>
+</div>
+
+<style>
+  .rebate { animation: vp-track-left 60s linear infinite; will-change: transform; }
+  .rebate-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding-inline: 1.5rem;
+    white-space: nowrap;
+  }
+  .mark {
+    width: 8px;
+    height: 8px;
+    border-left: 1.5px solid rgba(255, 106, 44, 0.7);
+    border-top: 1.5px solid rgba(255, 106, 44, 0.7);
+    flex: none;
+  }
+  .ticks {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 4px;
+    background-image: repeating-linear-gradient(
+      to right,
+      rgba(236, 239, 243, 0.14) 0 1px,
+      transparent 1px 14px
+    );
+  }
+</style>

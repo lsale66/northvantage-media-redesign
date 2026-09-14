@@ -1,0 +1,172 @@
+---
+const reasons = [
+  {
+    lead: 'We light it.',
+    rest: "We don't just capture it.",
+    body:
+      'Every interior is built from bracketed frames plus flash, then blended by hand. Wood stays warm, walls stay white, and the window keeps the view the seller paid for instead of blowing out to a grey rectangle.',
+    meta: 'Hand-blended, not one-shot HDR',
+  },
+  {
+    lead: 'One shooter,',
+    rest: 'start to finish.',
+    body:
+      'The person who scouts the light is the person who shoots it and the person who edits it. No handoffs, no rotating contractor, no template preset applied to a house nobody stood in.',
+    meta: 'Same eye from scout to delivery',
+  },
+  {
+    lead: 'We book',
+    rest: 'the window others skip.',
+    body:
+      "Twilight is one take per day and it moves by a few minutes every week. We schedule around it on purpose, which is why the exteriors on this page look like the house is expecting someone.",
+    meta: 'Blue hour scheduled, not hoped for',
+  },
+];
+---
+
+<div class="skyfade" aria-hidden="true"><span class="horizon"></span></div>
+
+<section class="why" id="why">
+  <div class="bloom why__bloom why__bloom--a" aria-hidden="true"></div>
+  <div class="bloom bloom--cool why__bloom why__bloom--b" aria-hidden="true"></div>
+
+  <div class="shell why__inner">
+    <header class="why__head">
+      <p class="eyebrow" data-reveal="fade">Why agents keep the date</p>
+      <h2 class="display why__title" data-reveal="rise" data-rd="100">
+        Three things that decide whether a listing photographs like a <b>home</b> or like a room.
+      </h2>
+    </header>
+
+    <div class="why__list">
+      {reasons.map((r, i) => (
+        <article class="reason" style={`--i:${i}`} data-reveal="rise" data-rd={`${i * 140}`}>
+          <span class="reason__mark" aria-hidden="true">
+            <span class="reason__dot"></span>
+            <span class="reason__stem"></span>
+          </span>
+          <h3 class="reason__h">
+            <b>{r.lead}</b> <span>{r.rest}</span>
+          </h3>
+          <p class="reason__body">{r.body}</p>
+          <p class="reason__meta">{r.meta}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why {
+    position: relative;
+    padding-block: clamp(5rem, 11vw, 10rem) clamp(4rem, 9vw, 8rem);
+    background:
+      linear-gradient(to bottom, transparent, rgb(16 24 40 / 0.75) 22%, rgb(16 24 40 / 0.75) 78%, transparent);
+  }
+  .why__bloom { opacity: 0.14; }
+  .why__bloom--a {
+    width: min(46vw, 540px);
+    height: min(46vw, 540px);
+    left: 8%;
+    top: -8%;
+  }
+  .why__bloom--b {
+    width: min(58vw, 700px);
+    height: min(58vw, 700px);
+    right: -14vw;
+    bottom: -12%;
+    opacity: 0.3;
+  }
+
+  .why__inner { position: relative; }
+
+  .why__head {
+    max-width: 62ch;
+    margin-bottom: clamp(3rem, 7vw, 6rem);
+  }
+  .why__title {
+    margin: 1.4rem 0 0;
+    font-size: clamp(1.85rem, 3.6vw, 3.35rem);
+  }
+
+  .why__list {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .reason {
+    position: relative;
+    padding-left: 2.1rem;
+  }
+
+  /* MOTIF 6: a vertical horizon — the same hairline, stood on its end */
+  .reason__mark {
+    position: absolute;
+    left: 0;
+    top: 0.35rem;
+    bottom: 0;
+    width: 1px;
+    display: block;
+    background: linear-gradient(to bottom, rgb(var(--glow) / 0.55), transparent 78%);
+  }
+  .reason__dot {
+    position: absolute;
+    left: -2px;
+    top: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--bh-accent);
+    filter: drop-shadow(0 0 6px rgb(var(--glow) / 0.95));
+  }
+  .reason__stem {
+    position: absolute;
+    left: -14px;
+    top: -12px;
+    width: 30px;
+    height: 70px;
+    background: var(--bh-accent);
+    filter: blur(26px);
+    opacity: 0.16;
+    transition: opacity 0.9s var(--ease);
+  }
+  .reason:hover .reason__stem { opacity: 0.45; }
+
+  .reason__h {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 200;
+    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    line-height: 1.18;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .reason__h b { font-weight: 900; letter-spacing: -0.045em; }
+  .reason__h span { color: rgb(245 242 236 / 0.6); }
+
+  .reason__body {
+    margin: 1.1rem 0 0;
+    font-size: 0.9375rem;
+    line-height: 1.72;
+    color: var(--bh-muted);
+  }
+  .reason__meta {
+    margin: 1.25rem 0 0;
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgb(var(--glow) / 0.8);
+  }
+
+  @media (min-width: 900px) {
+    .why__list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(2rem, 4vw, 3.5rem);
+      align-items: start;
+    }
+    /* asymmetric rhythm: the column staggers rather than sitting flat */
+    .reason { margin-top: calc(var(--i) * clamp(0px, 2.4vw, 42px)); }
+    .why__head { margin-left: clamp(0px, 8vw, 140px); }
+  }
+</style>

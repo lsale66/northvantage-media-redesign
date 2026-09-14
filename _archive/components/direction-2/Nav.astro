@@ -1,0 +1,255 @@
+---
+const links = [
+  { label: 'Work', href: '/gallery' },
+  { label: 'Services', href: '/services' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<header id="vp-nav" class="fixed inset-x-0 top-0 z-50" data-nav>
+  <div class="nav-skin absolute inset-0"></div>
+
+  <div class="relative mx-auto flex w-full max-w-[1500px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-12">
+    <!-- Wordmark lockup -->
+    <a href="#top" class="nav-brand group flex flex-none items-center gap-3.5" aria-label="Northvantage Media — home">
+      <img
+        src="/images/redesign/logo.png"
+        alt="Northvantage Media"
+        class="nav-logo w-auto"
+        width="180"
+        height="40"
+        decoding="async"
+      />
+      <span class="hidden h-8 w-px bg-brand-text/15 sm:block"></span>
+      <span class="hidden flex-col gap-[3px] sm:flex">
+        <span class="font-heading text-[1rem] font-semibold leading-none tracking-[-0.02em] text-brand-text">Northvantage Media</span>
+        <span class="meta text-[8.5px] leading-none text-brand-muted">Calgary · Listing Media</span>
+      </span>
+    </a>
+
+    <!-- Desktop links -->
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+      {links.map((l) => (
+        <a href={l.href} class="nav-link">
+          <span class="nav-link-mark" aria-hidden="true"></span>
+          {l.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex flex-none items-center gap-3">
+      <span class="hidden items-center gap-2 rounded-full border border-brand-text/12 bg-brand-text/[0.03] py-1.5 pl-2 pr-3.5 xl:inline-flex">
+        <img src="/images/redesign/image-01.png" alt="" class="h-3.5 w-3.5" width="14" height="14" aria-hidden="true" />
+        <span class="meta text-[9px] text-brand-text/80">5.0 on Google</span>
+      </span>
+      <a href="/contact" class="pill pill-accent pill-sm hidden sm:inline-flex">
+        Call or Text
+      </a>
+
+      <!-- Mobile trigger -->
+      <button
+        type="button"
+        id="vp-menu-btn"
+        class="menu-btn lg:hidden"
+        aria-expanded="false"
+        aria-controls="vp-menu"
+        aria-label="Open menu"
+      >
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <span class="nav-rule absolute inset-x-0 bottom-0 h-px origin-left bg-brand-text/10"></span>
+</header>
+
+<!-- Mobile menu -->
+<div id="vp-menu" class="vp-menu lg:hidden" hidden>
+  <div class="vp-menu-inner vp-corners" style="--vp-inset:16px;--vp-ink:rgba(255,106,44,0.5);--vp-arm:26px">
+    <p class="eyebrow mb-8">Northvantage Media</p>
+    <nav class="flex flex-col" aria-label="Mobile">
+      {links.map((l, i) => (
+        <a href={l.href} class="vp-menu-link" style={`--i:${i}`}>
+          <span>{l.label}</span>
+          <span class="meta text-[10px] text-brand-muted">0{i + 1}</span>
+        </a>
+      ))}
+    </nav>
+    <div class="mt-10 flex flex-col gap-3" style="--i:4">
+      <a href="/contact" class="pill pill-accent w-full">Call or Text</a>
+      <a href="/book" class="pill pill-outline w-full">Book Online</a>
+    </div>
+    <p class="mt-10 text-[13px] leading-relaxed text-brand-muted">
+      Calgary · Airdrie · Cochrane · Chestermere · Okotoks
+    </p>
+  </div>
+</div>
+
+<style>
+  #vp-nav {
+    --pad: 1.5rem;
+    padding-block: var(--pad);
+    transition: padding-block 0.5s var(--ease-out-quint);
+  }
+  .nav-skin {
+    background: color-mix(in srgb, var(--color-brand-bg) 78%, transparent);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-out-quint);
+  }
+  .nav-rule {
+    transform: scaleX(0);
+    transition: transform 0.7s var(--ease-out-quint);
+  }
+  #vp-nav[data-scrolled] { --pad: 0.75rem; }
+  #vp-nav[data-scrolled] .nav-skin { opacity: 1; }
+  #vp-nav[data-scrolled] .nav-rule { transform: scaleX(1); }
+
+  .nav-logo {
+    height: 34px;
+    transition: height 0.5s var(--ease-out-quint), opacity 0.3s ease;
+  }
+  #vp-nav[data-scrolled] .nav-logo { height: 26px; }
+  .nav-brand:hover .nav-logo { opacity: 0.75; }
+
+  .nav-link {
+    position: relative;
+    padding: 0.6rem 1.05rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(236, 239, 243, 0.66);
+    transition: color 0.35s var(--ease-out-quint);
+  }
+  .nav-link:hover { color: var(--color-brand-text); }
+  /* The bracket follows the cursor across the nav */
+  .nav-link-mark {
+    position: absolute;
+    top: 0.15rem;
+    left: 0.15rem;
+    width: 9px;
+    height: 9px;
+    border-left: 1.5px solid var(--color-brand-accent);
+    border-top: 1.5px solid var(--color-brand-accent);
+    opacity: 0;
+    transform: translate(4px, 4px);
+    transition: opacity 0.35s var(--ease-out-quint), transform 0.45s var(--ease-snap);
+  }
+  .nav-link:hover .nav-link-mark,
+  .nav-link:focus-visible .nav-link-mark {
+    opacity: 1;
+    transform: none;
+  }
+
+  .menu-btn {
+    display: grid;
+    place-content: center;
+    gap: 6px;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(236, 239, 243, 0.2);
+  }
+  @media (min-width: 1024px) {
+    .menu-btn { display: none; }
+  }
+  .menu-btn span {
+    display: block;
+    width: 17px;
+    height: 1.5px;
+    background: var(--color-brand-text);
+    transition: transform 0.45s var(--ease-snap), opacity 0.3s ease;
+  }
+  .menu-btn[aria-expanded='true'] span:first-child { transform: translateY(3.75px) rotate(45deg); }
+  .menu-btn[aria-expanded='true'] span:last-child { transform: translateY(-3.75px) rotate(-45deg); }
+
+  .vp-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 45;
+    background: var(--color-brand-bg);
+    padding: 6.5rem 1.25rem 2rem;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-out-quint);
+  }
+  .vp-menu[data-open] { opacity: 1; }
+  .vp-menu-inner {
+    min-height: calc(100vh - 8.5rem);
+    padding: 1.75rem 1.25rem;
+  }
+  .vp-menu-link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.05rem 0;
+    border-bottom: 1px solid rgba(236, 239, 243, 0.08);
+    font-family: var(--font-heading);
+    font-size: 2.1rem;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--color-brand-text);
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .vp-menu[data-open] .vp-menu-link,
+  .vp-menu[data-open] .vp-menu-inner > div {
+    animation: vp-enter 0.6s var(--ease-out-quint) both;
+    animation-delay: calc(120ms + var(--i, 0) * 65ms);
+  }
+  .vp-menu-inner > div { opacity: 0; }
+  .vp-menu-link:active { color: var(--color-brand-accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vp-menu-link, .vp-menu-inner > div { opacity: 1; transform: none; animation: none !important; }
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('vp-nav');
+  const btn = document.getElementById('vp-menu-btn');
+  const menu = document.getElementById('vp-menu');
+
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      if (nav) {
+        if (window.scrollY > 24) nav.setAttribute('data-scrolled', '');
+        else nav.removeAttribute('data-scrolled');
+      }
+      ticking = false;
+    });
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const setMenu = (open) => {
+    if (!btn || !menu) return;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    if (open) {
+      menu.hidden = false;
+      requestAnimationFrame(() => menu.setAttribute('data-open', ''));
+    } else {
+      menu.removeAttribute('data-open');
+      window.setTimeout(() => { menu.hidden = true; }, 380);
+    }
+  };
+
+  btn?.addEventListener('click', () => {
+    setMenu(btn.getAttribute('aria-expanded') !== 'true');
+  });
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && btn?.getAttribute('aria-expanded') === 'true') setMenu(false);
+  });
+</script>

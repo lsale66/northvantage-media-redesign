@@ -1,0 +1,66 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Styles from '../../components/direction-1/Styles.astro';
+import Nav from '../../components/direction-1/Nav.astro';
+import Motion from '../../components/direction-1/Motion.astro';
+import Footer from '../../components/direction-1/Footer.astro';
+import FinalCta from '../../components/direction-1/FinalCta.astro';
+import ServiceArea from '../../components/direction-1/ServiceArea.astro';
+
+import ServiceHero from '../../components/direction-1/services/ServiceHero.astro';
+import Overview from '../../components/direction-1/services/Overview.astro';
+import TailoredToSell from '../../components/direction-1/services/TailoredToSell.astro';
+import HowItWorks from '../../components/direction-1/services/HowItWorks.astro';
+import PrepChecklist from '../../components/direction-1/services/PrepChecklist.astro';
+import PricingTeaser from '../../components/direction-1/services/PricingTeaser.astro';
+import IGuideAddon from '../../components/direction-1/services/IGuideAddon.astro';
+import DroneAddon from '../../components/direction-1/services/DroneAddon.astro';
+import TwilightAddon from '../../components/direction-1/services/TwilightAddon.astro';
+import FAQ from '../../components/direction-1/services/FAQ.astro';
+import GalleryTeaser from '../../components/direction-1/services/GalleryTeaser.astro';
+---
+
+<Layout
+  title="Calgary Real Estate Photography — Northvantage Media"
+  description="Professional real estate photography in Calgary. Crisp, true-to-life HDR interior and exterior images, blue-sky replacement on every exterior, and next-day delivery on every listing."
+>
+  <style is:global>
+    :root {
+      --color-brand-primary: #1b2a45;
+      --color-brand-secondary: #2e4877;
+      --color-brand-accent: #e8843c;
+      --color-brand-bg: #0a0e17;
+      --color-brand-surface: #131b2c;
+      --color-brand-text: #f3efe7;
+      --color-brand-muted: #8d93a3;
+      --font-heading: 'Fraunces Variable', Georgia, serif;
+      --font-body: 'Inter Variable', system-ui, sans-serif;
+    }
+  </style>
+
+  <Styles />
+
+  <div class="nv-grain" aria-hidden="true"></div>
+
+  <Nav />
+
+  <main>
+    <ServiceHero />
+    <Overview />
+    <TailoredToSell />
+    <HowItWorks />
+    <PrepChecklist />
+    <PricingTeaser />
+    <IGuideAddon />
+    <DroneAddon />
+    <TwilightAddon />
+    <ServiceArea />
+    <FAQ />
+    <GalleryTeaser />
+    <FinalCta />
+  </main>
+
+  <Footer />
+
+  <Motion />
+</Layout>

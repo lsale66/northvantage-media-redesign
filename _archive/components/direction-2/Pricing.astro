@@ -1,0 +1,153 @@
+---
+const packages = [
+  {
+    name: 'Essential',
+    price: '285',
+    tag: null,
+    line: 'Photography and a measured floor plan. Right for a well-kept listing that just needs to look its best.',
+    includes: ['25–30 finished images', 'Measured floor plan', 'Next-morning delivery'],
+    featured: false,
+  },
+  {
+    name: 'Showcase',
+    price: '685',
+    tag: 'Most booked',
+    line: 'Photography, cinematic video, iGuide 3D and drone — what most $1M+ listings go out with.',
+    includes: ['35–45 finished images', '60–90 second cinematic video', 'iGuide 3D tour + sq ft report', 'Drone stills and aerial video'],
+    featured: true,
+  },
+  {
+    name: 'Luxury',
+    price: '999',
+    tag: null,
+    line: 'Everything in Showcase, plus the pieces that matter on an estate listing and on your own channels.',
+    includes: ['Twilight exterior set', 'Two rooms virtually staged', 'Extended agent-branded cut', 'Priority scheduling'],
+    featured: false,
+  },
+];
+---
+
+<section id="pricing" class="relative bg-brand-surface px-5 pb-32 pt-28 sm:px-8 lg:px-12 lg:pb-40 lg:pt-40">
+  <div class="mx-auto w-full max-w-[1500px]">
+    <div class="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-end lg:gap-20">
+      <div>
+        <p class="eyebrow" data-reveal="up">Packages · from $285</p>
+        <h2 class="h2 mt-6 max-w-[20ch] text-brand-text" data-reveal="up" style="--i:1">
+          Priced by what the listing needs. <strong>Not by what we can add on.</strong>
+        </h2>
+      </div>
+      <p class="lede lg:pb-2" data-reveal="up" style="--i:2">
+        Three packages cover about nine listings in ten. Anything unusual — acreage,
+        new build, a full agent brand shoot — we quote after a five-minute call.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-5 lg:mt-20 lg:grid-cols-3 lg:gap-7">
+      {packages.map((p, i) => (
+        <article
+          class={`tier vp-corners ${p.featured ? 'tier-featured' : 'vp-grow'}`}
+          style={`--vp-inset:14px;--vp-arm:13px;--vp-ink:${p.featured ? 'rgba(255,106,44,0.55)' : 'rgba(236,239,243,0.16)'};--i:${i}`}
+          data-reveal="rise"
+        >
+          <div class="flex items-start justify-between gap-4">
+            <h3 class="h3 text-brand-text">{p.name}</h3>
+            {p.tag && <span class="tag">{p.tag}</span>}
+          </div>
+
+          <p class="mt-7 flex items-baseline gap-2">
+            <span class="numeral text-[clamp(2.6rem,4vw,3.4rem)] text-brand-text">
+              <span class="align-super text-[0.42em] tracking-normal text-brand-muted">$</span>{p.price}
+            </span>
+            <span class="meta text-[9px] text-brand-muted">+ GST</span>
+          </p>
+
+          <p class="mt-5 text-[14px] leading-[1.65] text-brand-muted">{p.line}</p>
+
+          <ul class="mt-7 flex flex-col gap-3 border-t border-brand-text/10 pt-7">
+            {p.includes.map((inc) => (
+              <li class="inc">{inc}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-12 flex flex-col items-start gap-6 border-t border-brand-text/10 pt-10 sm:flex-row sm:items-center sm:justify-between" data-reveal="up">
+      <p class="max-w-[46ch] text-[14px] leading-relaxed text-brand-muted">
+        Add-ons — twilight, extra drone, additional staged rooms, reels — are priced
+        individually and listed in full on the pricing page.
+      </p>
+      <a href="/pricing" class="pill pill-outline">
+        See what's included
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tier {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 24px;
+    border: 1px solid rgba(236, 239, 243, 0.09);
+    background: linear-gradient(165deg, #1a2029 0%, #12171d 100%);
+    box-shadow: var(--print);
+    padding: 2.25rem 1.75rem;
+    transition: transform 0.55s var(--ease-snap), box-shadow 0.55s var(--ease-out-quint), border-color 0.4s ease;
+  }
+  @media (min-width: 1024px) {
+    .tier { border-radius: 28px; padding: 2.75rem 2.25rem; }
+  }
+  .tier:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--print-lift);
+    border-color: rgba(236, 239, 243, 0.2);
+  }
+
+  .tier-featured {
+    border-color: rgba(255, 106, 44, 0.42);
+    background:
+      radial-gradient(120% 80% at 50% 0%, rgba(255, 106, 44, 0.13) 0%, transparent 58%),
+      linear-gradient(165deg, #23282f 0%, #14191f 100%);
+    box-shadow: var(--print-lift), 0 0 0 1px rgba(255, 106, 44, 0.14);
+  }
+  @media (min-width: 1024px) {
+    .tier-featured { margin-top: -1.25rem; margin-bottom: 1.25rem; }
+  }
+  .tier-featured:hover { border-color: rgba(255, 106, 44, 0.7); }
+
+  .tag {
+    flex: none;
+    border-radius: 999px;
+    background: var(--color-brand-accent);
+    color: #14100C;
+    padding: 0.34rem 0.72rem;
+    font-family: var(--font-body);
+    font-size: 0.5625rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .inc {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: rgba(236, 239, 243, 0.78);
+  }
+  .inc::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.35rem;
+    width: 8px;
+    height: 8px;
+    border-left: 1.5px solid var(--color-brand-accent);
+    border-top: 1.5px solid var(--color-brand-accent);
+  }
+</style>

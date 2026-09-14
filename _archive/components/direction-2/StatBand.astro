@@ -1,0 +1,95 @@
+---
+import Guides from './Guides.astro';
+---
+
+<section class="relative z-30 -mt-8 px-5 sm:px-8 lg:-mt-28 lg:px-12" aria-labelledby="record-heading">
+  <div class="mx-auto w-full max-w-[1500px]">
+    <div
+      class="panel vp-corners"
+      data-reveal="rise"
+      style="--vp-inset:20px;--vp-arm:22px;--vp-ink:rgba(236,239,243,0.22)"
+    >
+      <Guides ink="rgba(236,239,243,0.06)" />
+
+      <div class="relative flex flex-wrap items-baseline justify-between gap-4 border-b border-brand-text/10 px-6 pb-6 pt-8 sm:px-10 lg:px-14">
+        <h2 id="record-heading" class="eyebrow eyebrow-light">The record so far</h2>
+        <p class="meta text-[9px] text-brand-text/45">Counted from our own booking log · Updated quarterly</p>
+      </div>
+
+      <div class="relative grid grid-cols-1 divide-y divide-brand-text/10 md:grid-cols-[1fr_1.3fr_1fr] md:divide-x md:divide-y-0">
+        <!-- 01 -->
+        <div class="stat px-6 py-10 sm:px-10 lg:px-14 lg:py-14" data-reveal="up" style="--i:0">
+          <span class="stat-mark" aria-hidden="true"></span>
+          <p class="numeral text-[clamp(3.1rem,6vw,4.6rem)] text-brand-text">
+            <span data-count="335" data-suffix="+">335+</span>
+          </p>
+          <p class="mt-4 max-w-[22ch] text-[13px] leading-relaxed text-brand-text/55">
+            Homes shot across Calgary, Airdrie, Cochrane, Chestermere and Okotoks.
+          </p>
+        </div>
+
+        <!-- 02 — the dominant one -->
+        <div class="stat stat-lead px-6 py-10 sm:px-10 lg:px-14 lg:py-14" data-reveal="up" style="--i:1">
+          <span class="stat-mark stat-mark-accent" aria-hidden="true"></span>
+          <p class="numeral text-[clamp(3.8rem,9vw,7.2rem)] text-brand-text">
+            <span data-count="230" data-prefix="$" data-suffix="M+">$230M+</span>
+          </p>
+          <p class="mt-4 max-w-[26ch] text-[13px] leading-relaxed text-brand-text/70">
+            In listing value photographed since we picked up the first job — from
+            starter bungalows to estate acreages.
+          </p>
+        </div>
+
+        <!-- 03 -->
+        <div class="stat px-6 py-10 sm:px-10 lg:px-14 lg:py-14" data-reveal="up" style="--i:2">
+          <span class="stat-mark" aria-hidden="true"></span>
+          <p class="numeral text-[clamp(3.1rem,6vw,4.6rem)] text-brand-text">
+            <span class="align-top text-[0.4em] tracking-[0.02em] text-brand-muted">Oct</span>
+            <span class="inline-block" data-reveal="mask" style="--i:4">2023</span>
+          </p>
+          <p class="mt-4 max-w-[22ch] text-[13px] leading-relaxed text-brand-text/55">
+            The month we started. Every listing since has gone out the same door.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    border: 1px solid rgba(236, 239, 243, 0.09);
+    background:
+      linear-gradient(148deg, #2a3f61 0%, var(--color-brand-primary) 42%, #17223a 100%);
+    box-shadow: var(--print-lift);
+  }
+  @media (min-width: 1024px) {
+    .panel { border-radius: 34px; }
+  }
+
+  .stat { position: relative; }
+  .stat-mark {
+    position: absolute;
+    top: 1.35rem;
+    left: 1.5rem;
+    width: 11px;
+    height: 11px;
+    border-left: 1.5px solid rgba(236, 239, 243, 0.3);
+    border-top: 1.5px solid rgba(236, 239, 243, 0.3);
+  }
+  .stat-mark-accent {
+    border-color: var(--color-brand-accent);
+    width: 15px;
+    height: 15px;
+  }
+  @media (min-width: 640px) { .stat-mark { left: 2.5rem; } }
+  @media (min-width: 1024px) {
+    .stat-mark { left: 3.5rem; top: 2.1rem; }
+  }
+  .stat-lead {
+    background: radial-gradient(120% 100% at 50% 0%, rgba(255, 106, 44, 0.09) 0%, transparent 62%);
+  }
+</style>

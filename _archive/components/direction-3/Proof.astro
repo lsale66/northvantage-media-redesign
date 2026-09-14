@@ -1,0 +1,263 @@
+---
+const quotes = [
+  {
+    name: 'Anthony Luong',
+    img: '/images/redesign/image-04.jpg',
+    line: 'My listings stopped looking like listings and started looking like brochures.',
+  },
+  {
+    name: 'Brenda Moffat',
+    img: '/images/redesign/image-05.jpg',
+    line: "They found light in a north-facing basement I'd already written off.",
+  },
+  {
+    name: 'Lionel Sale',
+    img: '/images/redesign/image-06.jpg',
+    line: 'Sellers ask me who shot it. That question alone has won me listings.',
+  },
+];
+
+// Rendered four times over so the loop never shows a seam on wide screens.
+const run = [...quotes, ...quotes];
+const track = [...run, ...run];
+---
+
+<section class="proof">
+  <div class="bloom proof__bloom" aria-hidden="true"></div>
+
+  <div class="shell proof__inner">
+    <div class="proof__head">
+      <p class="eyebrow" data-reveal="fade">The record so far</p>
+      <p class="lede proof__note" data-reveal="rise" data-rd="120">
+        Northvantage opened in October 2023. Everything below is work already
+        delivered to Calgary agents — no rounding up, no borrowed portfolio.
+      </p>
+    </div>
+
+    <dl class="stats">
+      <div class="stat" style="--i:0" data-reveal="rise">
+        <dt class="stat__label">Homes shot</dt>
+        <dd class="stat__value"><span data-count="335" data-suffix="+">0</span></dd>
+        <span class="horizon stat__rule" aria-hidden="true"></span>
+        <p class="stat__note">Across Calgary, Cochrane, Airdrie, Chestermere and Okotoks.</p>
+      </div>
+
+      <div class="stat" style="--i:1" data-reveal="rise" data-rd="140">
+        <dt class="stat__label">In listed property</dt>
+        <dd class="stat__value"><span data-count="230" data-prefix="$" data-suffix="M+">$0</span></dd>
+        <span class="horizon stat__rule" aria-hidden="true"></span>
+        <p class="stat__note">From first-time townhouses to acreages west of the city.</p>
+      </div>
+
+      <div class="stat stat--flat" style="--i:2" data-reveal="rise" data-rd="280">
+        <dt class="stat__label">Shooting since</dt>
+        <dd class="stat__value stat__value--date">Oct <b>2023</b></dd>
+        <span class="horizon stat__rule" aria-hidden="true"></span>
+        <p class="stat__note">Same owner behind the camera every booking since day one.</p>
+      </div>
+    </dl>
+
+    <div class="rating" data-reveal="rise" data-rd="200">
+      <img class="rating__g" src="/images/redesign/image-01.png" alt="" width="48" height="48" loading="lazy" />
+      <span class="rating__stars" aria-hidden="true">
+        {[0, 1, 2, 3, 4].map(() => (
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+            <path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9z" />
+          </svg>
+        ))}
+      </span>
+      <span class="rating__text"><b>5.0</b> on Google Reviews</span>
+    </div>
+  </div>
+
+  <!-- MOTIF 7: the marquee runs between two horizons, like light on a skyline -->
+  <div class="marquee" aria-label="What Calgary agents say">
+    <div class="horizon marquee__edge" aria-hidden="true"></div>
+    <div class="marquee__mask">
+      <div class="marquee__track">
+        {track.map((q, i) => (
+          <span class="mq" aria-hidden={i >= quotes.length ? 'true' : undefined}>
+            <img class="mq__face" src={q.img} alt="" width="64" height="64" loading="lazy" />
+            <span class="mq__line">{q.line}</span>
+            <span class="mq__name">{q.name}</span>
+            <span class="mq__sep" aria-hidden="true"></span>
+          </span>
+        ))}
+      </div>
+    </div>
+    <div class="horizon marquee__edge" aria-hidden="true"></div>
+  </div>
+</section>
+
+<style>
+  .proof {
+    position: relative;
+    padding-block: clamp(4.5rem, 10vw, 9rem) clamp(3rem, 6vw, 5.5rem);
+  }
+  .proof__bloom {
+    width: min(56vw, 660px);
+    height: min(56vw, 660px);
+    left: 24%;
+    top: -6%;
+    opacity: 0.13;
+  }
+
+  .proof__inner { position: relative; }
+
+  .proof__head {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 52ch;
+    margin-bottom: clamp(3rem, 7vw, 5.5rem);
+  }
+  .proof__note { margin: 0; }
+
+  /* ── Stats: staggered, never a tidy row ───────────────── */
+  .stats {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 3rem);
+    margin: 0;
+  }
+  .stat { position: relative; margin: 0; }
+
+  .stat__label {
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--bh-muted);
+  }
+  .stat__value {
+    margin: 0.65rem 0 0;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(3.25rem, 8vw, 6.25rem);
+    line-height: 0.92;
+    letter-spacing: -0.055em;
+    font-variant-numeric: tabular-nums;
+    background: linear-gradient(150deg, #FFF3E4 0%, #F5F2EC 40%, #9FB0CE 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat__value--date {
+    font-weight: 200;
+    letter-spacing: -0.035em;
+  }
+  .stat__value--date b { font-weight: 900; letter-spacing: -0.055em; }
+
+  .stat__rule {
+    display: block;
+    margin: 1.15rem 0 0;
+    opacity: 0.42;
+  }
+  .stat__note {
+    margin: 1rem 0 0;
+    max-width: 30ch;
+    font-size: 0.8125rem;
+    line-height: 1.66;
+    color: var(--bh-muted);
+  }
+
+  /* ── Google rating chip ───────────────────────────────── */
+  .rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding: 0.75rem 1.2rem 0.75rem 0.85rem;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    background: rgb(255 255 255 / 0.03);
+    transition: border-color 0.6s var(--ease), background-color 0.6s var(--ease);
+  }
+  .rating:hover {
+    border-color: rgb(var(--glow) / 0.45);
+    background: rgb(var(--glow) / 0.06);
+  }
+  .rating__g { width: 22px; height: 22px; flex: none; }
+  .rating__stars { display: inline-flex; gap: 2px; color: var(--bh-accent); }
+  .rating__text {
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--bh-muted);
+  }
+  .rating__text b { color: var(--bh-text); font-weight: 600; }
+
+  /* ── Marquee ──────────────────────────────────────────── */
+  .marquee {
+    position: relative;
+    margin-top: clamp(3.5rem, 8vw, 7rem);
+    padding-block: 0;
+  }
+  .marquee__edge { opacity: 0.4; }
+  .marquee__mask {
+    overflow: hidden;
+    padding-block: clamp(1.4rem, 2.6vw, 2.2rem);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  }
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: bh-marquee 72s linear infinite;
+  }
+  .marquee:hover .marquee__track { animation-play-state: paused; }
+
+  .mq {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding-right: 1.75rem;
+    white-space: nowrap;
+  }
+  .mq__face {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 22%;
+    flex: none;
+    filter: grayscale(1) brightness(1.05) contrast(0.95);
+    outline: 1px solid rgb(var(--glow) / 0.35);
+    outline-offset: 2px;
+    transition: filter 0.7s var(--ease);
+  }
+  .marquee:hover .mq__face { filter: grayscale(0.15) brightness(1) contrast(1); }
+
+  .mq__line {
+    font-family: var(--font-heading);
+    font-weight: 200;
+    font-size: clamp(1.05rem, 2vw, 1.75rem);
+    letter-spacing: -0.025em;
+    color: var(--bh-text);
+  }
+  .mq__name {
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--bh-accent);
+    align-self: center;
+  }
+  .mq__sep {
+    width: 6px;
+    height: 6px;
+    margin-left: 0.9rem;
+    flex: none;
+    background: rgb(var(--glow) / 0.55);
+    transform: rotate(45deg);
+  }
+
+  @media (min-width: 820px) {
+    .stats {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(1.75rem, 4vw, 3.5rem);
+      align-items: start;
+    }
+    /* the staircase */
+    .stat { margin-top: calc(var(--i) * clamp(0px, 3.2vw, 62px)); }
+    .proof__head { margin-left: clamp(0px, 14vw, 240px); }
+  }
+</style>

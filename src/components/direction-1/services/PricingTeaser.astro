@@ -1,0 +1,231 @@
+---
+import Eyebrow from '../Eyebrow.astro';
+import FrameMark from '../FrameMark.astro';
+
+const packages = [
+  {
+    name: 'Photos Only',
+    price: '149',
+    featured: false,
+    items: ['HDR Premium Photos', 'Exterior photography', 'MLS-ready files', 'Blue Sky Replacement', '24hr delivery'],
+  },
+  {
+    name: 'Photos + iGuide',
+    price: '285',
+    featured: true,
+    items: ['Everything in Photos Only', 'RMS measurements', '2D floor plans', 'iGuide 3D virtual tour'],
+  },
+];
+---
+
+<section class="nv-section nv-svprice" id="pricing">
+  <div class="nv-wrap">
+    <header class="nv-svprice__head">
+      <Eyebrow>Packages</Eyebrow>
+      <h2 class="nv-h2 nv-svprice__title" data-reveal="clip">Clear Pricing</h2>
+      <p class="nv-body nv-svprice__copy" data-reveal="up" style="--d:100ms">
+        Simple pricing by property size. No surprise fees. GST additional on
+        all packages.
+      </p>
+    </header>
+
+    <div class="nv-svprice__grid">
+      {
+        packages.map((p, i) => (
+          <div
+            class:list={['nv-svpkg', p.featured && 'nv-svpkg--featured', 'nv-frame', p.featured && 'nv-frame--hover']}
+            data-reveal="up"
+            style={`--d:${i * 110}ms`}
+          >
+            <div class="nv-svpkg__top">
+              <h3 class="nv-h3 nv-svpkg__name">
+                {p.name}
+                {p.featured && (
+                  <span class="nv-svpkg__tag">
+                    <FrameMark size={9} dot={false} />
+                    Most Popular
+                  </span>
+                )}
+              </h3>
+              <p class="nv-svpkg__price">
+                <span class="nv-svpkg__from">From</span>
+                <span class="nv-svpkg__dollar">$</span>
+                {p.price}
+                <span class="nv-svpkg__gst">+GST</span>
+              </p>
+            </div>
+            <ul class="nv-svpkg__list">
+              {p.items.map((item) => (
+                <li>
+                  <FrameMark size={9} dot={false} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+
+      <div class="nv-svpkg nv-svpkg--addon nv-frame" data-reveal="up" style="--d:220ms">
+        <div class="nv-svpkg__top">
+          <h3 class="nv-h3 nv-svpkg__name">Drone Photos</h3>
+          <p class="nv-svpkg__price">
+            <span class="nv-svpkg__dollar">+$</span>35
+          </p>
+        </div>
+        <ul class="nv-svpkg__list">
+          <li><FrameMark size={9} dot={false} /><span>Everything in Photos</span></li>
+          <li><FrameMark size={9} dot={false} /><span>Aerial drone photography</span></li>
+          <li><FrameMark size={9} dot={false} /><span>24hr delivery on everything</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="nv-micro nv-svprice__note" data-reveal="fade" style="--d:280ms">
+      Pricing varies by property size. See the full pricing page for all
+      packages and square footage tiers.
+    </p>
+
+    <div class="nv-svprice__ctas" data-reveal="up" style="--d:320ms">
+      <a href="#contact" class="nv-btn nv-btn--solid">
+        <span>Book Online</span>
+        <FrameMark size={11} dot={false} />
+      </a>
+      <a href="/pricing" class="nv-btn nv-btn--line"><span>See Packages and Pricing</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nv-svprice {
+    background: var(--color-brand-bg);
+  }
+
+  .nv-svprice__head {
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+    max-width: 56ch;
+  }
+  .nv-svprice__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+  }
+  .nv-svprice__copy {
+    margin: 1.2rem 0 0;
+  }
+
+  .nv-svprice__grid {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2rem);
+  }
+  @media (min-width: 780px) {
+    .nv-svprice__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .nv-svpkg {
+    --nv-frame-size: 16px;
+    --nv-frame-inset: -1px;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.75rem, 2.6vw, 2.25rem);
+    border: 1px solid var(--nv-hairline);
+    background: var(--color-brand-bg);
+  }
+  .nv-svpkg--featured {
+    background: linear-gradient(165deg, rgb(232 132 60 / 0.09), transparent 70%);
+    border-color: rgb(232 132 60 / 0.35);
+  }
+  .nv-svpkg--addon {
+    background: var(--color-brand-surface);
+  }
+
+  .nv-svpkg__top {
+    padding-bottom: 1.4rem;
+    margin-bottom: 1.4rem;
+    border-bottom: 1px solid var(--nv-hairline);
+  }
+  .nv-svpkg__name {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin: 0 0 0.9rem;
+    color: var(--color-brand-text);
+  }
+  .nv-svpkg__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.24rem 0.55rem;
+    border: 1px solid rgb(232 132 60 / 0.45);
+    font-family: var(--font-body);
+    font-size: 0.5625rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-brand-accent);
+  }
+  .nv-svpkg__price {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.9rem, 2.6vw, 2.35rem);
+    letter-spacing: -0.03em;
+    color: var(--color-brand-text);
+    font-variant-numeric: tabular-nums;
+  }
+  .nv-svpkg__from {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-brand-muted);
+  }
+  .nv-svpkg__dollar {
+    font-size: 0.55em;
+    color: var(--color-brand-accent);
+  }
+  .nv-svpkg__gst {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-brand-muted);
+  }
+
+  .nv-svpkg__list {
+    display: grid;
+    gap: 0.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nv-svpkg__list li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.875rem;
+    color: rgb(243 239 231 / 0.68);
+  }
+  .nv-svpkg__list :global(.nv-mark) {
+    flex: none;
+    color: var(--color-brand-accent);
+  }
+
+  .nv-svprice__note {
+    margin: clamp(2rem, 3.5vw, 2.75rem) 0 0;
+    max-width: 50ch;
+  }
+
+  .nv-svprice__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: clamp(1.75rem, 3vw, 2.25rem);
+  }
+</style>

@@ -1,0 +1,70 @@
+{
+  "url": "https://northvantagemedia.com/",
+  "css_variables": {
+    "--accent": "#2E4877",
+    "--gp-search-modal-bg-color": "var(--base-3)",
+    "--gp-search-modal-text-color": "var(--contrast)",
+    "--gp-search-modal-overlay-bg-color": "rgba(0,0,0,0.2)",
+    "--border-radius": "0",
+    "--border-top-width": "0px",
+    "--border-right-width": "0px",
+    "--border-bottom-width": "0px",
+    "--border-left-width": "0px",
+    "--border-style": "initial",
+    "--border-color": "initial",
+    "--text-align": "initial",
+    "--border-block-start-width": "var(--border-top-width)",
+    "--border-block-end-width": "var(--border-bottom-width)",
+    "--border-inline-start-width": "var(--border-right-width)",
+    "--border-inline-end-width": "var(--border-left-width)"
+  },
+  "colors": [
+    "#00d082",
+    "#00d084",
+    "#020381",
+    "#0693e3",
+    "#0a0a0a",
+    "#1f2124",
+    "#21759b",
+    "#2874fc",
+    "#2a3e66",
+    "#2e4877",
+    "#2f4061",
+    "#303030",
+    "#32373c",
+    "#33a7b5",
+    "#343434",
+    "#3477f5",
+    "#4158d0",
+    "#456db7",
+    "#4aeadc",
+    "#55555e"
+  ],
+  "fonts": [
+    "Apple Color Emoji",
+    "Droid Serif",
+    "Montserrat",
+    "Nunito",
+    "Outfit",
+    "Poppins",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "eicons"
+  ],
+  "google_fonts": [
+    "Droid Serif",
+    "Montserrat",
+    "Nunito",
+    "Outfit",
+    "Poppins"
+  ],
+  "logos": [
+    "https://northvantagemedia.com/wp-content/uploads/2025/05/nvlogo-1024x1024.png",
+    "https://northvantagemedia.com/wp-content/uploads/2025/05/nvlogo-bl-sm.png",
+    "https://northvantagemedia.com/wp-content/uploads/2025/05/cropped-nvlogo-bl-sm-32x32.png",
+    "https://northvantagemedia.com/wp-content/uploads/2025/05/cropped-nvlogo-bl-sm-192x192.png",
+    "https://northvantagemedia.com/wp-content/uploads/2025/05/cropped-nvlogo-bl-sm-180x180.png",
+    "https://northvantagemedia.com/wp-content/uploads/2025/05/DSC03891-dh-Edit-Medium.jpg"
+  ],
+  "logo_downloaded": ".new-site/brand-extraction/logo.png"
+}

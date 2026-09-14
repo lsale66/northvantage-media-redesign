@@ -1,0 +1,122 @@
+---
+import Eyebrow from '../Eyebrow.astro';
+import FrameMark from '../FrameMark.astro';
+
+const interior = [
+  'Clear all countertops',
+  'Turn on all lights',
+  'Open all blinds and curtains',
+  'Make beds and tidy bedrooms',
+  'Clean windows if possible',
+  'Remove pet and childrens toys and clutter',
+  'Tidy bathrooms and entryways',
+];
+
+const exterior = [
+  'Move vehicles from driveway',
+  'Put away bins and garden tools',
+  'Mow the lawn',
+  'Sweep front entrance and walkway',
+];
+---
+
+<section class="nv-section nv-svprep" id="prep">
+  <div class="nv-wrap">
+    <header class="nv-svprep__head">
+      <Eyebrow>Get Ready</Eyebrow>
+      <h2 class="nv-h2 nv-svprep__title" data-reveal="clip">
+        How to Prepare Your Property for the Shoot
+      </h2>
+      <p class="nv-body nv-svprep__copy" data-reveal="up" style="--d:100ms">
+        Share this checklist with your seller before the shoot day. A little
+        preparation makes a significant difference in the final photos.
+      </p>
+    </header>
+
+    <div class="nv-svprep__grid">
+      <div class="nv-svprep__col" data-reveal="up" style="--d:140ms">
+        <h3 class="nv-h3 nv-svprep__colname">Interior</h3>
+        <ul class="nv-svprep__list">
+          {
+            interior.map((item) => (
+              <li>
+                <FrameMark size={10} dot={false} />
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="nv-svprep__col" data-reveal="up" style="--d:200ms">
+        <h3 class="nv-h3 nv-svprep__colname">Exterior</h3>
+        <ul class="nv-svprep__list">
+          {
+            exterior.map((item) => (
+              <li>
+                <FrameMark size={10} dot={false} />
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nv-svprep {
+    background: var(--color-brand-surface);
+    border-top: 1px solid var(--nv-hairline);
+  }
+
+  .nv-svprep__head {
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+    max-width: 56ch;
+  }
+  .nv-svprep__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    max-width: 22ch;
+  }
+  .nv-svprep__copy {
+    margin: 1.2rem 0 0;
+  }
+
+  .nv-svprep__grid {
+    display: grid;
+    gap: clamp(2.25rem, 4vw, 3rem);
+  }
+  @media (min-width: 700px) {
+    .nv-svprep__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(3rem, 6vw, 5rem);
+    }
+  }
+
+  .nv-svprep__colname {
+    margin: 0 0 1.4rem;
+    color: var(--color-brand-text);
+  }
+
+  .nv-svprep__list {
+    display: grid;
+    gap: 0.9rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nv-svprep__list li {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--nv-hairline);
+    font-size: 0.9375rem;
+    color: rgb(243 239 231 / 0.72);
+  }
+  .nv-svprep__list :global(.nv-mark) {
+    flex: none;
+    color: var(--color-brand-accent);
+  }
+</style>

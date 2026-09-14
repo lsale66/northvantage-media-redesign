@@ -1,0 +1,9 @@
+{
+  "phase": "direction_selected",
+  "direction_count": 3,
+  "is_redesign": true,
+  "source_url": "https://northvantagemedia.com/",
+  "selected_direction": "direction-1-night-showing",
+  "selected_on": "2026-09-03",
+  "notes": "Night Showing promoted to the production site: served at / (src/pages/index.astro). Directions 2 (Vantage Point) and 3 (Blue Hour) plus the concept picker archived to _archive/. Component folder src/components/direction-1/ kept its name; /direction-1/services/ route unchanged."
+}

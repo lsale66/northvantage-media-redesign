@@ -1,0 +1,159 @@
+---
+---
+
+<section class="close" id="contact">
+  <!-- MOTIF 8: the horizon at full strength — a sky going down behind the page -->
+  <div class="close__sky" aria-hidden="true"></div>
+  <div class="bloom close__bloom" aria-hidden="true"></div>
+  <div class="close__horizon horizon" aria-hidden="true"></div>
+
+  <div class="shell close__inner">
+    <p class="eyebrow eyebrow--dot" data-reveal="fade">Next available shoot</p>
+
+    <h2 class="close__h" data-reveal="rise" data-rd="100">
+      <span class="close__thin">Book the</span>
+      <span class="close__word">Hour</span>
+      <span class="close__thin close__thin--b">before someone else takes the evening.</span>
+    </h2>
+
+    <p class="close__note" data-reveal="rise" data-rd="260">
+      Send us the address and the date you want it live. We'll tell you what the
+      light is doing that week, what the home actually needs, and what it costs —
+      before anyone books anything.
+    </p>
+
+    <div class="close__actions" data-reveal="rise" data-rd="360">
+      <span class="btn-wrap"><a class="btn btn--solid" href="#contact">Call or text</a></span>
+      <span class="btn-wrap btn-wrap--soft">
+        <a class="btn btn--ghost" href="#contact">Book online <span class="arw">&#8594;</span></a>
+      </span>
+    </div>
+
+    <ul class="close__meta" data-reveal="fade" data-rd="480">
+      <li>hello@northvantagemedia.com</li>
+      <li>Calgary · Cochrane · Airdrie · Chestermere · Okotoks</li>
+      <li>Weekday and weekend evenings</li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .close {
+    position: relative;
+    padding-block: clamp(5.5rem, 12vw, 11rem) clamp(5rem, 11vw, 10rem);
+    overflow: clip;
+    isolation: isolate;
+  }
+
+  /* a graded dusk sky rising off the bottom edge */
+  .close__sky {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      linear-gradient(to bottom, transparent 0%, rgb(22 35 61 / 0.55) 55%, rgb(36 64 107 / 0.42) 100%);
+  }
+  .close__bloom {
+    z-index: -1;
+    width: min(120vw, 1500px);
+    height: min(60vw, 700px);
+    left: 50%;
+    bottom: -34%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    opacity: 0.3;
+    filter: blur(110px);
+    animation: bh-breathe 15s var(--ease-soft) infinite;
+  }
+  .close__horizon {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    opacity: 0.9;
+  }
+
+  .close__inner { position: relative; }
+
+  .close__h {
+    margin: 1.5rem 0 0;
+    font-family: var(--font-heading);
+    display: flex;
+    flex-direction: column;
+    --w-indent: clamp(0px, 9vw, 160px);
+  }
+  .close__thin {
+    font-weight: 200;
+    font-size: clamp(1.35rem, 3vw, 2.75rem);
+    line-height: 1.14;
+    letter-spacing: -0.025em;
+  }
+  .close__thin--b {
+    margin-left: var(--w-indent);
+    max-width: 22ch;
+    color: rgb(245 242 236 / 0.82);
+  }
+  .close__word {
+    width: max-content;
+    margin-left: var(--w-indent);
+    margin-block: clamp(-0.2rem, -0.4vw, 0rem) clamp(0.1rem, 0.6vw, 0.5rem);
+    font-weight: 900;
+    font-size: clamp(3.75rem, 15vw, 12rem);
+    line-height: 0.82;
+    letter-spacing: -0.055em;
+    text-transform: uppercase;
+    background: linear-gradient(96deg, #FFE9CF 0%, #F5F2EC 38%, #A9B8D4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .close__note {
+    margin: clamp(1.75rem, 3.5vw, 2.75rem) 0 0;
+    max-width: 52ch;
+    font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+    line-height: 1.72;
+    color: var(--bh-muted);
+  }
+
+  .close__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .close__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.75rem;
+    list-style: none;
+    margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+    padding: 0;
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bh-muted);
+  }
+  .close__meta li { display: flex; align-items: center; gap: 1.75rem; }
+  .close__meta li + li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    flex: none;
+    background: rgb(var(--glow) / 0.6);
+    transform: rotate(45deg);
+  }
+
+  @media (max-width: 819px) {
+    .close__actions > * { flex: 1 1 46%; }
+    .close__actions .btn { width: 100%; justify-content: center; }
+    .close__meta { flex-direction: column; gap: 0.7rem; }
+    .close__meta li + li::before { display: none; }
+  }
+  @media (min-width: 900px) {
+    .close__inner { padding-left: clamp(0px, 6vw, 100px); }
+  }
+</style>

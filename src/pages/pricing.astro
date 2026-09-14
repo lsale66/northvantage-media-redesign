@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Styles from '../components/direction-1/Styles.astro';
+import Nav from '../components/direction-1/Nav.astro';
+import Eyebrow from '../components/direction-1/Eyebrow.astro';
+import Packages from '../components/direction-1/pricing/Packages.astro';
+import AddOns from '../components/direction-1/pricing/AddOns.astro';
+import ServiceArea from '../components/direction-1/ServiceArea.astro';
+import FinalCta from '../components/direction-1/FinalCta.astro';
+import Footer from '../components/direction-1/Footer.astro';
+import Motion from '../components/direction-1/Motion.astro';
+---
+
+<Layout
+  title="Pricing & Packages — Northvantage Media"
+  description="Real estate media pricing for Calgary agents. Essential, Showcase and Luxury packages priced by property size, plus à la carte photography, iGuide, drone, twilight and video services."
+>
+  <style is:global>
+    :root {
+      --color-brand-primary: #1b2a45;
+      --color-brand-secondary: #2e4877;
+      --color-brand-accent: #e8843c;
+      --color-brand-bg: #0a0e17;
+      --color-brand-surface: #131b2c;
+      --color-brand-text: #f3efe7;
+      --color-brand-muted: #8d93a3;
+      --font-heading: 'Fraunces Variable', Georgia, serif;
+      --font-body: 'Inter Variable', system-ui, sans-serif;
+    }
+  </style>
+
+  <Styles />
+
+  <div class="nv-grain" aria-hidden="true"></div>
+
+  <Nav />
+
+  <main>
+    <header class="nv-section nv-pghero">
+      <div class="nv-pghero__media" data-parallax="0.1">
+        <img
+          src="/images/real-estate-photography/DSC07013-Large-1536x1024.jpg"
+          alt="Bright modern kitchen with a large island, professionally photographed for a Calgary real estate listing"
+          width="1536"
+          height="1024"
+          fetchpriority="high"
+        />
+        <div class="nv-pghero__scrim" aria-hidden="true"></div>
+      </div>
+
+      <div class="nv-wrap">
+        <Eyebrow>Pricing</Eyebrow>
+        <h1 class="nv-h2 nv-pghero__title" data-reveal="clip">
+          Pricing and <span class="nv-accent-word">Packages</span>
+        </h1>
+        <p class="nv-lead nv-pghero__lead" data-reveal="up" style="--d:120ms">
+          Straightforward pricing by property size. Bundle into a package or
+          book any service on its own — every add-on is priced off the same
+          sheet every agent gets.
+        </p>
+      </div>
+    </header>
+
+    <Packages />
+    <AddOns />
+    <ServiceArea />
+    <FinalCta />
+  </main>
+
+  <Footer />
+
+  <Motion />
+
+  <style>
+    .nv-pghero {
+      position: relative;
+      overflow: clip;
+      padding-top: clamp(9rem, 16vw, 12rem);
+      padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    }
+    .nv-pghero__media {
+      position: absolute;
+      /* Oversized beyond the section so the scroll-parallax transform below
+         never reveals the section background at the top or bottom edge. */
+      inset: -8% 0 -8% 0;
+      z-index: -1;
+      transform: translate3d(0, var(--py, 0px), 0);
+    }
+    .nv-pghero__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 38%;
+      filter: saturate(0.9) contrast(1.06) brightness(0.55);
+    }
+    .nv-pghero .nv-wrap {
+      position: relative;
+    }
+    .nv-pghero__scrim {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          to top,
+          var(--color-brand-bg) 4%,
+          rgb(10 14 23 / 0.88) 46%,
+          rgb(10 14 23 / 0.6) 100%
+        ),
+        linear-gradient(
+          to right,
+          rgb(10 14 23 / 0.55) 0%,
+          rgb(10 14 23 / 0.1) 60%,
+          transparent 100%
+        );
+    }
+    .nv-pghero__title {
+      margin: clamp(1.2rem, 2.4vw, 1.9rem) 0 0;
+      max-width: 16ch;
+    }
+    .nv-pghero__lead {
+      margin: clamp(1.4rem, 2.4vw, 1.9rem) 0 0;
+      max-width: 52ch;
+    }
+  </style>
+</Layout>

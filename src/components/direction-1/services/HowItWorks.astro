@@ -1,0 +1,106 @@
+---
+import Eyebrow from '../Eyebrow.astro';
+
+const steps = [
+  {
+    n: '01',
+    title: 'Book',
+    copy: "Send a text, email, or call, and we'll lock in a time that works. Tell us the address and square footage and we'll confirm your quote up front.",
+  },
+  {
+    n: '02',
+    title: 'We Arrive On Site',
+    copy: 'A typical 2-storey home takes around 1 hour. The photographer will bring all the equipment – just have the property ready.',
+  },
+  {
+    n: '03',
+    title: 'Same-Day Editing',
+    copy: 'Every image is color-corrected and edited for exposure and detail on the day of the shoot. Every photo is carefully edited to look true-to-life.',
+  },
+  {
+    n: '04',
+    title: 'Next-Day Delivery',
+    copy: 'Download link arrives in your inbox within 24 hours – MLS-ready files are organized and ready to upload.',
+  },
+];
+---
+
+<section class="nv-section nv-svhow" id="how-it-works">
+  <div class="nv-wrap">
+    <header class="nv-svhow__head">
+      <Eyebrow>Process</Eyebrow>
+      <h2 class="nv-h2 nv-svhow__title" data-reveal="clip">How It Works</h2>
+    </header>
+
+    <ol class="nv-svhow__list">
+      {
+        steps.map((s, i) => (
+          <li class="nv-svhow__item" data-reveal="up" style={`--d:${i * 100}ms`}>
+            <span class="nv-svhow__n">{s.n}</span>
+            <h3 class="nv-h3 nv-svhow__title2">{s.title}</h3>
+            <p class="nv-svhow__copy">{s.copy}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .nv-svhow {
+    background: var(--color-brand-bg);
+  }
+
+  .nv-svhow__head {
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .nv-svhow__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    max-width: 14ch;
+  }
+
+  .nv-svhow__list {
+    display: grid;
+    gap: clamp(2.25rem, 4vw, 2.75rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  @media (min-width: 800px) {
+    .nv-svhow__list {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(1.75rem, 3vw, 2.5rem);
+    }
+  }
+
+  .nv-svhow__item {
+    position: relative;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--nv-hairline);
+  }
+
+  .nv-svhow__n {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    color: var(--color-brand-accent);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 1rem;
+  }
+
+  .nv-svhow__title2 {
+    margin: 0;
+    max-width: 15ch;
+    color: var(--color-brand-text);
+  }
+
+  .nv-svhow__copy {
+    margin: 0.85rem 0 0;
+    max-width: 32ch;
+    font-size: 0.9375rem;
+    line-height: 1.68;
+    color: rgb(243 239 231 / 0.58);
+  }
+</style>

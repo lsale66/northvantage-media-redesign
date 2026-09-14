@@ -1,0 +1,220 @@
+---
+const services = [
+  {
+    name: 'Photography',
+    note: 'Hand-blended exposures with flash, so cabinetry reads warm and the windows still keep their view.',
+    tag: 'Interiors · Exteriors · Twilight',
+  },
+  {
+    name: 'Cinematic video',
+    note: 'Gimbal and slider work cut to a score, with vertical edits sized for reels and listing stories.',
+    tag: 'Walkthrough · Brand · Vertical',
+  },
+  {
+    name: 'iGuide 3D tours',
+    note: 'Certified floor plans and true room measurements, so buyers arrive already knowing the layout.',
+    tag: 'Floor plan · Measurements',
+  },
+  {
+    name: 'Drone',
+    note: 'Licensed airspace work for lot lines, roofline condition and the view from two hundred feet up.',
+    tag: 'Stills · Aerial video',
+  },
+  {
+    name: 'Virtual staging',
+    note: "Empty rooms furnished to the home's actual architecture, not dropped in from a catalogue.",
+    tag: 'Vacant · Renovation preview',
+  },
+];
+---
+
+<div class="skyfade" aria-hidden="true"><span class="horizon"></span></div>
+
+<section class="svc" id="services">
+  <div class="bloom svc__bloom" aria-hidden="true"></div>
+
+  <div class="svc__grid shell">
+    <div class="svc__rail">
+      <p class="eyebrow" data-reveal="fade">What we shoot</p>
+      <h2 class="display svc__title" data-reveal="rise" data-rd="120">
+        Five ways to make a listing look like it <b>belongs</b> in a higher bracket.
+      </h2>
+      <p class="lede svc__lede" data-reveal="rise" data-rd="220">
+        Most shoots get booked as one line item. We plan them as one production —
+        light, angles, order of rooms, and the twenty minutes at the end that
+        everyone else drives home before.
+      </p>
+      <a class="tlink svc__link" href="/services" data-reveal="rise" data-rd="320">
+        Full service breakdown <span class="arw">&#8594;</span>
+      </a>
+    </div>
+
+    <ol class="svc__list">
+      {services.map((s, i) => (
+        <li class="svc__row" style={`--step:${i}`} data-reveal="drift" data-rd={`${i * 90}`}>
+          <a class="svc__hit" href="/services">
+            <!-- MOTIF 4: each row sits on a horizon that lights left to right -->
+            <span class="svc__rule" aria-hidden="true"></span>
+            <span class="svc__glow" aria-hidden="true"></span>
+            <span class="svc__body">
+              <span class="svc__name">{s.name}</span>
+              <span class="svc__note">{s.note}</span>
+            </span>
+            <span class="svc__tag">{s.tag}</span>
+            <span class="svc__arw" aria-hidden="true">&#8594;</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .svc {
+    position: relative;
+    padding-block: clamp(1rem, 3vw, 3rem) clamp(6rem, 13vw, 12rem);
+  }
+  .svc__bloom {
+    width: min(52vw, 620px);
+    height: min(52vw, 620px);
+    left: -16vw;
+    top: 28%;
+    opacity: 0.14;
+  }
+
+  .svc__grid {
+    position: relative;
+    display: grid;
+    gap: clamp(3rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .svc__rail { position: relative; }
+  .svc__title {
+    margin: 1.4rem 0 0;
+    font-size: clamp(1.85rem, 3.4vw, 3.1rem);
+  }
+  .svc__lede { margin: 1.6rem 0 0; max-width: 46ch; }
+  .svc__link { margin-top: 2.2rem; }
+
+  .svc__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* the staircase: each row steps further right than the last */
+  .svc__row { margin-left: calc(var(--step) * clamp(0px, 1.1vw, 22px)); }
+
+  .svc__hit {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'body arw'
+      'tag  arw';
+    align-items: start;
+    gap: 0.4rem 1.5rem;
+    padding: clamp(1.5rem, 2.4vw, 2.15rem) 0 clamp(1.5rem, 2.4vw, 2.15rem);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.7s var(--ease);
+  }
+  .svc__hit:hover { transform: translateX(10px); }
+
+  .svc__rule {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgb(255 255 255 / 0.1);
+    overflow: hidden;
+  }
+  .svc__rule::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--bh-accent), rgb(var(--glow) / 0.15));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.85s var(--ease);
+  }
+  .svc__hit:hover .svc__rule::after { transform: scaleX(1); }
+
+  /* glow-intensify, not shadow-lift */
+  .svc__glow {
+    position: absolute;
+    left: -4%;
+    right: 40%;
+    top: -14px;
+    height: 42px;
+    background: var(--bh-accent);
+    filter: blur(34px);
+    opacity: 0;
+    transition: opacity 0.8s var(--ease);
+    pointer-events: none;
+  }
+  .svc__hit:hover .svc__glow { opacity: 0.28; }
+
+  .svc__body { grid-area: body; display: block; }
+  .svc__name {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 2.6vw, 2.35rem);
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    transition: color 0.6s var(--ease);
+  }
+  .svc__hit:hover .svc__name { color: var(--bh-accent); }
+  .svc__note {
+    display: block;
+    margin-top: 0.6rem;
+    max-width: 48ch;
+    font-size: 0.9375rem;
+    line-height: 1.68;
+    color: var(--bh-muted);
+    transition: color 0.6s var(--ease);
+  }
+  .svc__hit:hover .svc__note { color: rgb(245 242 236 / 0.78); }
+
+  .svc__tag {
+    grid-area: tag;
+    margin-top: 0.9rem;
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgb(124 135 156 / 0.72);
+  }
+
+  .svc__arw {
+    grid-area: arw;
+    align-self: center;
+    font-size: 1.05rem;
+    color: var(--bh-accent);
+    opacity: 0;
+    transform: translateX(-14px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+  .svc__hit:hover .svc__arw { opacity: 1; transform: none; }
+
+  @media (min-width: 980px) {
+    .svc__grid {
+      grid-template-columns: minmax(0, 4.4fr) minmax(0, 7fr);
+      gap: clamp(3rem, 7vw, 7rem);
+    }
+    .svc__rail {
+      position: sticky;
+      top: 150px;
+    }
+    .svc__hit {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 15rem) auto;
+      grid-template-areas: 'body tag arw';
+      align-items: center;
+      gap: 2.5rem;
+    }
+    .svc__tag { margin-top: 0; text-align: right; }
+  }
+</style>

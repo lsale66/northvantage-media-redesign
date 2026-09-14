@@ -1,0 +1,501 @@
+---
+/**
+ * Night Showing — design foundation.
+ * Typography scale, the Frame Mark motif primitives, hairline rules,
+ * buttons, grain, and the scroll-reveal state machine.
+ * Loaded once, at the top of the page.
+ */
+---
+
+<style is:global>
+  /* Registered so parallax offset and hover scale can compose into a
+     single transform without one clobbering the other. */
+  @property --py {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+  }
+  @property --s {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 1;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Local tokens layered on top of the brand palette
+     ───────────────────────────────────────────────────────── */
+  :root {
+    --nv-hairline: rgb(243 239 231 / 0.11);
+    --nv-hairline-strong: rgb(243 239 231 / 0.22);
+    --nv-gutter: clamp(1.25rem, 5vw, 5rem);
+    --nv-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --nv-ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-brand-bg);
+    color: var(--color-brand-text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  body.nv-locked {
+    overflow: hidden;
+  }
+
+  ::selection {
+    background: var(--color-brand-accent);
+    color: #0a0e17;
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-brand-accent);
+    outline-offset: 4px;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Layout primitives
+     ───────────────────────────────────────────────────────── */
+  .nv-wrap {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: var(--nv-gutter);
+  }
+
+  .nv-section {
+    position: relative;
+    padding-block: clamp(4.5rem, 8vw, 8.25rem);
+  }
+
+  /* Bleeds a column out to the viewport edge, ignoring the wrap padding. */
+  .nv-bleed-r {
+    margin-right: calc(50% - 50vw);
+  }
+  .nv-bleed-l {
+    margin-left: calc(50% - 50vw);
+  }
+  @media (max-width: 900px) {
+    .nv-bleed-r,
+    .nv-bleed-l {
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Typography — weight does the work (Fraunces ships wght only,
+     so optical refinement is applied by hand: lighter as it scales up)
+     ───────────────────────────────────────────────────────── */
+  .nv-display {
+    font-family: var(--font-heading);
+    font-weight: 250;
+    font-size: clamp(2.85rem, 7.6vw, 7.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.038em;
+    color: var(--color-brand-text);
+  }
+
+  .nv-h2 {
+    font-family: var(--font-heading);
+    font-weight: 280;
+    font-size: clamp(2.1rem, 4.6vw, 4.1rem);
+    line-height: 1.02;
+    letter-spacing: -0.032em;
+    color: var(--color-brand-text);
+  }
+
+  .nv-h3 {
+    font-family: var(--font-heading);
+    font-weight: 350;
+    font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  /* The one accent treatment: heavier weight + warm accent colour.
+     No italics — the loaded Fraunces has no true italic cut, and a
+     synthesised oblique on a serif this fine reads as a mistake. */
+  .nv-accent-word {
+    color: var(--color-brand-accent);
+    font-weight: 520;
+    letter-spacing: -0.042em;
+  }
+
+  .nv-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-brand-muted);
+  }
+  @media (max-width: 640px) {
+    .nv-eyebrow {
+      font-size: 0.625rem;
+      letter-spacing: 0.22em;
+    }
+  }
+
+  .nv-lead {
+    font-size: clamp(1.0625rem, 1.35vw, 1.25rem);
+    line-height: 1.65;
+    font-weight: 300;
+    color: rgb(243 239 231 / 0.74);
+  }
+
+  .nv-body {
+    font-size: 1rem;
+    line-height: 1.72;
+    font-weight: 300;
+    color: rgb(243 239 231 / 0.6);
+  }
+
+  .nv-micro {
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-brand-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     THE MOTIF — "Frame Mark"
+     Two opposing viewfinder corners with a focus point between them.
+     Borrowed from the framing guides in a camera finder, which is the
+     one gesture every photographer makes before the shutter.
+     ───────────────────────────────────────────────────────── */
+  .nv-mark {
+    flex: none;
+    color: currentColor;
+    overflow: visible;
+  }
+  .nv-mark-dot {
+    fill: var(--color-brand-accent);
+    transform-origin: center;
+  }
+
+  /* Container-scale version: corner brackets drawn on any block. */
+  .nv-frame {
+    position: relative;
+  }
+  .nv-frame::before,
+  .nv-frame::after {
+    content: '';
+    position: absolute;
+    width: var(--nv-frame-size, 26px);
+    height: var(--nv-frame-size, 26px);
+    border-color: var(--nv-frame-color, var(--nv-hairline-strong));
+    border-style: solid;
+    pointer-events: none;
+    transition:
+      width 0.65s var(--nv-ease),
+      height 0.65s var(--nv-ease),
+      border-color 0.5s var(--nv-ease);
+  }
+  .nv-frame::before {
+    top: var(--nv-frame-inset, -1px);
+    left: var(--nv-frame-inset, -1px);
+    border-width: 1px 0 0 1px;
+  }
+  .nv-frame::after {
+    bottom: var(--nv-frame-inset, -1px);
+    right: var(--nv-frame-inset, -1px);
+    border-width: 0 1px 1px 0;
+  }
+  .nv-frame--hover:hover::before,
+  .nv-frame--hover:hover::after,
+  .nv-frame--hover:focus-within::before,
+  .nv-frame--hover:focus-within::after {
+    --nv-frame-size: 54px;
+    --nv-frame-color: var(--color-brand-accent);
+  }
+
+  /* Hairline divider carrying a single accent tick — the horizon line. */
+  .nv-rule {
+    position: relative;
+    height: 1px;
+    width: 100%;
+    background: var(--nv-hairline);
+    transform-origin: left center;
+  }
+  .nv-rule::after {
+    content: '';
+    position: absolute;
+    left: var(--nv-tick-x, 0);
+    top: -1px;
+    width: 46px;
+    height: 3px;
+    background: var(--color-brand-accent);
+    animation: nv-tick 7s var(--nv-ease-soft) infinite;
+  }
+  .nv-rule--plain::after {
+    display: none;
+  }
+
+  @keyframes nv-tick {
+    0%,
+    100% {
+      opacity: 0.45;
+      transform: scaleX(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scaleX(1.55);
+    }
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Buttons
+     ───────────────────────────────────────────────────────── */
+  .nv-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.0625rem 2rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    isolation: isolate;
+    overflow: hidden;
+    transition:
+      color 0.5s var(--nv-ease),
+      border-color 0.5s var(--nv-ease),
+      transform 0.5s var(--nv-ease);
+  }
+  .nv-btn:hover {
+    transform: translateY(-2px);
+  }
+  .nv-btn > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Solid accent — primary contact action */
+  .nv-btn--solid {
+    background: var(--color-brand-accent);
+    color: #0a0e17;
+  }
+  .nv-btn--solid::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--color-brand-text);
+    transform: translateY(101%);
+    transition: transform 0.6s var(--nv-ease);
+  }
+  .nv-btn--solid:hover::before {
+    transform: translateY(0);
+  }
+
+  /* Outlined — equal visual weight, opposite value */
+  .nv-btn--line {
+    border: 1px solid rgb(243 239 231 / 0.32);
+    color: var(--color-brand-text);
+    background: rgb(10 14 23 / 0.25);
+    backdrop-filter: blur(6px);
+  }
+  .nv-btn--line::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--color-brand-text);
+    transform: translateY(101%);
+    transition: transform 0.6s var(--nv-ease);
+  }
+  .nv-btn--line:hover {
+    color: #0a0e17;
+    border-color: var(--color-brand-text);
+  }
+  .nv-btn--line:hover::before {
+    transform: translateY(0);
+  }
+
+  /* Text link with a rule that wipes in */
+  .nv-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-brand-text);
+    text-decoration: none;
+    padding-bottom: 0.55rem;
+  }
+  .nv-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-brand-accent);
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.6s var(--nv-ease);
+  }
+  .nv-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+  .nv-link .nv-arrow {
+    transition: transform 0.6s var(--nv-ease);
+  }
+  .nv-link:hover .nv-arrow {
+    transform: translateX(6px);
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Media containers — sharp edges, a whisper of radius
+     ───────────────────────────────────────────────────────── */
+  .nv-media {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    background: var(--color-brand-surface);
+  }
+  .nv-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Film grain — one very quiet layer over the whole page
+     ───────────────────────────────────────────────────────── */
+  .nv-grain {
+    position: fixed;
+    inset: -50%;
+    z-index: 70;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: nv-grain-drift 5s steps(4) infinite;
+  }
+  @keyframes nv-grain-drift {
+    0% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(-2%, 1%);
+    }
+    50% {
+      transform: translate(1%, -2%);
+    }
+    75% {
+      transform: translate(-1%, -1%);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Scroll reveal state machine
+     Five distinct behaviours so the page doesn't fade-up as one note.
+     ───────────────────────────────────────────────────────── */
+  [data-reveal] {
+    transition-delay: var(--d, 0ms);
+  }
+
+  [data-reveal='up'] {
+    opacity: 0;
+    transform: translateY(38px);
+    transition:
+      opacity 1s var(--nv-ease),
+      transform 1.1s var(--nv-ease);
+  }
+
+  [data-reveal='fade'] {
+    opacity: 0;
+    transition: opacity 1.3s var(--nv-ease-soft);
+  }
+
+  /* Type wipes up from behind a mask — used on display headings */
+  [data-reveal='clip'] {
+    opacity: 0;
+    clip-path: inset(0 0 105% 0);
+    transform: translateY(18px);
+    transition:
+      opacity 0.7s var(--nv-ease),
+      clip-path 1.25s var(--nv-ease),
+      transform 1.25s var(--nv-ease);
+  }
+
+  /* Photography arrives like a wipe on a contact sheet */
+  [data-reveal='shot'] {
+    opacity: 0;
+    clip-path: inset(0 0 0 100%);
+    transition:
+      opacity 0.5s linear,
+      clip-path 1.4s var(--nv-ease);
+  }
+
+  /* Hairlines draw themselves from the left */
+  [data-reveal='rule'] {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1.3s var(--nv-ease);
+  }
+
+  [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 0 0);
+  }
+  [data-reveal='rule'].is-in {
+    transform: scaleX(1);
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Reduced motion — everything resolves instantly, nothing loops
+     ───────────────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    [data-reveal],
+    [data-reveal='shot'] img {
+      opacity: 1 !important;
+      transform: none !important;
+      clip-path: none !important;
+      transition: none !important;
+    }
+    .nv-grain,
+    .nv-rule::after,
+    [data-float],
+    [data-kenburns] {
+      animation: none !important;
+    }
+    * {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Styles from '../components/direction-1/Styles.astro';
+import Nav from '../components/direction-1/Nav.astro';
+import Hero from '../components/direction-1/Hero.astro';
+import StatBand from '../components/direction-1/StatBand.astro';
+import Services from '../components/direction-1/Services.astro';
+import Work from '../components/direction-1/Work.astro';
+import WhyUs from '../components/direction-1/WhyUs.astro';
+import Proof from '../components/direction-1/Proof.astro';
+import Pricing from '../components/direction-1/Pricing.astro';
+import ServiceArea from '../components/direction-1/ServiceArea.astro';
+import FinalCta from '../components/direction-1/FinalCta.astro';
+import Footer from '../components/direction-1/Footer.astro';
+import Motion from '../components/direction-1/Motion.astro';
+---
+
+<Layout
+  title="Northvantage Media — Calgary Real Estate Photography & Video"
+  description="Northvantage Media is Calgary's listing media partner for agents selling homes that deserve more than a phone-camera walkthrough. Photography, cinematic video, iGuide 3D, drone and virtual staging."
+>
+  <style is:global>
+    :root {
+      --color-brand-primary: #1b2a45;
+      --color-brand-secondary: #2e4877;
+      --color-brand-accent: #e8843c;
+      --color-brand-bg: #0a0e17;
+      --color-brand-surface: #131b2c;
+      --color-brand-text: #f3efe7;
+      --color-brand-muted: #8d93a3;
+      --font-heading: 'Fraunces Variable', Georgia, serif;
+      --font-body: 'Inter Variable', system-ui, sans-serif;
+    }
+  </style>
+
+  <Styles />
+
+  <div class="nv-grain" aria-hidden="true"></div>
+
+  <Nav />
+
+  <main>
+    <Hero />
+    <StatBand />
+    <Services />
+    <Work />
+    <WhyUs />
+    <Proof />
+    <Pricing />
+    <ServiceArea />
+    <FinalCta />
+  </main>
+
+  <Footer />
+
+  <Motion />
+</Layout>

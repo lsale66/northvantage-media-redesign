@@ -1,0 +1,410 @@
+---
+import Eyebrow from '../Eyebrow.astro';
+import FrameMark from '../FrameMark.astro';
+import PriceIcon from './PriceIcon.astro';
+
+const ORDER_URL = 'https://northvantagemedia.hd.pics/order';
+
+/* Square-footage tiers — copied 1:1 from the pricing JS on
+   northvantagemedia.com/pricing. Index 0-4 maps button -> price -> label. */
+const tiers = [
+  { btn: 'Under 1,500', label: 'For under 1,500 sq ft' },
+  { btn: '1,501 – 3,000', label: 'For 1,501–3,000 sq ft' },
+  { btn: '3,001 – 4,500', label: 'For 3,001–4,500 sq ft' },
+  { btn: '4,501 – 6,000', label: 'For 4,501–6,000 sq ft' },
+  { btn: '6,000+', label: 'For 6,000+ sq ft' },
+];
+
+const prices = {
+  essential: ['$285', '$365', '$425', '$495', 'Custom'],
+  showcase: ['$685', '$785', '$885', '$985', 'Custom'],
+  luxury: ['$999', '$1,099', '$1,199', '$1,299', 'Custom'],
+};
+
+const packages = [
+  {
+    id: 'essential',
+    name: 'Essential Package',
+    icon: 'camera',
+    featured: false,
+    blurb:
+      'Everything you need to launch your listing on MLS and Realtor.ca with eye-catching visuals — all in one streamlined service.',
+    features: [
+      { icon: 'camera', text: 'HDR Photos' },
+      { icon: 'ruler', text: 'RMS measurements' },
+      { icon: 'floorplan', text: 'Floor Plan' },
+      { icon: 'tour', text: 'Virtual Tour' },
+      { icon: 'sky', text: 'Blue Sky Replacement' },
+      { icon: 'drone', text: 'Drone Photos (+$35)' },
+      { icon: 'delivery', text: 'Next Day Delivery' },
+    ],
+  },
+  {
+    id: 'showcase',
+    name: 'Showcase Package',
+    icon: 'video',
+    featured: true,
+    blurb:
+      'Combine stunning visuals and an impactful vertical video reel optimized for Facebook, Instagram, and TikTok.',
+    features: [
+      { icon: 'check', text: 'Everything From <strong>The Essential Package</strong>' },
+      { icon: 'video', text: '45-Second Property Video Reel' },
+      { icon: 'agent', text: 'Agent Introduction' },
+      { icon: 'script', text: 'Script writing + On-site coaching' },
+      { icon: 'drone', text: 'Drone Photos and Video' },
+    ],
+  },
+  {
+    id: 'luxury',
+    name: 'Luxury Package',
+    icon: 'video',
+    featured: false,
+    blurb:
+      'The ultimate showcase for premium listings, including a MLS horizontal listing video, and stunning twilight photos and video.',
+    features: [
+      { icon: 'check', text: 'Everything From <strong>The Essential Package</strong>' },
+      { icon: 'check', text: 'Everything From <strong>The Showcase Package</strong>' },
+      { icon: 'video', text: 'Cinematic Property Showcase Video' },
+      { icon: 'twilight', text: 'Twilight Photography and Video' },
+    ],
+  },
+];
+---
+
+<section class="nv-section nv-ppk" id="packages">
+  <div class="nv-wrap">
+    <header class="nv-ppk__head">
+      <Eyebrow>Packages</Eyebrow>
+      <h2 class="nv-h2 nv-ppk__title" data-reveal="clip">
+        Bundle and <span class="nv-accent-word">save</span>.
+      </h2>
+      <p class="nv-body nv-ppk__copy" data-reveal="up" style="--d:100ms">
+        Get everything you need to list your property on MLS and grab attention
+        on social media. All prices plus GST.
+      </p>
+    </header>
+
+    <div class="nv-ppk__sizer" data-reveal="up" style="--d:160ms">
+      <p class="nv-micro nv-ppk__sizerlabel">
+        Select Property Size (sq ft) — above and below grade
+      </p>
+      <div class="nv-ppk__tiers" role="group" aria-label="Property size">
+        {
+          tiers.map((t, i) => (
+            <button
+              type="button"
+              class:list={['nv-tierbtn', i === 0 && 'is-active']}
+              data-tier={i}
+              aria-pressed={i === 0 ? 'true' : 'false'}
+            >
+              {t.btn}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="nv-ppk__grid">
+      <span class="nv-ppkg__tag">
+        <FrameMark size={9} dot={false} />
+        Most Popular
+      </span>
+      {
+        packages.map((p, i) => (
+          <article
+            class:list={[
+              'nv-ppkg',
+              'nv-frame',
+              p.featured && 'nv-ppkg--featured',
+              p.featured && 'nv-frame--hover',
+            ]}
+            data-reveal="up"
+            style={`--d:${i * 110}ms`}
+          >
+            <div class="nv-ppkg__top">
+              <span class="nv-ppkg__mark">
+                <PriceIcon name={p.icon} size={22} />
+              </span>
+              <h3 class="nv-h3 nv-ppkg__name">{p.name}</h3>
+              <p class="nv-ppkg__blurb">{p.blurb}</p>
+              <p class="nv-ppkg__price">
+                <span class="nv-ppkg__num" id={`price-${p.id}`}>
+                  {prices[p.id][0]}
+                </span>
+                <span class="nv-ppkg__gst">+ GST</span>
+              </p>
+              <p class="nv-micro nv-ppkg__size size-label">{tiers[0].label}</p>
+            </div>
+
+            <ul class="nv-ppkg__list">
+              {p.features.map((f) => (
+                <li>
+                  <PriceIcon name={f.icon} size={16} />
+                  <span set:html={f.text} />
+                </li>
+              ))}
+            </ul>
+
+            <a
+              class="nv-btn nv-btn--solid nv-ppkg__cta"
+              href={ORDER_URL}
+              target="_blank"
+              rel="noopener"
+            >
+              <span>Book Now</span>
+              <FrameMark size={11} dot={false} />
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="nv-micro nv-ppk__note" data-reveal="fade">
+      Prices shown update with the property size you select above. 6,000+ sq ft
+      listings are quoted individually — <a href="#contact">get in touch</a> for
+      a custom package.
+    </p>
+  </div>
+</section>
+
+<script
+  is:inline
+  define:vars={{ prices, labels: tiers.map((t) => t.label) }}
+>
+  (function () {
+    const btns = Array.from(document.querySelectorAll('.nv-tierbtn'));
+    if (!btns.length) return;
+
+    const els = {
+      essential: document.getElementById('price-essential'),
+      showcase: document.getElementById('price-showcase'),
+      luxury: document.getElementById('price-luxury'),
+    };
+    const sizeLabels = Array.from(document.querySelectorAll('.size-label'));
+
+    function select(tier) {
+      btns.forEach((b) => {
+        const on = Number(b.getAttribute('data-tier')) === tier;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+
+      Object.keys(els).forEach((key) => {
+        if (els[key]) els[key].textContent = prices[key][tier];
+      });
+      sizeLabels.forEach((el) => {
+        el.textContent = labels[tier];
+      });
+
+      const active = btns[tier];
+      const row = active.parentElement;
+      if (row && row.scrollWidth > row.clientWidth) {
+        row.scrollTo({
+          left: active.offsetLeft - row.clientWidth / 2 + active.offsetWidth / 2,
+          behavior: 'smooth',
+        });
+      }
+    }
+
+    btns.forEach((b) => {
+      b.addEventListener('click', () =>
+        select(Number(b.getAttribute('data-tier')))
+      );
+    });
+  })();
+</script>
+
+<style>
+  .nv-ppk {
+    background: var(--color-brand-bg);
+    padding-top: clamp(2rem, 4vw, 3rem);
+  }
+  .nv-ppk__head {
+    max-width: 54ch;
+    padding-bottom: clamp(2.25rem, 4vw, 3.25rem);
+  }
+  .nv-ppk__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+  }
+  .nv-ppk__copy {
+    margin: 1.2rem 0 0;
+  }
+
+  /* ── Square-footage selector ── */
+  .nv-ppk__sizer {
+    margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  }
+  .nv-ppk__sizerlabel {
+    margin: 0 0 0.9rem;
+  }
+  .nv-ppk__tiers {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .nv-ppk__tiers::-webkit-scrollbar {
+    display: none;
+  }
+  .nv-tierbtn {
+    flex: 0 0 auto;
+    padding: 0.7rem 1.1rem;
+    border: 1px solid var(--nv-hairline-strong);
+    background: transparent;
+    color: rgb(243 239 231 / 0.62);
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      color 0.4s var(--nv-ease),
+      border-color 0.4s var(--nv-ease),
+      background-color 0.4s var(--nv-ease);
+  }
+  .nv-tierbtn:hover {
+    color: var(--color-brand-text);
+    border-color: rgb(243 239 231 / 0.4);
+  }
+  .nv-tierbtn.is-active {
+    color: #0a0e17;
+    background: var(--color-brand-accent);
+    border-color: var(--color-brand-accent);
+  }
+
+  /* ── Package grid ── */
+  .nv-ppk__grid {
+    position: relative;
+    display: grid;
+    gap: clamp(1.25rem, 2.5vw, 1.75rem);
+    /* Room for the featured card's "Most Popular" badge, which sits half
+       above the card row and would otherwise crowd the sizer row. */
+    margin-top: 1rem;
+  }
+  @media (min-width: 880px) {
+    .nv-ppk__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: stretch;
+    }
+  }
+
+  .nv-ppkg {
+    --nv-frame-size: 16px;
+    --nv-frame-inset: -1px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.75rem, 2.6vw, 2.4rem);
+    border: 1px solid var(--nv-hairline);
+    background: var(--color-brand-bg);
+  }
+  .nv-ppkg--featured {
+    background: linear-gradient(165deg, rgb(232 132 60 / 0.1), transparent 68%);
+    border-color: rgb(232 132 60 / 0.38);
+  }
+
+  .nv-ppkg__top {
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--nv-hairline);
+  }
+  .nv-ppkg__mark {
+    display: inline-flex;
+    margin-bottom: 1rem;
+  }
+  .nv-ppkg__name {
+    margin: 0;
+    color: var(--color-brand-text);
+  }
+  .nv-ppkg__tag {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    background: var(--color-brand-bg);
+    border: 1px solid rgb(232 132 60 / 0.45);
+    font-family: var(--font-body);
+    font-size: 0.5625rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-brand-accent);
+    white-space: nowrap;
+  }
+  .nv-ppkg__blurb {
+    margin: 0.9rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: rgb(243 239 231 / 0.6);
+  }
+  .nv-ppkg__price {
+    margin: 1.35rem 0 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .nv-ppkg__num {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(2.1rem, 3vw, 2.6rem);
+    letter-spacing: -0.03em;
+    color: var(--color-brand-text);
+    font-variant-numeric: tabular-nums;
+  }
+  .nv-ppkg__gst {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-brand-muted);
+  }
+  .nv-ppkg__size {
+    margin: 0.55rem 0 0;
+    color: var(--color-brand-muted);
+  }
+
+  .nv-ppkg__list {
+    display: grid;
+    gap: 0.85rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+  }
+  .nv-ppkg__list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: rgb(243 239 231 / 0.72);
+  }
+  .nv-ppkg__list strong {
+    color: var(--color-brand-text);
+    font-weight: 500;
+  }
+
+  .nv-ppkg__cta {
+    margin-top: 1.75rem;
+    justify-content: center;
+  }
+
+  .nv-ppk__note {
+    margin: clamp(1.75rem, 3vw, 2.5rem) 0 0;
+    max-width: 52ch;
+  }
+  .nv-ppk__note a {
+    color: var(--color-brand-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

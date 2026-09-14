@@ -1,0 +1,455 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/direction-3/Nav.astro';
+import Hero from '../components/direction-3/Hero.astro';
+import Services from '../components/direction-3/Services.astro';
+import Portfolio from '../components/direction-3/Portfolio.astro';
+import WhyUs from '../components/direction-3/WhyUs.astro';
+import Proof from '../components/direction-3/Proof.astro';
+import Pricing from '../components/direction-3/Pricing.astro';
+import FinalCta from '../components/direction-3/FinalCta.astro';
+import Footer from '../components/direction-3/Footer.astro';
+---
+
+<Layout
+  title="Blue Hour — Northvantage Media"
+  description="Calgary's listing media partner for agents who sell homes that deserve more than a phone-camera walkthrough. Photography, cinematic video, iGuide 3D, drone and virtual staging."
+>
+  <style is:global>
+    :root {
+      --color-brand-primary:   #16233D;
+      --color-brand-secondary: #24406B;
+      --color-brand-accent:    #F2802E;
+      --color-brand-bg:        #070B14;
+      --color-brand-surface:   #101828;
+      --color-brand-text:      #F5F2EC;
+      --color-brand-muted:     #7C879C;
+      --font-heading: 'Literata Variable', Georgia, serif;
+      --font-body:    'Work Sans Variable', system-ui, sans-serif;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       BLUE HOUR — design system
+       Depth is glow, never shadow. Nothing on this page uses
+       box-shadow; elevation comes from blurred amber blooms.
+       ══════════════════════════════════════════════════════════ */
+    .bh {
+      --bh-bg:        #070B14;
+      --bh-surface:   #101828;
+      --bh-primary:   #16233D;
+      --bh-secondary: #24406B;
+      --bh-accent:    #F2802E;
+      --bh-text:      #F5F2EC;
+      --bh-muted:     #7C879C;
+
+      --glow: 242 128 46;   /* amber, for rgb(var(--glow)/a) */
+      --sky:  36 64 107;    /* dusk blue */
+
+      --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-soft: cubic-bezier(0.33, 0.02, 0.13, 1);
+
+      --gut: clamp(1.25rem, 5vw, 5.5rem);
+      --shell: 1440px;
+
+      position: relative;
+      background: var(--bh-bg);
+      color: var(--bh-text);
+      font-family: var(--font-body);
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Cinematic grain — sits over everything, catches nothing. */
+    .bh::after {
+      content: '';
+      position: fixed;
+      inset: -50%;
+      z-index: 80;
+      pointer-events: none;
+      opacity: 0.05;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+    }
+
+    .bh main { position: relative; z-index: 1; }
+
+    .bh ::selection { background: rgb(var(--glow) / 0.85); color: #070B14; }
+
+    .bh :focus-visible {
+      outline: 1px solid var(--bh-accent);
+      outline-offset: 5px;
+      border-radius: 1px;
+    }
+
+    /* ── Shell ───────────────────────────────────────────── */
+    .bh .shell {
+      width: 100%;
+      max-width: var(--shell);
+      margin-inline: auto;
+      padding-inline: var(--gut);
+    }
+    .bh .bleed { padding-inline: var(--gut); }
+
+    /* ── MOTIF: the glowing horizon ──────────────────────── */
+    .bh .horizon {
+      position: relative;
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, rgb(var(--glow) / 0.5) 22%, rgb(var(--glow) / 0.5) 78%, transparent);
+    }
+    .bh .horizon::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; top: -7px;
+      height: 15px;
+      filter: blur(8px);
+      background: linear-gradient(90deg, transparent, rgb(var(--glow) / 0.4) 30%, rgb(var(--glow) / 0.4) 70%, transparent);
+    }
+    .bh .horizon--cool {
+      background: linear-gradient(90deg, transparent, rgb(var(--sky) / 0.9), transparent);
+    }
+    .bh .horizon--cool::after {
+      background: linear-gradient(90deg, transparent, rgb(var(--sky) / 0.8), transparent);
+    }
+    /* Inverted variant, for the amber band */
+    .bh .horizon--ink {
+      background: linear-gradient(90deg, transparent, rgba(7, 11, 20, 0.5) 15%, rgba(7, 11, 20, 0.5) 85%, transparent);
+    }
+    .bh .horizon--ink::after { display: none; }
+
+    /* Soft sky-fade between sections — no hard cuts anywhere */
+    .bh .skyfade {
+      position: relative;
+      height: clamp(90px, 13vw, 190px);
+      pointer-events: none;
+      background: linear-gradient(to bottom, transparent, rgb(var(--sky) / 0.26) 48%, transparent);
+    }
+    .bh .skyfade > .horizon {
+      position: absolute;
+      inset-inline: var(--gut);
+      top: 50%;
+      width: auto;
+      opacity: 0.55;
+    }
+
+    /* Ambient bloom — the only elevation device on this page */
+    .bh .bloom {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(90px);
+      background: radial-gradient(circle, rgb(var(--glow) / 0.5), transparent 68%);
+    }
+    .bh .bloom--cool {
+      background: radial-gradient(circle, rgb(var(--sky) / 0.85), transparent 70%);
+    }
+
+    /* ── Micro label ─────────────────────────────────────── */
+    .bh .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--bh-muted);
+    }
+    .bh .eyebrow::before {
+      content: '';
+      width: 26px;
+      height: 1px;
+      background: var(--bh-accent);
+      filter: drop-shadow(0 0 4px rgb(var(--glow) / 0.9));
+      flex: none;
+    }
+    .bh .eyebrow--dot::before {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+    }
+
+    /* ── Type ────────────────────────────────────────────── */
+    .bh h1, .bh h2, .bh h3 { font-family: var(--font-heading); }
+    .bh .display {
+      font-family: var(--font-heading);
+      font-weight: 200;
+      letter-spacing: -0.025em;
+      line-height: 1.06;
+      text-wrap: balance;
+    }
+    .bh .display b,
+    .bh .display strong {
+      font-weight: 900;
+      letter-spacing: -0.045em;
+    }
+    .bh .lede {
+      color: var(--bh-muted);
+      font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+      line-height: 1.72;
+    }
+
+    /* ── Buttons — glow, never shadow ────────────────────── */
+    .bh .btn-wrap { position: relative; display: inline-flex; }
+    .bh .btn-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -14px;
+      background: var(--bh-accent);
+      filter: blur(26px);
+      opacity: 0.3;
+      transition: opacity 0.65s var(--ease), inset 0.65s var(--ease);
+    }
+    .bh .btn-wrap:hover::before { opacity: 0.62; inset: -24px; }
+    /* Ghost pairing: dark at rest, blooms only on hover */
+    .bh .btn-wrap--soft::before { opacity: 0; inset: -6px; filter: blur(22px); }
+    .bh .btn-wrap--soft:hover::before { opacity: 0.35; inset: -18px; }
+
+    .bh .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 1.05rem 1.9rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.55s var(--ease), color 0.55s var(--ease),
+                  border-color 0.55s var(--ease);
+    }
+    .bh .btn--solid { background: var(--bh-accent); color: #070B14; }
+    .bh .btn--solid:hover { background: #FF9448; }
+    .bh .btn--ghost {
+      color: var(--bh-text);
+      border: 1px solid rgb(255 255 255 / 0.16);
+      background: rgb(255 255 255 / 0.02);
+    }
+    .bh .btn--ghost:hover {
+      border-color: rgb(var(--glow) / 0.75);
+      background: rgb(var(--glow) / 0.08);
+    }
+    .bh .btn--ink { background: #070B14; color: var(--bh-text); }
+    .bh .btn--ink:hover { background: #16233D; }
+
+    .bh .btn .arw { transition: transform 0.55s var(--ease); }
+    .bh .btn:hover .arw { transform: translateX(5px); }
+
+    /* Text link with a travelling horizon underline */
+    .bh .tlink {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding-bottom: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--bh-text);
+      transition: color 0.5s var(--ease);
+    }
+    .bh .tlink::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 100%; height: 1px;
+      background: rgb(255 255 255 / 0.2);
+      transform: scaleX(1);
+      transform-origin: left;
+      transition: background-color 0.55s var(--ease);
+    }
+    .bh .tlink:hover { color: var(--bh-accent); }
+    .bh .tlink:hover::after { background: var(--bh-accent); }
+    .bh .tlink .arw { transition: transform 0.55s var(--ease); }
+    .bh .tlink:hover .arw { transform: translateX(5px); }
+
+    /* ══════════════════════════════════════════════════════
+       MOTION
+       ══════════════════════════════════════════════════════ */
+    .bh [data-reveal] {
+      transition:
+        opacity 1.05s var(--ease),
+        transform 1.05s var(--ease),
+        filter 1.05s var(--ease),
+        clip-path 1.3s var(--ease);
+      transition-delay: var(--rd, 0ms);
+      will-change: opacity, transform;
+    }
+    .bh [data-reveal="rise"]  { opacity: 0; transform: translateY(38px); }
+    .bh [data-reveal="bloom"] { opacity: 0; filter: blur(22px); transform: scale(1.045); }
+    .bh [data-reveal="drift"] { opacity: 0; transform: translateX(-52px); }
+    .bh [data-reveal="fade"]  { opacity: 0; }
+    .bh [data-reveal="wipe"]  { clip-path: inset(0 100% 0 0); }
+
+    .bh [data-reveal].is-in {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      clip-path: inset(0 0 0 0);
+      will-change: auto;
+    }
+
+    @keyframes bh-kenburns {
+      0%   { transform: scale(1.07) translate3d(0, 0, 0); }
+      50%  { transform: scale(1.19) translate3d(-2.4%, -1.8%, 0); }
+      100% { transform: scale(1.07) translate3d(0, 0, 0); }
+    }
+    @keyframes bh-marquee {
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(-50%, 0, 0); }
+    }
+    @keyframes bh-breathe {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50%      { opacity: 0.75; transform: scale(1.11); }
+    }
+    @keyframes bh-scrollcue {
+      0%       { transform: translateY(-100%); opacity: 0; }
+      35%      { opacity: 1; }
+      100%     { transform: translateY(100%); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bh *,
+      .bh *::before,
+      .bh *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+      .bh [data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        clip-path: none !important;
+      }
+    }
+  </style>
+
+  <div class="bh">
+    <Nav />
+    <main>
+      <Hero />
+      <Services />
+      <Portfolio />
+      <WhyUs />
+      <Proof />
+      <Pricing />
+      <FinalCta />
+    </main>
+    <Footer />
+  </div>
+
+  <script>
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ── Scroll reveal ─────────────────────────────────── */
+    const revealables = document.querySelectorAll('.bh [data-reveal]');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealables.forEach((el) => el.classList.add('is-in'));
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const delay = el.dataset.rd ?? '0';
+            el.style.setProperty('--rd', `${delay}ms`);
+            el.classList.add('is-in');
+            io.unobserve(el);
+          });
+        },
+        { rootMargin: '0px 0px -12% 0px', threshold: 0.12 }
+      );
+      revealables.forEach((el) => {
+        // Anything already on screen at load (the hero) plays its
+        // entrance immediately rather than waiting for a scroll.
+        if (el.closest('[data-hero]')) {
+          const delay = el.dataset.rd ?? '0';
+          el.style.setProperty('--rd', `${delay}ms`);
+          requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('is-in')));
+        } else {
+          io.observe(el);
+        }
+      });
+
+      // Failsafe: a page opened in a background tab has rAF and the
+      // observer suspended. Nothing should ever be stuck at opacity 0,
+      // so anything still hidden once the tab is visible gets shown.
+      const rescue = () => {
+        if (document.visibilityState !== 'visible') return;
+        document.querySelectorAll('.bh [data-hero] [data-reveal]:not(.is-in)').forEach((el) => {
+          el.style.setProperty('--rd', `${el.dataset.rd ?? '0'}ms`);
+          el.classList.add('is-in');
+        });
+      };
+      document.addEventListener('visibilitychange', rescue);
+      window.setTimeout(rescue, 1800);
+    }
+
+    /* ── Eased counters ────────────────────────────────── */
+    const counters = document.querySelectorAll('.bh [data-count]');
+    const runCount = (el) => {
+      const target = Number(el.dataset.count ?? '0');
+      const prefix = el.dataset.prefix ?? '';
+      const suffix = el.dataset.suffix ?? '';
+      if (reduced) {
+        el.textContent = `${prefix}${target}${suffix}`;
+        return;
+      }
+      const dur = 2100;
+      const start = performance.now();
+      const tick = (now) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(2, -11 * p); // easeOutExpo
+        el.textContent = `${prefix}${Math.round(target * eased)}${suffix}`;
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = `${prefix}${target}${suffix}`;
+      };
+      requestAnimationFrame(tick);
+    };
+    if ('IntersectionObserver' in window) {
+      const cio = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            runCount(entry.target);
+            cio.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.5 }
+      );
+      counters.forEach((el) => cio.observe(el));
+    } else {
+      counters.forEach(runCount);
+    }
+
+    /* ── Parallax drift ────────────────────────────────── */
+    const drifters = Array.from(document.querySelectorAll('.bh [data-parallax]'));
+    if (drifters.length && !reduced) {
+      let ticking = false;
+      const apply = () => {
+        const mid = window.innerHeight / 2;
+        drifters.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.bottom < -200 || rect.top > window.innerHeight + 200) return;
+          const rate = Number(el.dataset.parallax ?? '0.08');
+          const offset = (rect.top + rect.height / 2 - mid) * rate;
+          el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+        });
+        ticking = false;
+      };
+      const onScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(apply);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      apply();
+    }
+  </script>
+</Layout>
