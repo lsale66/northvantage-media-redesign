@@ -1,0 +1,1072 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Styles from '../../components/direction-1/Styles.astro';
+import Nav from '../../components/direction-1/Nav.astro';
+import Motion from '../../components/direction-1/Motion.astro';
+import Footer from '../../components/direction-1/Footer.astro';
+import FinalCta from '../../components/direction-1/FinalCta.astro';
+import ServiceArea from '../../components/direction-1/ServiceArea.astro';
+import Eyebrow from '../../components/direction-1/Eyebrow.astro';
+import FrameMark from '../../components/direction-1/FrameMark.astro';
+import PriceIcon from '../../components/direction-1/pricing/PriceIcon.astro';
+
+const overviewFeatures = [
+  { name: 'Sells The Listing Faster', copy: 'Compelling video puts more eyes on a listing, faster — more showings, more offers, and less time sitting on the market.' },
+  { name: 'Builds Your Personal Brand', copy: 'Every video is shot and cut to make you look like the agent buyers and sellers want to work with — not just another name on a sign.' },
+  { name: 'Wins You More Referrals', copy: 'A fast, full-price sale makes a client a fan. Great content is how one listing turns into the next five.' },
+  { name: '3-Day Delivery', copy: 'A finished, download-ready edit lands in your inbox within 3 days of the shoot — ready to post or upload immediately.' },
+];
+
+// Placeholder video sets. Add a `youtubeId` or `src` to any item once a real
+// video link is provided and it will render as an embed instead of a placeholder.
+const reels = [
+  { label: 'Property Reel 01', src: 'https://iframe.mediadelivery.net/embed/469110/a398883b-93b3-4fc5-a769-2f53e5a536a7?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
+  { label: 'Property Reel 02', src: 'https://iframe.mediadelivery.net/embed/469110/5e262981-3ef2-4357-ac91-73686c3c08f2?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
+  { label: 'Property Reel 03', src: 'https://iframe.mediadelivery.net/embed/469110/ab02e49c-ec76-4177-9b6e-b69d7df60512?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
+  { label: 'Property Reel 04', src: 'https://iframe.mediadelivery.net/embed/469110/cd183067-e645-4ff6-9cc2-313b89f6e251?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
+  { label: 'Property Reel 05', src: 'https://iframe.mediadelivery.net/embed/469110/415bc110-011a-46c5-8cb8-daaac92ab4e9?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
+  { label: 'Property Reel 06', src: 'https://iframe.mediadelivery.net/embed/469110/8a0f9314-e6dc-4a8b-874b-f0f92380495a?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
+];
+
+const cinematic = [
+  { label: 'Greenwich — Cinematic Showcase', youtubeId: 'gyvaricJimI' },
+  { label: 'Cinematic Showcase 02', youtubeId: 'tZ1Q5klP3Zo' },
+];
+
+const agentVideos = [
+  { label: 'Agent Branding 01', src: 'https://iframe.mediadelivery.net/embed/469110/8d7fabda-f5bb-4b4e-a936-095c86900a4d?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
+  { label: 'Agent Branding 02', src: 'https://iframe.mediadelivery.net/embed/469110/4c5e182c-a96c-4f80-ab99-d2992bc13e42?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
+];
+
+const steps = [
+  { n: '01', title: 'Book', copy: 'Pick a time that works for you, we confirm the type of video and details in advance, and prepare a script tailored to your style.' },
+  { n: '02', title: 'Shoot', copy: 'We arrive on site, and create a cinematic showing of the property and coach you through your lines. Expect 1 to 2 hours on site.' },
+  { n: '03', title: 'Launch', copy: 'Within 3 days you have a professional polished video ready to post while your listing is generating buzz.' },
+];
+
+const pricing = [
+  {
+    icon: 'video',
+    name: 'Social Media Property Reel',
+    price: '499',
+    featured: false,
+    items: ['30–45 second vertical video', 'Custom script + on-camera coaching', 'Edited for Reels, TikTok & Facebook'],
+  },
+  {
+    icon: 'showcase',
+    name: 'Cinematic Property Showcase',
+    price: '499',
+    featured: true,
+    items: ['60–90 second horizontal walkthrough', 'Professional color grade + music', 'Perfect for MLS, YouTube & buyers'],
+  },
+  {
+    icon: 'agent',
+    name: 'Agent Branding Videos',
+    price: '399',
+    featured: false,
+    items: ['30–40 second vertical video', 'Scripted around you, not the listing', '4-video package from $1,199'],
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do you shoot both vertical and horizontal video?',
+    a: 'Yes. Social Media Property Reels and Agent Branding Videos are shot and edited vertical (9:16) for Reels, TikTok, and Stories. The Cinematic Property Showcase is shot and edited horizontal (16:9) for MLS, YouTube, and sharing directly with buyers.',
+  },
+  {
+    q: 'Is drone footage included?',
+    a: 'Aerial footage can be woven directly into your Cinematic Property Showcase, or booked on its own or bundled with photos through our Drone Photography & Video service.',
+  },
+  {
+    q: 'How long does a video shoot take?',
+    a: 'Most shoots run 1–2 hours on site, depending on the property size and how many video types you’re booking together.',
+  },
+  {
+    q: 'Will I be on camera?',
+    a: 'It’s optional. Social Media Property Reels and Agent Branding Videos both include on-camera coaching if you want to appear — or we can shoot the property and script a voiceover instead.',
+  },
+  {
+    q: 'How is the video delivered?',
+    a: 'Every video is delivered as a downloadable MP4 file via a link to your email, ready to post or upload — no watermark, no compression loss.',
+  },
+];
+---
+
+<Layout
+  title="Calgary Real Estate Videography — Northvantage Media"
+  description="Calgary real estate video production: vertical Social Media Property Reels, horizontal Cinematic Property Showcases, and Agent Branding Videos. Built to sell listings faster, with 3-day delivery."
+>
+  <style is:global>
+    :root {
+      --color-brand-primary: #1b2a45;
+      --color-brand-secondary: #2e4877;
+      --color-brand-accent: #e8843c;
+      --color-brand-bg: #0a0e17;
+      --color-brand-surface: #131b2c;
+      --color-brand-text: #f3efe7;
+      --color-brand-muted: #8d93a3;
+      --font-heading: 'Fraunces Variable', Georgia, serif;
+      --font-body: 'Inter Variable', system-ui, sans-serif;
+    }
+  </style>
+
+  <Styles />
+
+  <div class="nv-grain" aria-hidden="true"></div>
+
+  <Nav />
+
+  <main>
+    <!-- Hero -->
+    <section class="nv-vidhero">
+      <div class="nv-vidhero__media" data-parallax="0.1">
+        <img
+          src="/images/real-estate-photography/image-02.jpg"
+          alt="Aerial view of downtown Calgary and the Bow River at golden hour"
+          width="1000"
+          height="571"
+          fetchpriority="high"
+        />
+        <div class="nv-vidhero__scrim" aria-hidden="true"></div>
+      </div>
+
+      <div class="nv-wrap nv-vidhero__body">
+        <p class="nv-eyebrow" data-reveal="fade">
+          <FrameMark size={12} float />
+          <span>Real Estate Videography</span>
+        </p>
+
+        <h1 class="nv-h2 nv-vidhero__title" data-reveal="clip">
+          Calgary Real Estate <span class="nv-accent-word">Video</span> Production
+        </h1>
+
+        <p class="nv-lead nv-vidhero__lead" data-reveal="up" style="--d:120ms">
+          Vertical reels for the feed, cinematic walkthroughs for the
+          listing, and branding videos that turn you into the agent buyers
+          already trust — shot, edited, and delivered in days.
+        </p>
+
+        <ul class="nv-vidhero__proof" data-reveal="up" style="--d:200ms">
+          <li><span class="nv-micro">Starting at $399</span></li>
+          <li><span class="nv-micro">Vertical &amp; Horizontal</span></li>
+          <li><span class="nv-micro">3-Day Delivery</span></li>
+        </ul>
+
+        <div class="nv-vidhero__ctas" data-reveal="up" style="--d:260ms">
+          <a href="#pricing" class="nv-btn nv-btn--solid">
+            <span>See Packages and Pricing</span>
+            <FrameMark size={11} dot={false} />
+          </a>
+          <a href="https://northvantagemedia.hd.pics/order" class="nv-btn nv-btn--line">
+            <span>Book Online</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="nv-section nv-vidov" id="overview">
+      <div class="nv-wrap nv-vidov__grid">
+        <div class="nv-vidov__aside">
+          <Eyebrow>Every Day Matters</Eyebrow>
+          <h2 class="nv-h2 nv-vidov__title" data-reveal="clip">
+            Spark A Bidding War, Not A <span class="nv-accent-word">Price Cut</span>
+          </h2>
+
+          <p class="nv-body nv-vidov__copy" data-reveal="up" style="--d:100ms">
+            Every day a listing sits on the market costs your client money.
+            Mortgage payments, taxes, insurance, and the stress of waiting
+            add up. Worse, the longer it sits, the more likely they'll have
+            to cut the price. Faster sales mean full asking price (or
+            higher), happier clients, and more referrals coming your way.
+          </p>
+          <p class="nv-body nv-vidov__copy" data-reveal="up" style="--d:150ms">
+            For real estate agents, compelling media is the difference
+            between a listing sitting on the market or sparking a bidding
+            war. Great content attracts higher-quality buyers, keeps
+            property owners happy, and gives you a competitive edge over
+            every other agent in your market.
+          </p>
+        </div>
+
+        <div class="nv-vidov__main">
+          <ul class="nv-vidov__list">
+            {
+              overviewFeatures.map((f, i) => (
+                <li class="nv-vidov__item" data-reveal="up" style={`--d:${i * 90}ms`}>
+                  <span class="nv-vidov__mark">
+                    <FrameMark size={18} dot={false} />
+                  </span>
+                  <h3 class="nv-h3 nv-vidov__name">{f.name}</h3>
+                  <p class="nv-vidov__copy2">{f.copy}</p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Media Property Reels -->
+    <section class="nv-section nv-vidcat nv-vidcat--reels" id="reels">
+      <div class="nv-wrap">
+        <header class="nv-vidcat__head">
+          <Eyebrow>Vertical &amp; Built for the Feed</Eyebrow>
+          <h2 class="nv-h2 nv-vidcat__title" data-reveal="clip">
+            Social Media <span class="nv-accent-word">Property Reels</span>
+          </h2>
+          <p class="nv-body nv-vidcat__copy" data-reveal="up" style="--d:100ms">
+            A 30–45 second vertical video built to stop the scroll —
+            fast-paced, music-driven, and edited specifically for Instagram
+            and Facebook Reels. Includes a custom script and personalized
+            on-camera coaching so you show up confident every time.
+          </p>
+          <ul class="nv-vidcat__list" data-reveal="up" style="--d:150ms">
+            <li><FrameMark size={10} dot={false} /><span>Custom script written for the property and for you</span></li>
+            <li><FrameMark size={10} dot={false} /><span>On-camera coaching, or we shoot property-only</span></li>
+            <li><FrameMark size={10} dot={false} /><span>Fast-paced edit built to stop the scroll</span></li>
+          </ul>
+        </header>
+
+        <div class="nv-vidgrid nv-vidgrid--vert">
+          {
+            reels.map((r, i) => (
+              <div class="nv-vidbox nv-frame nv-frame--hover" data-reveal="up" style={`--d:${i * 70}ms`}>
+                <div class="nv-vidbox__inner nv-vidbox__inner--vert">
+                  {r.src ? (
+                    <iframe
+                      src={r.src}
+                      title={r.label}
+                      loading="lazy"
+                      allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
+                      allowfullscreen
+                    />
+                  ) : r.youtubeId ? (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${r.youtubeId}`}
+                      title={r.label}
+                      loading="lazy"
+                      allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
+                      allowfullscreen
+                    />
+                  ) : (
+                    <div class="nv-vidph">
+                      <span class="nv-vidph__play" aria-hidden="true">
+                        <svg viewBox="0 0 20 20" fill="none">
+                          <path d="M7.5 5.5v9l7-4.5z" fill="currentColor" />
+                        </svg>
+                      </span>
+                      <span class="nv-vidph__label">{r.label}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Cinematic Property Showcase -->
+    <section class="nv-section nv-vidcat nv-vidcat--feature" id="cinematic">
+      <div class="nv-wrap">
+        <header class="nv-vidcat__head">
+          <Eyebrow>Horizontal &amp; Built to Sell</Eyebrow>
+          <h2 class="nv-h2 nv-vidcat__title" data-reveal="clip">
+            Cinematic <span class="nv-accent-word">Property Showcase</span>
+          </h2>
+          <p class="nv-body nv-vidcat__copy" data-reveal="up" style="--d:100ms">
+            A 60–90 second horizontal walkthrough of the property,
+            professionally edited with music and color grade. Perfect for
+            MLS, YouTube, or sharing directly with buyers.
+          </p>
+          <ul class="nv-vidcat__list" data-reveal="up" style="--d:150ms">
+            <li><FrameMark size={10} dot={false} /><span>Full interior + exterior walkthrough</span></li>
+            <li><FrameMark size={10} dot={false} /><span>Drone footage woven into the edit</span></li>
+            <li><FrameMark size={10} dot={false} /><span>Professionally graded and paced to keep buyers watching</span></li>
+          </ul>
+        </header>
+
+        <div class="nv-vidgrid nv-vidgrid--horiz nv-vidgrid--two">
+          {
+            cinematic.map((c, i) => (
+              <div class="nv-vidbox nv-frame nv-frame--hover" data-reveal="up" style={`--d:${i * 90}ms`}>
+                <div class="nv-vidbox__inner nv-vidbox__inner--horiz">
+                  {c.youtubeId ? (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${c.youtubeId}`}
+                      title={c.label}
+                      loading="lazy"
+                      allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
+                      allowfullscreen
+                    />
+                  ) : (
+                    <div class="nv-vidph">
+                      <span class="nv-vidph__play" aria-hidden="true">
+                        <svg viewBox="0 0 20 20" fill="none">
+                          <path d="M7.5 5.5v9l7-4.5z" fill="currentColor" />
+                        </svg>
+                      </span>
+                      <span class="nv-vidph__label">{c.label}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Agent Branding Videos -->
+    <section class="nv-section nv-vidcat nv-vidcat--agent" id="agent-branding">
+      <div class="nv-wrap">
+        <header class="nv-vidcat__head">
+          <Eyebrow>Build Your Personal Brand</Eyebrow>
+          <h2 class="nv-h2 nv-vidcat__title" data-reveal="clip">
+            Agent <span class="nv-accent-word">Branding Videos</span>
+          </h2>
+          <p class="nv-body nv-vidcat__copy" data-reveal="up" style="--d:100ms">
+            A 30–40 second vertical video built around you, not a
+            listing — professionally scripted and edited to position you as
+            the trusted expert in your market.
+          </p>
+          <ul class="nv-vidcat__list" data-reveal="up" style="--d:150ms">
+            <li><FrameMark size={10} dot={false} /><span>Positions you as the go-to expert, not just another agent</span></li>
+            <li><FrameMark size={10} dot={false} /><span>Great for market updates, tips, and introductions</span></li>
+            <li><FrameMark size={10} dot={false} /><span>4-video package covers a full month of content</span></li>
+          </ul>
+        </header>
+
+        <div class="nv-vidgrid nv-vidgrid--vert nv-vidgrid--three nv-vidgrid--two">
+          {
+            agentVideos.map((a, i) => (
+              <div class="nv-vidbox nv-frame nv-frame--hover" data-reveal="up" style={`--d:${i * 90}ms`}>
+                <div class="nv-vidbox__inner nv-vidbox__inner--vert">
+                  {a.src ? (
+                    <iframe
+                      src={a.src}
+                      title={a.label}
+                      loading="lazy"
+                      allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
+                      allowfullscreen
+                    />
+                  ) : a.youtubeId ? (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${a.youtubeId}`}
+                      title={a.label}
+                      loading="lazy"
+                      allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
+                      allowfullscreen
+                    />
+                  ) : (
+                    <div class="nv-vidph">
+                      <span class="nv-vidph__play" aria-hidden="true">
+                        <svg viewBox="0 0 20 20" fill="none">
+                          <path d="M7.5 5.5v9l7-4.5z" fill="currentColor" />
+                        </svg>
+                      </span>
+                      <span class="nv-vidph__label">{a.label}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="nv-section nv-vidhow" id="how-it-works">
+      <div class="nv-wrap">
+        <header class="nv-vidhow__head">
+          <Eyebrow>Process</Eyebrow>
+          <h2 class="nv-h2 nv-vidhow__title" data-reveal="clip">How It Works</h2>
+        </header>
+
+        <ol class="nv-vidhow__list">
+          {
+            steps.map((s, i) => (
+              <li class="nv-vidhow__item" data-reveal="up" style={`--d:${i * 100}ms`}>
+                <span class="nv-vidhow__n">{s.n}</span>
+                <h3 class="nv-h3 nv-vidhow__title2">{s.title}</h3>
+                <p class="nv-vidhow__copy">{s.copy}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="nv-section nv-vidprice" id="pricing">
+      <div class="nv-wrap">
+        <header class="nv-vidprice__head">
+          <Eyebrow>Packages</Eyebrow>
+          <h2 class="nv-h2 nv-vidprice__title" data-reveal="clip">Videography Pricing</h2>
+          <p class="nv-body nv-vidprice__copy" data-reveal="up" style="--d:100ms">
+            Book a single video type or bundle them with photography.
+            GST additional.
+          </p>
+        </header>
+
+        <div class="nv-vidprice__grid">
+          {
+            pricing.map((p, i) => (
+              <div
+                class:list={['nv-vidpkg', p.featured && 'nv-vidpkg--featured', 'nv-frame', p.featured && 'nv-frame--hover']}
+                data-reveal="up"
+                style={`--d:${i * 110}ms`}
+              >
+                <div class="nv-vidpkg__top">
+                  <span class="nv-vidpkg__icon">
+                    <PriceIcon name={p.icon} size={26} />
+                  </span>
+                  <h3 class="nv-h3 nv-vidpkg__name">
+                    {p.name}
+                    {p.featured && (
+                      <span class="nv-vidpkg__tag">
+                        <FrameMark size={9} dot={false} />
+                        Most Popular
+                      </span>
+                    )}
+                  </h3>
+                  <p class="nv-vidpkg__price">
+                    <span class="nv-vidpkg__dollar">$</span>
+                    {p.price}
+                    <span class="nv-vidpkg__gst">+GST</span>
+                  </p>
+                </div>
+                <ul class="nv-vidpkg__list">
+                  {p.items.map((item) => (
+                    <li>
+                      <FrameMark size={9} dot={false} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="nv-vidprice__ctas" data-reveal="up" style="--d:340ms">
+          <a href="https://northvantagemedia.hd.pics/order" class="nv-btn nv-btn--solid">
+            <span>Book Online</span>
+            <FrameMark size={11} dot={false} />
+          </a>
+          <a href="/pricing" class="nv-btn nv-btn--line"><span>See All Packages and Pricing</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cross-sell -->
+    <section class="nv-section nv-vidcross">
+      <div class="nv-wrap nv-vidcross__inner">
+        <p class="nv-body nv-vidcross__copy">
+          Need listing photos too?
+        </p>
+        <a href="/services/real-estate-photography-calgary" class="nv-link">
+          <span>See Our Real Estate Photography Service</span>
+          <span class="nv-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <ServiceArea />
+
+    <!-- FAQ -->
+    <section class="nv-section nv-vidfaq" id="faq">
+      <div class="nv-wrap nv-vidfaq__grid">
+        <div class="nv-vidfaq__aside">
+          <Eyebrow>Common Questions</Eyebrow>
+          <h2 class="nv-h2 nv-vidfaq__title" data-reveal="clip">
+            Frequently Asked <span class="nv-accent-word">Questions</span>
+          </h2>
+        </div>
+
+        <div class="nv-vidfaq__list">
+          {
+            faqs.map((f, i) => (
+              <details class="nv-vidfaq__item" data-reveal="up" style={`--d:${Math.min(i, 6) * 60}ms`}>
+                <summary class="nv-vidfaq__q">
+                  <span>{f.q}</span>
+                  <span class="nv-vidfaq__icon" aria-hidden="true"></span>
+                </summary>
+                <p class="nv-vidfaq__a">{f.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <FinalCta />
+  </main>
+
+  <Footer />
+
+  <Motion />
+
+  <style>
+    /* ── Hero ── */
+    .nv-vidhero {
+      position: relative;
+      overflow: clip;
+      padding-top: clamp(9rem, 16vw, 12rem);
+      padding-bottom: clamp(3.5rem, 7vw, 6rem);
+    }
+    .nv-vidhero__media {
+      position: absolute;
+      inset: -8% 0 -8% 0;
+      z-index: -1;
+      transform: translate3d(0, var(--py, 0px), 0);
+    }
+    .nv-vidhero__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 45%;
+      filter: saturate(0.95) contrast(1.06) brightness(0.55);
+    }
+    .nv-vidhero__scrim {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          to top,
+          var(--color-brand-bg) 4%,
+          rgb(10 14 23 / 0.86) 46%,
+          rgb(10 14 23 / 0.55) 100%
+        ),
+        linear-gradient(
+          to right,
+          rgb(10 14 23 / 0.55) 0%,
+          rgb(10 14 23 / 0.1) 60%,
+          transparent 100%
+        );
+    }
+    .nv-vidhero__body {
+      position: relative;
+    }
+    .nv-vidhero__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+      max-width: 20ch;
+    }
+    .nv-vidhero__lead {
+      margin: clamp(1.5rem, 2.6vw, 2rem) 0 0;
+      max-width: 56ch;
+    }
+    .nv-vidhero__proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.4rem;
+      margin: clamp(1.75rem, 3vw, 2.25rem) 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .nv-vidhero__proof li {
+      position: relative;
+    }
+    .nv-vidhero__proof li + li::before {
+      content: '';
+      position: absolute;
+      left: -0.75rem;
+      top: 50%;
+      width: 3px;
+      height: 3px;
+      background: var(--color-brand-accent);
+      transform: translateY(-50%);
+    }
+    .nv-vidhero__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: clamp(2rem, 3.5vw, 2.75rem);
+    }
+
+    /* ── Overview ── */
+    .nv-vidov {
+      background: var(--color-brand-bg);
+    }
+    .nv-vidov__grid {
+      display: grid;
+      gap: clamp(2.75rem, 6vw, 5rem);
+    }
+    @media (min-width: 1000px) {
+      .nv-vidov__grid {
+        grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+        gap: clamp(3rem, 7vw, 6rem);
+        align-items: start;
+      }
+      .nv-vidov__aside {
+        position: sticky;
+        top: 8rem;
+      }
+    }
+    .nv-vidov__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+      max-width: 16ch;
+    }
+    .nv-vidov__copy {
+      margin: 1.2rem 0 0;
+      max-width: 42ch;
+    }
+    .nv-vidov__main {
+      min-width: 0;
+    }
+    .nv-vidov__list {
+      display: grid;
+      gap: clamp(1.5rem, 2.6vw, 2rem);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    @media (min-width: 620px) {
+      .nv-vidov__list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .nv-vidov__item {
+      padding: clamp(1.75rem, 2.6vw, 2.25rem);
+      border: 1px solid var(--nv-hairline);
+      transition: border-color 0.5s var(--nv-ease);
+    }
+    .nv-vidov__item:hover {
+      border-color: var(--nv-hairline-strong);
+    }
+    .nv-vidov__mark {
+      display: block;
+      color: var(--color-brand-accent);
+      margin-bottom: 1.1rem;
+    }
+    .nv-vidov__name {
+      margin: 0;
+      color: var(--color-brand-text);
+    }
+    .nv-vidov__copy2 {
+      margin: 0.85rem 0 0;
+      font-size: 0.9375rem;
+      line-height: 1.68;
+      color: rgb(243 239 231 / 0.58);
+    }
+
+    /* ── Category sections (Reels / Cinematic / Agent Branding) ── */
+    .nv-vidcat--reels {
+      background: var(--color-brand-surface);
+      border-top: 1px solid var(--nv-hairline);
+    }
+    .nv-vidcat--feature {
+      background: var(--color-brand-bg);
+      border-top: 1px solid var(--nv-hairline);
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-vidcat--agent {
+      background: var(--color-brand-surface);
+    }
+    .nv-vidcat__head {
+      max-width: 62ch;
+      padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
+    }
+    .nv-vidcat__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+      max-width: 20ch;
+    }
+    .nv-vidcat__copy {
+      margin: 1.2rem 0 0;
+      max-width: 58ch;
+    }
+    .nv-vidcat__list {
+      display: grid;
+      gap: 0.75rem;
+      list-style: none;
+      margin: 1.75rem 0 0;
+      padding: 0;
+    }
+    .nv-vidcat__list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9375rem;
+      color: rgb(243 239 231 / 0.72);
+    }
+    .nv-vidcat__list :global(.nv-mark) {
+      flex: none;
+      color: var(--color-brand-accent);
+    }
+
+    /* ── Video grids + placeholder tiles ── */
+    .nv-vidgrid {
+      display: grid;
+      gap: clamp(1rem, 2.2vw, 1.5rem);
+    }
+    .nv-vidgrid--vert {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (min-width: 640px) {
+      .nv-vidgrid--vert {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .nv-vidgrid--vert.nv-vidgrid--two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .nv-vidgrid--three {
+      max-width: 720px;
+    }
+    .nv-vidgrid--horiz {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    @media (min-width: 780px) {
+      .nv-vidgrid--horiz {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .nv-vidgrid--horiz.nv-vidgrid--two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .nv-vidbox {
+      --nv-frame-size: 16px;
+      --nv-frame-inset: -9px;
+      margin: 0;
+    }
+    .nv-vidbox__inner {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      background: var(--color-brand-surface);
+    }
+    .nv-vidbox__inner--vert {
+      aspect-ratio: 9 / 16;
+    }
+    .nv-vidbox__inner--horiz {
+      aspect-ratio: 16 / 9;
+    }
+    .nv-vidbox__inner iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .nv-vidph {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      padding: 1rem;
+      text-align: center;
+      background:
+        repeating-linear-gradient(
+          135deg,
+          rgb(243 239 231 / 0.03) 0px,
+          rgb(243 239 231 / 0.03) 1px,
+          transparent 1px,
+          transparent 12px
+        ),
+        var(--color-brand-surface);
+      border: 1px dashed var(--nv-hairline-strong);
+    }
+    .nv-vidph__play {
+      display: grid;
+      place-content: center;
+      width: 46px;
+      height: 46px;
+      flex: none;
+      border: 1px solid rgb(232 132 60 / 0.5);
+      border-radius: 50%;
+      color: var(--color-brand-accent);
+    }
+    .nv-vidph__play svg {
+      width: 15px;
+      height: 15px;
+      margin-left: 2px;
+    }
+    .nv-vidph__label {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-brand-muted);
+    }
+
+    /* ── How It Works ── */
+    .nv-vidhow {
+      background: var(--color-brand-bg);
+      border-top: 1px solid var(--nv-hairline);
+    }
+    .nv-vidhow__head {
+      padding-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+    .nv-vidhow__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+      max-width: 14ch;
+    }
+    .nv-vidhow__list {
+      display: grid;
+      gap: clamp(2.25rem, 4vw, 2.75rem);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    @media (min-width: 800px) {
+      .nv-vidhow__list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(1.75rem, 3vw, 2.5rem);
+      }
+    }
+    .nv-vidhow__item {
+      position: relative;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--nv-hairline);
+    }
+    .nv-vidhow__n {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 300;
+      font-size: 0.875rem;
+      letter-spacing: 0.1em;
+      color: var(--color-brand-accent);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 1rem;
+    }
+    .nv-vidhow__title2 {
+      margin: 0;
+      max-width: 15ch;
+      color: var(--color-brand-text);
+    }
+    .nv-vidhow__copy {
+      margin: 0.85rem 0 0;
+      max-width: 32ch;
+      font-size: 0.9375rem;
+      line-height: 1.68;
+      color: rgb(243 239 231 / 0.58);
+    }
+
+    /* ── Pricing ── */
+    .nv-vidprice {
+      background: var(--color-brand-surface);
+      border-top: 1px solid var(--nv-hairline);
+    }
+    .nv-vidprice__head {
+      max-width: 56ch;
+      padding-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+    .nv-vidprice__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    }
+    .nv-vidprice__copy {
+      margin: 1.2rem 0 0;
+    }
+    .nv-vidprice__grid {
+      display: grid;
+      gap: clamp(1.5rem, 3vw, 2rem);
+    }
+    @media (min-width: 780px) {
+      .nv-vidprice__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .nv-vidpkg {
+      --nv-frame-size: 16px;
+      --nv-frame-inset: -1px;
+      display: flex;
+      flex-direction: column;
+      padding: clamp(1.75rem, 2.6vw, 2.25rem);
+      border: 1px solid var(--nv-hairline);
+      background: var(--color-brand-bg);
+    }
+    .nv-vidpkg--featured {
+      background: linear-gradient(165deg, rgb(232 132 60 / 0.09), transparent 70%);
+      border-color: rgb(232 132 60 / 0.35);
+    }
+    .nv-vidpkg__top {
+      padding-bottom: 1.4rem;
+      margin-bottom: 1.4rem;
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-vidpkg__icon {
+      display: inline-flex;
+      margin-bottom: 0.9rem;
+      color: var(--color-brand-accent);
+    }
+    .nv-vidpkg__name {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin: 0 0 0.9rem;
+      color: var(--color-brand-text);
+    }
+    .nv-vidpkg__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.24rem 0.55rem;
+      border: 1px solid rgb(232 132 60 / 0.45);
+      font-family: var(--font-body);
+      font-size: 0.5625rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-brand-accent);
+    }
+    .nv-vidpkg__price {
+      margin: 0;
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      font-family: var(--font-heading);
+      font-weight: 300;
+      font-size: clamp(1.9rem, 2.6vw, 2.35rem);
+      letter-spacing: -0.03em;
+      color: var(--color-brand-text);
+      font-variant-numeric: tabular-nums;
+    }
+    .nv-vidpkg__dollar {
+      font-size: 0.55em;
+      color: var(--color-brand-accent);
+    }
+    .nv-vidpkg__gst {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-brand-muted);
+    }
+    .nv-vidpkg__list {
+      display: grid;
+      gap: 0.75rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nv-vidpkg__list li {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.875rem;
+      color: rgb(243 239 231 / 0.68);
+    }
+    .nv-vidpkg__list :global(.nv-mark) {
+      flex: none;
+      color: var(--color-brand-accent);
+    }
+    .nv-vidprice__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: clamp(1.75rem, 3vw, 2.25rem);
+    }
+
+    /* ── Cross-sell ── */
+    .nv-vidcross {
+      padding-block: clamp(2.5rem, 5vw, 3.5rem);
+      background: var(--color-brand-bg);
+      border-top: 1px solid var(--nv-hairline);
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-vidcross__inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem 1.75rem;
+      text-align: center;
+    }
+    .nv-vidcross__copy {
+      margin: 0;
+    }
+
+    /* ── FAQ ── */
+    .nv-vidfaq {
+      background: var(--color-brand-bg);
+    }
+    .nv-vidfaq__grid {
+      display: grid;
+      gap: clamp(2.5rem, 5vw, 4rem);
+    }
+    @media (min-width: 900px) {
+      .nv-vidfaq__grid {
+        grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+        gap: clamp(3rem, 6vw, 6rem);
+      }
+      .nv-vidfaq__aside {
+        position: sticky;
+        top: 8rem;
+        align-self: start;
+      }
+    }
+    .nv-vidfaq__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+      max-width: 14ch;
+    }
+    .nv-vidfaq__list {
+      border-top: 1px solid var(--nv-hairline);
+    }
+    .nv-vidfaq__item {
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-vidfaq__item[open] .nv-vidfaq__icon::before {
+      transform: rotate(90deg);
+    }
+    .nv-vidfaq__q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      cursor: pointer;
+      list-style: none;
+      font-family: var(--font-heading);
+      font-weight: 380;
+      font-size: clamp(1.0625rem, 1.5vw, 1.2rem);
+      letter-spacing: -0.01em;
+      color: var(--color-brand-text);
+    }
+    .nv-vidfaq__q::-webkit-details-marker {
+      display: none;
+    }
+    .nv-vidfaq__icon {
+      position: relative;
+      flex: none;
+      width: 16px;
+      height: 16px;
+    }
+    .nv-vidfaq__icon::before,
+    .nv-vidfaq__icon::after {
+      content: '';
+      position: absolute;
+      background: var(--color-brand-accent);
+      transition: transform 0.4s var(--nv-ease);
+    }
+    .nv-vidfaq__icon::before {
+      top: 0;
+      left: 50%;
+      width: 1.5px;
+      height: 100%;
+      margin-left: -0.75px;
+    }
+    .nv-vidfaq__icon::after {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      margin-top: -0.75px;
+    }
+    .nv-vidfaq__a {
+      margin: 0 0 1.75rem;
+      max-width: 62ch;
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: rgb(243 239 231 / 0.6);
+    }
+  </style>
+</Layout>

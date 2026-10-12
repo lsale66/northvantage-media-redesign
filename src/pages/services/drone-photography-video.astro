@@ -1,0 +1,834 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Styles from '../../components/direction-1/Styles.astro';
+import Nav from '../../components/direction-1/Nav.astro';
+import Motion from '../../components/direction-1/Motion.astro';
+import Footer from '../../components/direction-1/Footer.astro';
+import FinalCta from '../../components/direction-1/FinalCta.astro';
+import ServiceArea from '../../components/direction-1/ServiceArea.astro';
+import Eyebrow from '../../components/direction-1/Eyebrow.astro';
+import FrameMark from '../../components/direction-1/FrameMark.astro';
+
+const overviewFeatures = [
+  { name: 'Licensed & Insured Pilots', copy: 'Every flight is planned and flown within Transport Canada rules — no risk to you, your seller, or the neighbors.' },
+  { name: '24 Hour Turnaround', copy: 'Aerial photos and video are edited and delivered alongside your listing photo set, ready for MLS the next morning.' },
+  { name: 'Photos or Video, Your Call', copy: 'Up to 10 high-resolution aerial photos, a 60-second aerial video, or both on the same flight.' },
+  { name: 'Usage Licence', copy: 'A usage licence to market the property for the life of your listing — MLS, social, your website, and print.' },
+];
+
+const mlsList = [
+  '5 to 8 additional aerial photos',
+  'Nearby amenities: parks, schools, shopping, roads',
+  'Wide establishing shots that set the scene before buyers scroll to the interior',
+  'Delivered in 24 hours with your photo set',
+];
+
+const pricing = [
+  { name: 'Aerial Photos', price: '125', featured: false, items: ['Up to 10 aerial photos', 'Property + neighborhood shots', 'Delivered with your photo set'] },
+  { name: 'Aerial Video', price: '150', featured: true, items: ['60-second aerial video', 'Edited for MLS, web, and social', 'Delivered with your photo set'] },
+  { name: 'Aerial Photos + Video', price: '250', featured: false, items: ['Everything in Aerial Photos', 'Everything in Aerial Video', 'Best value bundled together'] },
+];
+
+const gallery = [
+  { file: '/images/drone/courtyard.jpg', alt: 'Straight-down aerial photograph of a Calgary condo courtyard and landscaped grounds' },
+  { file: '/images/real-estate-photography/drone1 (Large).jpg', alt: 'Aerial drone photograph of a Calgary property' },
+  { file: '/images/real-estate-photography/drone2 (Large).jpg', alt: 'Aerial drone photograph of a Calgary property' },
+];
+---
+
+<Layout
+  title="Drone Photography & Video — Northvantage Media"
+  description="Calgary real estate drone photography and video. Licensed pilots, aerial photos and social-ready video, property line overlays, and 24-hour delivery alongside your listing photos."
+>
+  <style is:global>
+    :root {
+      --color-brand-primary: #1b2a45;
+      --color-brand-secondary: #2e4877;
+      --color-brand-accent: #e8843c;
+      --color-brand-bg: #0a0e17;
+      --color-brand-surface: #131b2c;
+      --color-brand-text: #f3efe7;
+      --color-brand-muted: #8d93a3;
+      --font-heading: 'Fraunces Variable', Georgia, serif;
+      --font-body: 'Inter Variable', system-ui, sans-serif;
+    }
+  </style>
+
+  <Styles />
+
+  <div class="nv-grain" aria-hidden="true"></div>
+
+  <Nav />
+
+  <main>
+    <!-- Hero -->
+    <section class="nv-drhero">
+      <div class="nv-drhero__media" data-parallax="0.1">
+        <img
+          src="/images/drone/hero-skyline.jpg"
+          alt="Aerial drone photograph looking down a Calgary boulevard toward a high-rise residential tower and the downtown skyline"
+          width="1300"
+          height="975"
+          fetchpriority="high"
+        />
+        <div class="nv-drhero__scrim" aria-hidden="true"></div>
+      </div>
+
+      <div class="nv-wrap nv-drhero__body">
+        <p class="nv-eyebrow" data-reveal="fade">
+          <FrameMark size={12} float />
+          <span>Drone Photography &amp; Video</span>
+        </p>
+
+        <h1 class="nv-h2 nv-drhero__title" data-reveal="clip">
+          Calgary Real Estate <span class="nv-accent-word">Drone</span> Photography &amp; Video
+        </h1>
+
+        <p class="nv-lead nv-drhero__lead" data-reveal="up" style="--d:120ms">
+          See the property from an angle ground-level photos can't reach —
+          aerial photos and video that show the lot, the land, and everything
+          around it that makes the location worth buying.
+        </p>
+
+        <ul class="nv-drhero__proof" data-reveal="up" style="--d:200ms">
+          <li><span class="nv-micro">Starting at $125</span></li>
+          <li><span class="nv-micro">Licensed &amp; Insured Pilots</span></li>
+          <li><span class="nv-micro">24-Hour Turnaround</span></li>
+        </ul>
+
+        <div class="nv-drhero__ctas" data-reveal="up" style="--d:260ms">
+          <a href="/pricing" class="nv-btn nv-btn--solid">
+            <span>See Packages and Pricing</span>
+            <FrameMark size={11} dot={false} />
+          </a>
+          <a href="https://northvantagemedia.hd.pics/order" class="nv-btn nv-btn--line">
+            <span>Book Online</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="nv-section nv-drov" id="overview">
+      <div class="nv-wrap nv-drov__grid">
+        <div class="nv-drov__aside">
+          <Eyebrow>Reach New Heights</Eyebrow>
+          <h2 class="nv-h2 nv-drov__title" data-reveal="clip">
+            Property Marketing That Gets <span class="nv-accent-word">Noticed</span>
+          </h2>
+
+          <p class="nv-body nv-drov__copy" data-reveal="up" style="--d:100ms">
+            Aerial video is exactly the kind of content that stops the
+            scroll — it looks different from every other listing in the
+            feed, and it gets shared, saved, and talked about.
+          </p>
+          <p class="nv-body nv-drov__copy" data-reveal="up" style="--d:150ms">
+            On Realtor.ca and MLS, standing out from hundreds of similar
+            listings matters. Drone photos add a perspective buyers don't
+            get anywhere else, turning browsers into serious, engaged
+            prospects.
+          </p>
+          <p class="nv-body nv-drov__copy" data-reveal="up" style="--d:200ms">
+            Every flight is planned and flown by a licensed pilot, and
+            delivered alongside your photo set within 24 hours.
+          </p>
+        </div>
+
+        <div class="nv-drov__main">
+          <div class="nv-drov__showcase" data-reveal="fade">
+            <span class="nv-drov__glow" aria-hidden="true"></span>
+            <img
+              src="/images/drone/collage.png"
+              alt="Collage of Northvantage Media aerial drone photography — Calgary skyline, community lake, and residential developments"
+              width="1042"
+              height="786"
+              loading="lazy"
+            />
+          </div>
+
+          <ul class="nv-drov__list">
+            {
+              overviewFeatures.map((f, i) => (
+                <li class="nv-drov__item" data-reveal="up" style={`--d:${i * 90}ms`}>
+                  <span class="nv-drov__mark">
+                    <FrameMark size={18} dot={false} />
+                  </span>
+                  <h3 class="nv-h3 nv-drov__name">{f.name}</h3>
+                  <p class="nv-drov__copy2">{f.copy}</p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stand Out on MLS -->
+    <section class="nv-section nv-drrow" id="mls">
+      <div class="nv-wrap nv-drrow__grid">
+        <div class="nv-drrow__main">
+          <Eyebrow>Stand Out on MLS</Eyebrow>
+          <h2 class="nv-h2 nv-drrow__title" data-reveal="clip">
+            Sell the Neighborhood, Not Just the <span class="nv-accent-word">House</span>
+          </h2>
+          <p class="nv-body nv-drrow__copy" data-reveal="up" style="--d:100ms">
+            Buyers aren't just buying a house, they're buying a location.
+            Drone photos show the parks, schools, shopping, and roads
+            nearby — everything that makes the address worth the price, all
+            in the same set as your listing photos.
+          </p>
+
+          <ul class="nv-drrow__list" data-reveal="up" style="--d:150ms">
+            {
+              mlsList.map((item) => (
+                <li>
+                  <FrameMark size={10} dot={false} />
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="nv-drrow__media" data-reveal="fade" style="--d:120ms">
+          <img
+            class="nv-frame"
+            src="/images/drone/amenities-pin.jpg"
+            alt="Aerial photograph of a Calgary condo development with a location pin marking nearby amenities"
+            width="2400"
+            height="1798"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Property Lines & Land Size -->
+    <section class="nv-section nv-drrow nv-drrow--reverse" id="property-lines">
+      <div class="nv-wrap nv-drrow__grid">
+        <div class="nv-drrow__main">
+          <Eyebrow>Property Lines &amp; Land Size</Eyebrow>
+          <h2 class="nv-h2 nv-drrow__title" data-reveal="clip">
+            Show the <span class="nv-accent-word">Lot</span>, Not Just the Structure
+          </h2>
+          <p class="nv-body nv-drrow__copy" data-reveal="up" style="--d:100ms">
+            For acreages, infill lots, and development opportunities, the
+            land is the story. We overlay clear property-line graphics on
+            the aerial shot so buyers instantly understand lot size,
+            boundaries, and what's possible on the site.
+          </p>
+          <p class="nv-micro nv-drrow__disclaimer" data-reveal="fade" style="--d:200ms">
+            * Boundary lines on photos are an approximate visual guide, not
+            a survey.
+          </p>
+        </div>
+
+        <div class="nv-drrow__media" data-reveal="fade" style="--d:120ms">
+          <img
+            class="nv-frame"
+            src="/images/drone/property-lines.jpg"
+            alt="Aerial photograph of a Calgary infill lot with the property boundary highlighted in orange"
+            width="1185"
+            height="827"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Vertical video showcase -->
+    <section class="nv-section nv-drvid" id="video">
+      <div class="nv-wrap nv-drvid__grid">
+        <div class="nv-drvid__main">
+          <Eyebrow>See It In Motion</Eyebrow>
+          <h2 class="nv-h2 nv-drvid__title" data-reveal="clip">
+            Aerial Video, Built for the <span class="nv-accent-word">Feed</span>
+          </h2>
+          <p class="nv-body nv-drvid__copy" data-reveal="up" style="--d:100ms">
+            A 60-second aerial video edited vertical for Instagram,
+            Facebook, and TikTok — the same fast-paced, scroll-stopping
+            style buyers already watch all day.
+          </p>
+        </div>
+
+        <div class="nv-drvid__frame-wrap" data-reveal="fade" style="--d:120ms">
+          <figure class="nv-vidtall nv-frame nv-frame--hover">
+            <div class="nv-vidtall__frame">
+              <iframe
+                src="https://www.youtube.com/embed/Gi7t10BKNSU"
+                title="Northvantage Media — aerial drone video"
+                loading="lazy"
+                allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="nv-section nv-drprice" id="pricing">
+      <div class="nv-wrap">
+        <header class="nv-drprice__head">
+          <Eyebrow>Packages</Eyebrow>
+          <h2 class="nv-h2 nv-drprice__title" data-reveal="clip">Drone Pricing</h2>
+          <p class="nv-body nv-drprice__copy" data-reveal="up" style="--d:100ms">
+            Book drone on its own, or add it to any photography package.
+            GST additional.
+          </p>
+        </header>
+
+        <div class="nv-drprice__grid">
+          {
+            pricing.map((p, i) => (
+              <div
+                class:list={['nv-drpkg', p.featured && 'nv-drpkg--featured', 'nv-frame', p.featured && 'nv-frame--hover']}
+                data-reveal="up"
+                style={`--d:${i * 110}ms`}
+              >
+                <div class="nv-drpkg__top">
+                  <h3 class="nv-h3 nv-drpkg__name">
+                    {p.name}
+                    {p.featured && (
+                      <span class="nv-drpkg__tag">
+                        <FrameMark size={9} dot={false} />
+                        Most Popular
+                      </span>
+                    )}
+                  </h3>
+                  <p class="nv-drpkg__price">
+                    <span class="nv-drpkg__dollar">$</span>
+                    {p.price}
+                    <span class="nv-drpkg__gst">+GST</span>
+                  </p>
+                </div>
+                <ul class="nv-drpkg__list">
+                  {p.items.map((item) => (
+                    <li>
+                      <FrameMark size={9} dot={false} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="nv-drprice__ctas" data-reveal="up" style="--d:340ms">
+          <a href="https://northvantagemedia.hd.pics/order" class="nv-btn nv-btn--solid">
+            <span>Book Online</span>
+            <FrameMark size={11} dot={false} />
+          </a>
+          <a href="/pricing" class="nv-btn nv-btn--line"><span>See All Packages and Pricing</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mini gallery -->
+    <section class="nv-section nv-drgal">
+      <div class="nv-wrap">
+        <Eyebrow>From the Air</Eyebrow>
+        <h2 class="nv-h2 nv-drgal__title" data-reveal="clip">
+          See Some Of Our <span class="nv-accent-word">Aerial Work</span>
+        </h2>
+
+        <div class="nv-drgal__grid">
+          {
+            gallery.map((g, i) => (
+              <figure class="nv-drgal__pic nv-frame nv-frame--hover">
+                <div class="nv-media" data-reveal="shot" style={`--d:${i * 80}ms`}>
+                  <img src={g.file} alt={g.alt} width="1620" height="1080" loading="lazy" />
+                </div>
+              </figure>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Cross-sell -->
+    <section class="nv-section nv-drcross">
+      <div class="nv-wrap nv-drcross__inner">
+        <p class="nv-body nv-drcross__copy">
+          Need photos of the interior too?
+        </p>
+        <a href="/services/real-estate-photography-calgary" class="nv-link">
+          <span>See Our Real Estate Photography Service</span>
+          <span class="nv-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <ServiceArea />
+    <FinalCta />
+  </main>
+
+  <Footer />
+
+  <Motion />
+
+  <style>
+    /* ── Hero ── */
+    .nv-drhero {
+      position: relative;
+      overflow: clip;
+      padding-top: clamp(9rem, 16vw, 12rem);
+      padding-bottom: clamp(3.5rem, 7vw, 6rem);
+    }
+    .nv-drhero__media {
+      position: absolute;
+      inset: -8% 0 -8% 0;
+      z-index: -1;
+      transform: translate3d(0, var(--py, 0px), 0);
+    }
+    .nv-drhero__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 55%;
+      filter: saturate(0.95) contrast(1.06) brightness(0.58);
+    }
+    .nv-drhero__scrim {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          to top,
+          var(--color-brand-bg) 4%,
+          rgb(10 14 23 / 0.86) 46%,
+          rgb(10 14 23 / 0.55) 100%
+        ),
+        linear-gradient(
+          to right,
+          rgb(10 14 23 / 0.55) 0%,
+          rgb(10 14 23 / 0.1) 60%,
+          transparent 100%
+        );
+    }
+    .nv-drhero__body {
+      position: relative;
+    }
+    .nv-drhero__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+      max-width: 20ch;
+    }
+    .nv-drhero__lead {
+      margin: clamp(1.5rem, 2.6vw, 2rem) 0 0;
+      max-width: 56ch;
+    }
+    .nv-drhero__proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.4rem;
+      margin: clamp(1.75rem, 3vw, 2.25rem) 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .nv-drhero__proof li {
+      position: relative;
+    }
+    .nv-drhero__proof li + li::before {
+      content: '';
+      position: absolute;
+      left: -0.75rem;
+      top: 50%;
+      width: 3px;
+      height: 3px;
+      background: var(--color-brand-accent);
+      transform: translateY(-50%);
+    }
+    .nv-drhero__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: clamp(2rem, 3.5vw, 2.75rem);
+    }
+
+    /* ── Overview ── */
+    .nv-drov {
+      background: var(--color-brand-bg);
+    }
+    .nv-drov__grid {
+      display: grid;
+      gap: clamp(2.75rem, 6vw, 5rem);
+    }
+    @media (min-width: 1000px) {
+      .nv-drov__grid {
+        grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+        gap: clamp(3rem, 7vw, 6rem);
+        align-items: start;
+      }
+      .nv-drov__aside {
+        position: sticky;
+        top: 8rem;
+      }
+    }
+    .nv-drov__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+      max-width: 16ch;
+    }
+    .nv-drov__copy {
+      margin: 1.2rem 0 0;
+      max-width: 42ch;
+    }
+    .nv-drov__main {
+      min-width: 0;
+    }
+    .nv-drov__showcase {
+      position: relative;
+      margin: 0 0 clamp(2.5rem, 5vw, 3.5rem);
+    }
+    .nv-drov__glow {
+      position: absolute;
+      inset: -12% -8%;
+      z-index: -1;
+      background: radial-gradient(60% 60% at 30% 20%, rgb(232 132 60 / 0.18), transparent 70%);
+      filter: blur(30px);
+      pointer-events: none;
+    }
+    .nv-drov__showcase img {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 30px 50px rgb(0 0 0 / 0.45));
+    }
+    .nv-drov__list {
+      display: grid;
+      gap: clamp(1.5rem, 2.6vw, 2rem);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    @media (min-width: 620px) {
+      .nv-drov__list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .nv-drov__item {
+      padding: clamp(1.75rem, 2.6vw, 2.25rem);
+      border: 1px solid var(--nv-hairline);
+      transition: border-color 0.5s var(--nv-ease);
+    }
+    .nv-drov__item:hover {
+      border-color: var(--nv-hairline-strong);
+    }
+    .nv-drov__mark {
+      display: block;
+      color: var(--color-brand-accent);
+      margin-bottom: 1.1rem;
+    }
+    .nv-drov__name {
+      margin: 0;
+      color: var(--color-brand-text);
+    }
+    .nv-drov__copy2 {
+      margin: 0.85rem 0 0;
+      font-size: 0.9375rem;
+      line-height: 1.68;
+      color: rgb(243 239 231 / 0.58);
+    }
+
+    /* ── Alternating rows (MLS / Property Lines) ── */
+    .nv-drrow:nth-of-type(even) {
+      background: var(--color-brand-surface);
+      border-top: 1px solid var(--nv-hairline);
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-drrow__grid {
+      display: grid;
+      gap: clamp(2.5rem, 5vw, 4rem);
+    }
+    @media (min-width: 900px) {
+      .nv-drrow__grid {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        align-items: center;
+        gap: clamp(3rem, 6vw, 6rem);
+      }
+      .nv-drrow--reverse .nv-drrow__grid {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      }
+      .nv-drrow--reverse .nv-drrow__main {
+        order: 2;
+      }
+      .nv-drrow--reverse .nv-drrow__media {
+        order: 1;
+      }
+    }
+    .nv-drrow__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+      max-width: 20ch;
+    }
+    .nv-drrow__copy {
+      margin: 1.3rem 0 0;
+      max-width: 48ch;
+    }
+    .nv-drrow__list {
+      display: grid;
+      gap: 0.75rem;
+      list-style: none;
+      margin: 1.75rem 0 0;
+      padding: 0;
+    }
+    .nv-drrow__list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9375rem;
+      color: rgb(243 239 231 / 0.72);
+    }
+    .nv-drrow__list :global(.nv-mark) {
+      flex: none;
+      color: var(--color-brand-accent);
+    }
+    .nv-drrow__disclaimer {
+      margin: 1.5rem 0 0;
+      color: rgb(243 239 231 / 0.4);
+      text-transform: none;
+      letter-spacing: 0.02em;
+    }
+    .nv-drrow__media {
+      --nv-frame-size: 14px;
+      --nv-frame-inset: -8px;
+    }
+    .nv-drrow__media img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    /* ── Vertical video ── */
+    .nv-drvid {
+      background: var(--color-brand-bg);
+    }
+    .nv-drvid__grid {
+      display: grid;
+      gap: clamp(2.5rem, 5vw, 4rem);
+      align-items: center;
+      justify-items: center;
+      text-align: center;
+    }
+    @media (min-width: 780px) {
+      .nv-drvid__grid {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
+        text-align: left;
+        justify-items: stretch;
+      }
+    }
+    .nv-drvid__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+      max-width: 20ch;
+      margin-inline: auto;
+    }
+    @media (min-width: 780px) {
+      .nv-drvid__title {
+        margin-inline: 0;
+      }
+    }
+    .nv-drvid__copy {
+      margin: 1.3rem auto 0;
+      max-width: 44ch;
+    }
+    @media (min-width: 780px) {
+      .nv-drvid__copy {
+        margin: 1.3rem 0 0;
+      }
+    }
+    .nv-drvid__frame-wrap {
+      width: 100%;
+      max-width: 320px;
+      justify-self: center;
+    }
+    .nv-vidtall {
+      --nv-frame-size: 20px;
+      --nv-frame-inset: -10px;
+      margin: 0;
+    }
+    .nv-vidtall__frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      background: var(--color-brand-surface);
+      aspect-ratio: 9 / 16;
+    }
+    .nv-vidtall__frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ── Pricing ── */
+    .nv-drprice {
+      background: var(--color-brand-surface);
+      border-top: 1px solid var(--nv-hairline);
+    }
+    .nv-drprice__head {
+      max-width: 56ch;
+      padding-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+    .nv-drprice__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    }
+    .nv-drprice__copy {
+      margin: 1.2rem 0 0;
+    }
+    .nv-drprice__grid {
+      display: grid;
+      gap: clamp(1.5rem, 3vw, 2rem);
+    }
+    @media (min-width: 780px) {
+      .nv-drprice__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .nv-drpkg {
+      --nv-frame-size: 16px;
+      --nv-frame-inset: -1px;
+      display: flex;
+      flex-direction: column;
+      padding: clamp(1.75rem, 2.6vw, 2.25rem);
+      border: 1px solid var(--nv-hairline);
+      background: var(--color-brand-bg);
+    }
+    .nv-drpkg--featured {
+      background: linear-gradient(165deg, rgb(232 132 60 / 0.09), transparent 70%);
+      border-color: rgb(232 132 60 / 0.35);
+    }
+    .nv-drpkg__top {
+      padding-bottom: 1.4rem;
+      margin-bottom: 1.4rem;
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-drpkg__name {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin: 0 0 0.9rem;
+      color: var(--color-brand-text);
+    }
+    .nv-drpkg__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.24rem 0.55rem;
+      border: 1px solid rgb(232 132 60 / 0.45);
+      font-family: var(--font-body);
+      font-size: 0.5625rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-brand-accent);
+    }
+    .nv-drpkg__price {
+      margin: 0;
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      font-family: var(--font-heading);
+      font-weight: 300;
+      font-size: clamp(1.9rem, 2.6vw, 2.35rem);
+      letter-spacing: -0.03em;
+      color: var(--color-brand-text);
+      font-variant-numeric: tabular-nums;
+    }
+    .nv-drpkg__dollar {
+      font-size: 0.55em;
+      color: var(--color-brand-accent);
+    }
+    .nv-drpkg__gst {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-brand-muted);
+    }
+    .nv-drpkg__list {
+      display: grid;
+      gap: 0.75rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nv-drpkg__list li {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.875rem;
+      color: rgb(243 239 231 / 0.68);
+    }
+    .nv-drpkg__list :global(.nv-mark) {
+      flex: none;
+      color: var(--color-brand-accent);
+    }
+    .nv-drprice__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: clamp(1.75rem, 3vw, 2.25rem);
+    }
+
+    /* ── Mini gallery ── */
+    .nv-drgal {
+      background: var(--color-brand-bg);
+    }
+    .nv-drgal__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    }
+    .nv-drgal__grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(1rem, 2.4vw, 1.5rem);
+      margin-top: clamp(2rem, 4vw, 3rem);
+    }
+    @media (min-width: 700px) {
+      .nv-drgal__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .nv-drgal__pic {
+      --nv-frame-size: 16px;
+      --nv-frame-inset: -9px;
+      margin: 0;
+    }
+    .nv-drgal__pic .nv-media {
+      aspect-ratio: 3 / 2;
+    }
+    .nv-drgal__pic img {
+      transition:
+        transform 1.1s var(--nv-ease),
+        filter 1s var(--nv-ease);
+      filter: saturate(0.92) contrast(1.05) brightness(0.9);
+    }
+    .nv-drgal__pic:hover img {
+      transform: scale(1.045);
+      filter: saturate(1) contrast(1.06) brightness(1);
+    }
+
+    /* ── Cross-sell ── */
+    .nv-drcross {
+      padding-block: clamp(2.5rem, 5vw, 3.5rem);
+      background: var(--color-brand-surface);
+      border-top: 1px solid var(--nv-hairline);
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-drcross__inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem 1.75rem;
+      text-align: center;
+    }
+    .nv-drcross__copy {
+      margin: 0;
+    }
+  </style>
+</Layout>

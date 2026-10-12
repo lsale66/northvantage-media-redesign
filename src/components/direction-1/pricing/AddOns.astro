@@ -15,12 +15,14 @@ const groups = [
         name: 'Photos Only',
         copy: 'Show every space in its best light with up to 50 crisp, premium-quality HDR images. Includes blue-sky replacement for overcast days. Delivered within 24 hours.',
         price: 'Starting from $149',
+        link: { href: '/services/real-estate-photography-calgary', label: 'Learn more about our Photography Services' },
       },
       {
         icon: 'floorplan',
         name: 'iGuide Services',
         copy: 'Accurate RMS measurements, a 2D floor plan, and an immersive virtual tour.',
         price: 'Starting from $149',
+        link: { href: '/services/iguide', label: 'Learn how our iGuide system works' },
       },
       {
         icon: 'drone',
@@ -50,6 +52,7 @@ const groups = [
     eyebrow: 'Videography',
     title: 'Video that makes you unforgettable',
     copy: 'Content built for the feed and for the listing.',
+    cta: { label: 'See Our Videography Work', href: '/services/real-estate-videography-calgary' },
     items: [
       {
         icon: 'video',
@@ -87,6 +90,12 @@ const groups = [
             <p class="nv-body nv-addon__copy" data-reveal="up" style="--d:100ms">
               {g.copy}
             </p>
+            {g.cta && (
+              <a href={g.cta.href} class="nv-btn nv-btn--solid nv-addon__cta" data-reveal="up" style="--d:150ms">
+                <span>{g.cta.label}</span>
+                <span class="nv-arrow" aria-hidden="true">→</span>
+              </a>
+            )}
           </header>
 
           <ul class="nv-addon__grid">
@@ -97,10 +106,17 @@ const groups = [
                 style={`--d:${i * 90}ms`}
               >
                 <span class="nv-acard__mark">
-                  <PriceIcon name={item.icon} size={20} />
+                  <PriceIcon name={item.icon} size={28} />
                 </span>
                 <h3 class="nv-h3 nv-acard__name">{item.name}</h3>
                 <p class="nv-acard__copy">{item.copy}</p>
+
+                {item.link && (
+                  <a href={item.link.href} class="nv-link nv-acard__link">
+                    <span>{item.link.label}</span>
+                    <span class="nv-arrow" aria-hidden="true">→</span>
+                  </a>
+                )}
 
                 {item.tiers ? (
                   <ul class="nv-acard__tiers">
@@ -142,9 +158,13 @@ const groups = [
   .nv-addon__copy {
     margin: 1.1rem 0 0;
   }
+  .nv-addon__cta {
+    margin-top: 1.75rem;
+  }
 
   .nv-addon__grid {
     display: grid;
+    grid-auto-rows: 1fr;
     gap: clamp(1rem, 2vw, 1.5rem);
     list-style: none;
     margin: 0;
@@ -184,6 +204,10 @@ const groups = [
     line-height: 1.62;
     color: rgb(243 239 231 / 0.58);
     flex: 1;
+  }
+  .nv-acard__link {
+    margin: 1.1rem 0 0;
+    font-size: 0.6875rem;
   }
   .nv-acard__price {
     margin: 1.4rem 0 0;
