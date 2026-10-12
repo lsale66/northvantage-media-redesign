@@ -1,0 +1,521 @@
+---
+import FrameMark from './FrameMark.astro';
+
+const HOME = '/';
+
+const links = [
+  { label: 'Work', href: `${HOME}#work` },
+  {
+    label: 'Services',
+    href: `${HOME}#services`,
+    children: [
+      { label: 'Photography', href: '/services/real-estate-photography-calgary' },
+      { label: 'Videography', href: '/services/real-estate-videography-calgary' },
+      { label: 'iGuide', href: '/services/iguide' },
+      { label: 'Drone', href: '/services/drone-photography-video' },
+    ],
+  },
+  { label: 'Why Us', href: `${HOME}#why` },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<header class="nv-nav" id="nv-nav" data-nav>
+  <div class="nv-nav__inner nv-wrap">
+    <a href="/" class="nv-brand" aria-label="Northvantage Media — home">
+      <img
+        class="nv-brand__logo"
+        src="/images/redesign/logo.png"
+        alt="Northvantage Media"
+        width="34"
+        height="34"
+      />
+      <span class="nv-brand__divider" aria-hidden="true"></span>
+      <span class="nv-brand__type">
+        <span class="nv-brand__name">Northvantage Media</span>
+        <span class="nv-brand__sub">Calgary · Listing Media</span>
+      </span>
+    </a>
+
+    <nav class="nv-nav__links" aria-label="Primary">
+      {
+        links.map((l) =>
+          l.children ? (
+            <div class="nv-navitem">
+              <a href={l.href} class="nv-navlink" aria-haspopup="true">
+                <FrameMark size={9} dot={false} class="nv-navlink__mark" />
+                <span>{l.label}</span>
+                <svg
+                  class="nv-navitem__caret"
+                  width="8"
+                  height="8"
+                  viewBox="0 0 8 8"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M1.5 2.75 4 5.25l2.5-2.5"
+                    stroke="currentColor"
+                    stroke-width="1.1"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+              <div class="nv-navitem__menu">
+                <div class="nv-navitem__panel">
+                  {l.children.map((c) => (
+                    <a href={c.href} class="nv-navitem__link">
+                      {c.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <a href={l.href} class="nv-navlink">
+              <FrameMark size={9} dot={false} class="nv-navlink__mark" />
+              <span>{l.label}</span>
+            </a>
+          )
+        )
+      }
+    </nav>
+
+    <div class="nv-nav__actions">
+      <a href="/contact" class="nv-navcta">
+        <span>Call or Text</span>
+        <FrameMark size={10} />
+      </a>
+      <button
+        type="button"
+        class="nv-burger"
+        id="nv-burger"
+        aria-expanded="false"
+        aria-controls="nv-menu"
+      >
+        <span class="sr-only">Menu</span>
+        <span class="nv-burger__bar"></span>
+        <span class="nv-burger__bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="nv-nav__rule" aria-hidden="true">
+    <span class="nv-nav__progress" id="nv-progress"></span>
+  </div>
+</header>
+
+<!-- Mobile panel -->
+<div class="nv-menu" id="nv-menu" hidden>
+  <div class="nv-menu__inner">
+    <p class="nv-eyebrow nv-menu__eyebrow">
+      <FrameMark size={12} />
+      <span>Northvantage Media</span>
+    </p>
+    <nav aria-label="Mobile">
+      {
+        links.map((l, i) => (
+          <>
+            <a href={l.href} class="nv-menu__link" style={`--i:${i}`}>
+              <span>{l.label}</span>
+              <FrameMark size={13} />
+            </a>
+            {l.children?.map((c) => (
+              <a href={c.href} class="nv-menu__link nv-menu__link--sub" style={`--i:${i}`}>
+                <span>{c.label}</span>
+                <FrameMark size={11} dot={false} />
+              </a>
+            ))}
+          </>
+        ))
+      }
+      <a href="#pricing" class="nv-menu__link" style="--i:5">
+        <span>Book Online</span>
+        <FrameMark size={13} />
+      </a>
+    </nav>
+    <div class="nv-menu__foot">
+      <a href="/contact" class="nv-btn nv-btn--solid nv-menu__cta"
+        ><span>Call or Text</span></a
+      >
+      <p class="nv-micro">Shooting Calgary &amp; area since Oct 2023</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .nv-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    transition:
+      background-color 0.7s var(--nv-ease),
+      backdrop-filter 0.7s var(--nv-ease),
+      box-shadow 0.7s var(--nv-ease);
+  }
+  .nv-nav.is-scrolled {
+    background: rgb(10 14 23 / 0.82);
+    backdrop-filter: blur(18px) saturate(1.2);
+    box-shadow: 0 1px 0 rgb(243 239 231 / 0.07);
+  }
+
+  .nv-nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-block: clamp(1.1rem, 2.2vw, 1.9rem);
+    transition: padding-block 0.7s var(--nv-ease);
+  }
+  .nv-nav.is-scrolled .nv-nav__inner {
+    padding-block: 0.85rem;
+  }
+
+  /* Brand — icon, hairline divider, stacked wordmark */
+  .nv-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.95rem;
+    text-decoration: none;
+    color: var(--color-brand-text);
+  }
+  .nv-brand__logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    flex: none;
+    transition: height 0.6s var(--nv-ease), width 0.6s var(--nv-ease), opacity 0.4s var(--nv-ease);
+  }
+  .nv-nav.is-scrolled .nv-brand__logo {
+    width: 24px;
+    height: 24px;
+  }
+  .nv-brand:hover .nv-brand__logo {
+    opacity: 0.75;
+  }
+  .nv-brand__divider {
+    display: none;
+    width: 1px;
+    height: 30px;
+    background: var(--nv-hairline-strong);
+  }
+  @media (min-width: 640px) {
+    .nv-brand__divider {
+      display: block;
+    }
+  }
+  .nv-brand__type {
+    display: none;
+    flex-direction: column;
+    gap: 0.2rem;
+    line-height: 1;
+  }
+  @media (min-width: 640px) {
+    .nv-brand__type {
+      display: flex;
+    }
+  }
+  .nv-brand__name {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .nv-brand__sub {
+    font-size: 0.5625rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-muted);
+    white-space: nowrap;
+  }
+
+  .nv-nav__links {
+    display: none;
+    align-items: center;
+    gap: 2.1rem;
+  }
+  @media (min-width: 1024px) {
+    .nv-nav__links {
+      display: flex;
+    }
+  }
+
+  .nv-navlink {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgb(243 239 231 / 0.62);
+    text-decoration: none;
+    transition: color 0.5s var(--nv-ease);
+  }
+  .nv-navlink :global(.nv-navlink__mark) {
+    opacity: 0;
+    transform: scale(0.5);
+    color: var(--color-brand-accent);
+    transition:
+      opacity 0.5s var(--nv-ease),
+      transform 0.6s var(--nv-ease);
+  }
+  .nv-navlink:hover {
+    color: var(--color-brand-text);
+  }
+  .nv-navlink:hover :global(.nv-navlink__mark) {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Services dropdown — CSS-only, hover or keyboard focus */
+  .nv-navitem {
+    position: relative;
+  }
+  .nv-navitem__caret {
+    color: rgb(243 239 231 / 0.5);
+    transition: transform 0.4s var(--nv-ease), color 0.5s var(--nv-ease);
+  }
+  .nv-navitem:hover .nv-navitem__caret,
+  .nv-navitem:focus-within .nv-navitem__caret {
+    transform: rotate(180deg);
+    color: var(--color-brand-text);
+  }
+
+  /* No gap between trigger and panel: the buffer is padding-top on the
+     hoverable element itself, so the pointer never leaves a dead zone
+     between the nav link and the menu below it. */
+  .nv-navitem__menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 0.85rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s var(--nv-ease);
+  }
+  .nv-navitem:hover .nv-navitem__menu,
+  .nv-navitem:focus-within .nv-navitem__menu {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nv-navitem__panel {
+    min-width: 190px;
+    padding: 0.5rem;
+    background: rgb(10 14 23 / 0.94);
+    backdrop-filter: blur(16px) saturate(1.2);
+    border: 1px solid var(--nv-hairline-strong);
+    box-shadow: 0 20px 40px -16px rgb(0 0 0 / 0.5);
+  }
+
+  .nv-navitem__link {
+    display: block;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: rgb(243 239 231 / 0.68);
+    text-decoration: none;
+    transition:
+      color 0.4s var(--nv-ease),
+      background-color 0.4s var(--nv-ease);
+  }
+  .nv-navitem__link:hover {
+    color: var(--color-brand-text);
+    background: rgb(243 239 231 / 0.06);
+  }
+
+  .nv-nav__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nv-navcta {
+    display: none;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.72rem 1.2rem;
+    border: 1px solid rgb(243 239 231 / 0.22);
+    background: rgb(10 14 23 / 0.7);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 0 1px rgb(232 132 60 / 0.12), 0 0 22px rgb(232 132 60 / 0.24);
+    font-size: 0.6563rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-text);
+    text-decoration: none;
+    transition:
+      border-color 0.55s var(--nv-ease),
+      background-color 0.55s var(--nv-ease),
+      box-shadow 0.55s var(--nv-ease),
+      color 0.55s var(--nv-ease);
+  }
+  @media (min-width: 700px) {
+    .nv-navcta {
+      display: inline-flex;
+    }
+  }
+  .nv-navcta:hover {
+    border-color: var(--color-brand-accent);
+    background: var(--color-brand-accent);
+    box-shadow: 0 0 0 1px rgb(232 132 60 / 0.35), 0 0 30px rgb(232 132 60 / 0.4);
+    color: #0a0e17;
+  }
+  .nv-navcta:hover :global(.nv-mark-dot) {
+    fill: #0a0e17;
+  }
+
+  .nv-burger {
+    position: relative;
+    display: grid;
+    place-content: center;
+    gap: 6px;
+    width: 42px;
+    height: 42px;
+    background: none;
+    border: 1px solid rgb(243 239 231 / 0.16);
+    cursor: pointer;
+    padding: 0;
+  }
+  @media (min-width: 1024px) {
+    .nv-burger {
+      display: none;
+    }
+  }
+  .nv-burger__bar {
+    display: block;
+    width: 17px;
+    height: 1px;
+    background: var(--color-brand-text);
+    transition: transform 0.5s var(--nv-ease);
+  }
+  .nv-burger[aria-expanded='true'] .nv-burger__bar:first-of-type {
+    transform: translateY(3.5px) rotate(45deg);
+  }
+  .nv-burger[aria-expanded='true'] .nv-burger__bar:last-of-type {
+    transform: translateY(-3.5px) rotate(-45deg);
+  }
+
+  /* Scroll-progress hairline — the horizon device again */
+  .nv-nav__rule {
+    position: relative;
+    height: 1px;
+    background: rgb(243 239 231 / 0.06);
+    opacity: 0;
+    transition: opacity 0.6s var(--nv-ease);
+  }
+  .nv-nav.is-scrolled .nv-nav__rule {
+    opacity: 1;
+  }
+  .nv-nav__progress {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 100%;
+    background: var(--color-brand-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  /* ── Mobile menu ── */
+  .nv-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 85;
+    background: var(--color-brand-bg);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s var(--nv-ease);
+  }
+  .nv-menu::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      120% 70% at 50% 100%,
+      rgb(46 72 119 / 0.4),
+      transparent 70%
+    );
+  }
+  .nv-menu.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .nv-menu__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    height: 100%;
+    padding: 6rem var(--nv-gutter) 3rem;
+  }
+  .nv-menu__eyebrow {
+    color: var(--color-brand-muted);
+  }
+  .nv-menu__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 1.05rem;
+    border-bottom: 1px solid var(--nv-hairline);
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.9rem, 9vw, 2.6rem);
+    letter-spacing: -0.035em;
+    color: var(--color-brand-text);
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .nv-menu.is-open .nv-menu__link {
+    animation: nv-menu-in 0.75s var(--nv-ease) forwards;
+    animation-delay: calc(120ms + var(--i) * 65ms);
+  }
+  .nv-menu__link--sub {
+    padding-left: 1.5rem;
+    padding-block: 0.85rem;
+    font-size: clamp(1.3rem, 6vw, 1.7rem);
+    color: rgb(243 239 231 / 0.62);
+  }
+  @keyframes nv-menu-in {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .nv-menu__foot {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: flex-start;
+    margin-top: 1rem;
+  }
+  .nv-menu__cta {
+    width: 100%;
+  }
+</style>

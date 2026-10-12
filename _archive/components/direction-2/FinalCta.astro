@@ -1,0 +1,79 @@
+---
+import Guides from './Guides.astro';
+---
+
+<section id="contact" class="relative overflow-hidden px-5 py-28 sm:px-8 lg:px-12 lg:py-40">
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="background: linear-gradient(180deg, var(--color-brand-surface) 0%, #16233a 45%, var(--color-brand-primary) 100%)"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="pointer-events-none absolute -bottom-40 left-1/2 h-[560px] w-[860px] -translate-x-1/2 rounded-full blur-[130px]"
+    style="background: radial-gradient(circle, rgba(255,106,44,0.3) 0%, rgba(33,50,77,0) 68%)"
+    aria-hidden="true"
+  ></div>
+  <Guides ink="rgba(236,239,243,0.08)" />
+
+  <div class="relative mx-auto w-full max-w-[1100px]">
+    <div class="cta-frame" data-reveal="scale">
+      <span class="cf cf-tl" aria-hidden="true"></span>
+      <span class="cf cf-tr" aria-hidden="true"></span>
+      <span class="cf cf-bl" aria-hidden="true"></span>
+      <span class="cf cf-br" aria-hidden="true"></span>
+
+      <div class="px-6 py-14 text-center sm:px-12 lg:px-20 lg:py-20">
+        <p class="eyebrow eyebrow-light justify-center" data-reveal="up">Next listing</p>
+
+        <h2 class="display display-cta mt-8 text-brand-text" data-reveal="up" style="--i:1">
+          Tell us about the house.<br />
+          We'll tell you <em class="text-brand-accent">what it needs.</em>
+        </h2>
+
+        <p class="mx-auto mt-8 max-w-[54ch] text-[15px] leading-[1.7] text-brand-text/65" data-reveal="up" style="--i:2">
+          Most shoots get booked on a five-minute call — scope first, calendar second.
+          If you already know exactly what you want, go straight to the calendar.
+        </p>
+
+        <div class="mt-11 flex flex-col items-center justify-center gap-3 sm:flex-row" data-reveal="up" style="--i:3">
+          <a href="/contact" class="pill pill-accent">
+            Call or Text
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="/book" class="pill pill-outline">Book Online</a>
+        </div>
+
+        <p class="meta mt-12 text-[9px] text-brand-text/45" data-reveal="up" style="--i:4">
+          Calgary · Airdrie · Cochrane · Chestermere · Okotoks
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-frame {
+    position: relative;
+    border-radius: 34px;
+    border: 1px solid rgba(236, 239, 243, 0.12);
+    background: rgba(12, 16, 21, 0.42);
+    backdrop-filter: blur(6px);
+    box-shadow: var(--print-lift);
+  }
+  /* Oversized viewfinder brackets sit outside the frame edge */
+  .cf {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    color: var(--color-brand-accent);
+  }
+  @media (min-width: 1024px) {
+    .cf { width: 68px; height: 68px; }
+  }
+  .cf-tl { top: -13px; left: -13px; border-left: 2px solid currentColor; border-top: 2px solid currentColor; }
+  .cf-tr { top: -13px; right: -13px; border-right: 2px solid currentColor; border-top: 2px solid currentColor; }
+  .cf-bl { bottom: -13px; left: -13px; border-left: 2px solid currentColor; border-bottom: 2px solid currentColor; }
+  .cf-br { bottom: -13px; right: -13px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; }
+</style>

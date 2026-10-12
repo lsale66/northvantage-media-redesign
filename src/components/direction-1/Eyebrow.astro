@@ -1,0 +1,18 @@
+---
+import FrameMark from './FrameMark.astro';
+
+interface Props {
+  class?: string;
+  reveal?: boolean;
+}
+
+const { class: className = '', reveal = true } = Astro.props;
+---
+
+<p
+  class:list={['nv-eyebrow', className]}
+  data-reveal={reveal ? 'fade' : undefined}
+>
+  <FrameMark size={12} />
+  <span><slot /></span>
+</p>

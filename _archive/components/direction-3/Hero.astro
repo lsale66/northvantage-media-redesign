@@ -1,0 +1,315 @@
+---
+const disciplines = ['Photography', 'Cinematic video', 'iGuide 3D', 'Drone', 'Virtual staging'];
+---
+
+<section class="hero" id="top" data-hero>
+  <div class="hero__media" aria-hidden="true">
+    <img
+      class="hero__img"
+      src="/images/redesign/image-03.jpg"
+      alt=""
+      width="1920"
+      height="1245"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </div>
+
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="hero__vignette" aria-hidden="true"></div>
+  <div class="bloom hero__bloom" aria-hidden="true"></div>
+
+  <div class="hero__inner bleed">
+    <p class="eyebrow eyebrow--dot hero__eyebrow" data-reveal="fade" data-rd="120">
+      Northvantage Media — Calgary, AB
+    </p>
+
+    <h1 class="hero__h1">
+      <span class="hero__thin" data-reveal="rise" data-rd="260">Every home has one good</span>
+      <span class="hero__word" data-reveal="bloom" data-rd="420">Hour</span>
+      <span class="hero__thin hero__thin--b" data-reveal="rise" data-rd="640">
+        of light. We build the entire shoot around it.
+      </span>
+    </h1>
+
+    <div class="hero__row">
+      <div class="hero__actions" data-reveal="rise" data-rd="820">
+        <span class="btn-wrap"><a class="btn btn--solid" href="#contact">Call or text</a></span>
+        <span class="btn-wrap btn-wrap--soft">
+          <a class="btn btn--ghost" href="#contact">Book online <span class="arw">&#8594;</span></a>
+        </span>
+      </div>
+
+      <p class="hero__sub" data-reveal="rise" data-rd="940">
+        Calgary's listing media partner for agents who sell homes that deserve more
+        than a phone-camera walkthrough.
+      </p>
+    </div>
+  </div>
+
+  <div class="hero__foot bleed" data-reveal="fade" data-rd="1180">
+    <!-- MOTIF 3: the horizon, sitting exactly where the sky meets the work -->
+    <div class="horizon hero__rule" aria-hidden="true"></div>
+    <div class="hero__footrow">
+      <p class="hero__caption">
+        <span>Twilight exterior</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span>Calgary, AB — flash-blended, single evening</span>
+      </p>
+      <ul class="hero__disciplines">
+        {disciplines.map((d) => <li>{d}</li>)}
+      </ul>
+      <a class="hero__cue" href="#services" aria-label="Skip to what we shoot">
+        <span class="hero__cueLabel">Scroll</span>
+        <span class="hero__cueTrack" aria-hidden="true"><i></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: clip;
+    padding-block: 118px 152px;
+    isolation: isolate;
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    overflow: hidden;
+  }
+  .hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 62%;
+    transform: scale(1.07);
+    animation: bh-kenburns 38s var(--ease-soft) infinite;
+    will-change: transform;
+  }
+
+  /* Two-axis scrim: keeps the type legible without flattening the photo */
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      linear-gradient(
+        to bottom,
+        rgb(7 11 20 / 0.88) 0%,
+        rgb(7 11 20 / 0.38) 30%,
+        rgb(7 11 20 / 0.52) 62%,
+        rgb(7 11 20 / 0.97) 100%
+      ),
+      linear-gradient(102deg, rgb(7 11 20 / 0.84) 0%, rgb(7 11 20 / 0.26) 55%, rgb(7 11 20 / 0.02) 100%);
+  }
+  .hero__vignette {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: radial-gradient(120% 78% at 50% 42%, transparent 42%, rgb(7 11 20 / 0.72) 100%);
+  }
+
+  .hero__bloom {
+    z-index: -1;
+    width: min(58vw, 780px);
+    height: min(58vw, 780px);
+    right: -14vw;
+    bottom: -18vw;
+    opacity: 0.26;
+    animation: bh-breathe 13s var(--ease-soft) infinite;
+  }
+
+  .hero__inner {
+    position: relative;
+    width: 100%;
+    max-width: 1780px;
+    margin-inline: auto;
+  }
+
+  .hero__eyebrow { margin-bottom: clamp(1.5rem, 4vw, 3rem); }
+
+  /* ── THE TYPE DEVICE ─────────────────────────────────────
+     One sentence, one word set dramatically larger and heavier —
+     but all three lines share the same left edge, so the giant
+     word reads as part of the sentence instead of a separate
+     element stranded on the opposite side of the page. */
+  .hero__h1 {
+    --hour-size: min(15vw, 19rem);
+    margin: 0;
+    font-family: var(--font-heading);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero__thin {
+    display: block;
+    font-weight: 200;
+    font-size: clamp(1.25rem, 3vw, 2.75rem);
+    line-height: 1.14;
+    letter-spacing: -0.02em;
+    color: var(--bh-text);
+    max-width: 20ch;
+  }
+  .hero__thin--b {
+    max-width: 24ch;
+    color: rgb(245 242 236 / 0.86);
+  }
+
+  .hero__word {
+    display: block;
+    width: max-content;
+    margin-block: clamp(0.1rem, 1vw, 0.9rem);
+    font-size: var(--hour-size);
+    font-weight: 900;
+    line-height: 0.8;
+    letter-spacing: -0.055em;
+    text-transform: uppercase;
+    color: var(--bh-text);
+    /* the word itself carries a dusk-light gradient, brightest where
+       the sun just went down (left) and cooling toward the right */
+    background: linear-gradient(96deg, #FFF4E7 0%, #F5F2EC 34%, #C9D2E4 74%, #8FA2C4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: clamp(1.5rem, 4vw, 4.5rem);
+    margin-top: clamp(2rem, 4.5vw, 3.75rem);
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .hero__sub {
+    margin: 0;
+    max-width: 44ch;
+    font-size: clamp(0.875rem, 1.05vw, 1rem);
+    line-height: 1.7;
+    color: rgb(245 242 236 / 0.66);
+  }
+
+  /* ── Foot rail ───────────────────────────────────────── */
+  .hero__foot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: clamp(1.5rem, 3vw, 2.75rem);
+    z-index: 2;
+  }
+  .hero__rule { opacity: 0.5; margin-bottom: 1.15rem; }
+
+  .hero__footrow {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    max-width: 1780px;
+    margin-inline: auto;
+  }
+
+  .hero__caption {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin: 0;
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bh-muted);
+  }
+  .hero__caption .dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--bh-accent);
+    flex: none;
+  }
+  .hero__caption span:last-child { display: none; }
+
+  .hero__disciplines {
+    display: none;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    gap: 1.6rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgb(245 242 236 / 0.5);
+  }
+  .hero__disciplines li { display: flex; align-items: center; gap: 1.6rem; }
+  .hero__disciplines li + li::before {
+    content: '';
+    width: 14px;
+    height: 1px;
+    background: rgb(255 255 255 / 0.22);
+  }
+
+  .hero__cue {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-left: auto;
+    text-decoration: none;
+    color: var(--bh-muted);
+    transition: color 0.5s var(--ease);
+  }
+  .hero__cue:hover { color: var(--bh-accent); }
+  .hero__cueLabel {
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .hero__cueTrack {
+    position: relative;
+    display: block;
+    width: 1px;
+    height: 34px;
+    background: rgb(255 255 255 / 0.16);
+    overflow: hidden;
+  }
+  .hero__cueTrack i {
+    position: absolute;
+    inset-inline: 0;
+    height: 14px;
+    background: var(--bh-accent);
+    animation: bh-scrollcue 2.6s var(--ease-soft) infinite;
+  }
+
+  @media (min-width: 720px) {
+    .hero__caption span:last-child { display: inline; }
+  }
+  @media (min-width: 1080px) {
+    .hero__disciplines { display: flex; }
+  }
+
+  /* Mobile: the word squares up to the gutter and grows relative
+     to the viewport so the size contrast survives. */
+  @media (max-width: 899px) {
+    .hero__h1 {
+      --hour-size: 29vw;
+    }
+    .hero__thin { max-width: 16ch; }
+    .hero__thin--b { max-width: 22ch; }
+    .hero { padding-block: 104px 158px; }
+    .hero__actions { width: 100%; }
+    .hero__actions > * { flex: 1 1 46%; }
+    .hero__actions .btn { width: 100%; justify-content: center; }
+  }
+  @media (max-width: 420px) {
+    .hero__cue .hero__cueLabel { display: none; }
+  }
+</style>

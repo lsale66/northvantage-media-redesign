@@ -1,0 +1,247 @@
+---
+import FrameMark from '../FrameMark.astro';
+
+const benefits = [
+  {
+    name: 'Own the First Impression',
+    copy: 'Set a twilight shot as your lead image and your listing instantly looks more premium than every daytime thumbnail around it. Professional listing photos drive up to 118% more online views.',
+  },
+  {
+    name: 'Win the Click',
+    copy: 'A glowing dusk exterior pops in a feed of flat midday photos – more clicks means more showings, and more showings sell homes faster.',
+  },
+  {
+    name: 'No Reshoot, Same Turnaround',
+    copy: 'No second visit, no waiting for the perfect sunset. We create the twilight in post and deliver it within 24 hours alongside the rest of your photos.',
+  },
+];
+---
+
+<section class="nv-section nv-svtwi" id="twilight">
+  <div class="nv-svtwi__wash" aria-hidden="true"></div>
+  <div class="nv-wrap">
+    <header class="nv-svtwi__head">
+      <p class="nv-eyebrow"><FrameMark size={12} /><span>Add-On Service · Virtual Twilights</span></p>
+      <h2 class="nv-h2 nv-svtwi__title" data-reveal="clip">
+        Virtual Twilight — Stop the <span class="nv-accent-word">Scroll</span> on MLS
+      </h2>
+      <p class="nv-body nv-svtwi__copy" data-reveal="up" style="--d:100ms">
+        On MLS, the first photo decides whether a buyer clicks or scrolls
+        past. A virtual twilight add-on turns a flat daytime exterior into a
+        glowing dusk scene that stops the scroll and wins more clicks.
+      </p>
+    </header>
+
+    <div class="nv-twi-slider nv-frame" data-reveal="fade" style="--d:140ms; --pos: 50%">
+      <img
+        class="nv-twi-slider__img nv-twi-slider__after"
+        src="/images/real-estate-photography/twilight-after.jpg"
+        alt="Virtual twilight version of the exterior — glowing windows against a dusk sky"
+        width="1536"
+        height="1025"
+        loading="lazy"
+      />
+      <img
+        class="nv-twi-slider__img nv-twi-slider__before"
+        src="/images/real-estate-photography/twilight-before.jpg"
+        alt="Original daytime exterior photo before the virtual twilight edit"
+        width="1536"
+        height="1024"
+        loading="lazy"
+      />
+      <span class="nv-twi-slider__tag nv-twi-slider__tag--before">Before</span>
+      <span class="nv-twi-slider__tag nv-twi-slider__tag--after">After</span>
+      <span class="nv-twi-slider__line" aria-hidden="true">
+        <span class="nv-twi-slider__grip">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M4.5 1.5L1 6l3.5 4.5M7.5 1.5L11 6l-3.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </span>
+      <input
+        type="range"
+        class="nv-twi-slider__range"
+        min="0"
+        max="100"
+        value="50"
+        aria-label="Drag to compare the before and after virtual twilight photo"
+      />
+    </div>
+
+    <ul class="nv-svtwi__list">
+      {
+        benefits.map((b, i) => (
+          <li data-reveal="up" style={`--d:${220 + i * 90}ms`}>
+            <h3 class="nv-h3 nv-svtwi__name">{b.name}</h3>
+            <p class="nv-svtwi__copy2">{b.copy}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.nv-twi-slider').forEach((slider) => {
+    const range = slider.querySelector('.nv-twi-slider__range');
+    if (!(range instanceof HTMLInputElement)) return;
+    const el = slider;
+    el.style.setProperty('--pos', `${range.value}%`);
+    range.addEventListener('input', () => {
+      el.style.setProperty('--pos', `${range.value}%`);
+    });
+  });
+</script>
+
+<style>
+  .nv-svtwi {
+    position: relative;
+    background: var(--color-brand-primary);
+    border-top: 1px solid rgb(243 239 231 / 0.08);
+    border-bottom: 1px solid rgb(243 239 231 / 0.08);
+    overflow: clip;
+  }
+  .nv-svtwi__wash {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(70% 90% at 88% 6%, rgb(232 132 60 / 0.16), transparent 66%);
+    pointer-events: none;
+  }
+
+  .nv-svtwi__head {
+    position: relative;
+    max-width: 60ch;
+    padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .nv-svtwi__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    max-width: 20ch;
+  }
+  .nv-svtwi__copy {
+    margin: 1.3rem 0 0;
+    max-width: 48ch;
+    color: rgb(243 239 231 / 0.68);
+  }
+
+  /* ── Before / after slider ── */
+  .nv-twi-slider {
+    --nv-frame-size: 20px;
+    --nv-frame-inset: -1px;
+    position: relative;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: 2px;
+    cursor: ew-resize;
+    touch-action: pan-y;
+  }
+
+  .nv-twi-slider__img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .nv-twi-slider__before {
+    clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);
+  }
+
+  .nv-twi-slider__tag {
+    position: absolute;
+    top: 1.25rem;
+    z-index: 2;
+    padding: 0.4rem 0.85rem;
+    background: rgb(10 14 23 / 0.72);
+    backdrop-filter: blur(6px);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-text);
+    pointer-events: none;
+  }
+  .nv-twi-slider__tag--before {
+    left: 1.25rem;
+  }
+  .nv-twi-slider__tag--after {
+    right: 1.25rem;
+  }
+
+  .nv-twi-slider__line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos, 50%);
+    z-index: 2;
+    width: 2px;
+    background: var(--color-brand-text);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .nv-twi-slider__grip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: var(--color-brand-text);
+    color: #0a0e17;
+    transform: translate(-50%, -50%);
+    gap: 4px;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.35);
+  }
+
+  .nv-twi-slider__range {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+  }
+  .nv-twi-slider__range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 40px;
+    height: 100%;
+  }
+  .nv-twi-slider__range::-moz-range-thumb {
+    width: 40px;
+    height: 100%;
+    border: 0;
+    background: transparent;
+  }
+
+  .nv-svtwi__list {
+    display: grid;
+    gap: 1.5rem;
+    list-style: none;
+    margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+    padding: 0;
+  }
+  @media (min-width: 700px) {
+    .nv-svtwi__list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(2rem, 4vw, 3rem);
+    }
+  }
+  .nv-svtwi__name {
+    margin: 0;
+    max-width: 16ch;
+    color: var(--color-brand-text);
+  }
+  .nv-svtwi__copy2 {
+    margin: 0.7rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.62;
+    color: rgb(243 239 231 / 0.58);
+  }
+</style>

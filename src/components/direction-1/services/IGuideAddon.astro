@@ -1,0 +1,166 @@
+---
+import FrameMark from '../FrameMark.astro';
+
+const features = [
+  {
+    name: 'RMS Measurements',
+    copy: 'RECA-standard residential measurements buyers and brokerages can trust. E&O insured and accurate to within ±1%, so your square footage holds up to scrutiny.',
+  },
+  {
+    name: 'Floor Plans',
+    copy: "A clean, scaled floor plan of every level. Floor plans rank among buyers' top-three most-valued listing features — they help buyers understand the flow before they ever book a showing.",
+  },
+  {
+    name: '3D Virtual Tour',
+    copy: 'A walk-through, first-person-view tour that lets buyers explore the home 24/7. Keeps your listing engaging online and pre-qualifies serious showings.',
+  },
+];
+---
+
+<section class="nv-section nv-svaddon" id="iguide">
+  <div class="nv-wrap nv-svaddon__grid">
+    <div class="nv-svaddon__main">
+      <p class="nv-eyebrow"><FrameMark size={12} /><span>Add-On Service · Powered by iGuide</span></p>
+      <h2 class="nv-h2 nv-svaddon__title" data-reveal="clip">
+        RMS Measurements, Floorplan, and <span class="nv-accent-word">Virtual Tour</span>
+      </h2>
+      <p class="nv-body nv-svaddon__copy" data-reveal="up" style="--d:100ms">
+        While we photograph your listing, an iGuide scan captures the entire
+        property in 3D – producing RECA-standard RMS measurements, an
+        interactive floor plan, and an immersive virtual tour from one
+        visit. Accurate, buyer-ready, and delivered within 24 hours alongside
+        your photos.
+      </p>
+
+      <ul class="nv-svaddon__list">
+        {
+          features.map((f, i) => (
+            <li class="nv-svaddon__item" data-reveal="up" style={`--d:${i * 90}ms`}>
+              <span class="nv-svaddon__mark"><FrameMark size={16} dot={false} /></span>
+              <h3 class="nv-h3 nv-svaddon__name">{f.name}</h3>
+              <p class="nv-svaddon__copy2">{f.copy}</p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="nv-svaddon__foot" data-reveal="fade" style="--d:280ms">
+        <p class="nv-micro nv-svaddon__note">
+          Add iGuide to your photo shoot and pay less than booking each
+          separately.
+        </p>
+        <a href="#pricing" class="nv-link">
+          <span>See Packages and Pricing</span>
+          <span class="nv-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="nv-svaddon__showcase" data-reveal="fade" style="--d:120ms">
+      <span class="nv-svaddon__glow" aria-hidden="true"></span>
+      <img
+        src="/images/real-estate-photography/iguide-collage.png"
+        alt="iGuide 360 camera on a tripod, an interactive floor plan with 3D tour preview, and multi-level scaled floor plans"
+        width="1042"
+        height="786"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .nv-svaddon {
+    background: var(--color-brand-surface);
+    border-top: 1px solid var(--nv-hairline);
+  }
+
+  .nv-svaddon__grid {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+  @media (min-width: 940px) {
+    .nv-svaddon__grid {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      align-items: center;
+      gap: clamp(3rem, 6vw, 6rem);
+    }
+  }
+
+  .nv-svaddon__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    max-width: 20ch;
+  }
+  .nv-svaddon__copy {
+    margin: 1.3rem 0 0;
+    max-width: 48ch;
+  }
+
+  .nv-svaddon__list {
+    display: grid;
+    gap: 0;
+    list-style: none;
+    margin: 1.75rem 0 0;
+    padding: 0;
+  }
+
+  .nv-svaddon__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--nv-hairline);
+  }
+  .nv-svaddon__item:last-child {
+    border-bottom: 1px solid var(--nv-hairline);
+  }
+  .nv-svaddon__mark {
+    display: block;
+    flex: none;
+    color: var(--color-brand-accent);
+    padding-top: 0.2rem;
+  }
+  .nv-svaddon__name {
+    margin: 0 0 0.5rem;
+    max-width: 18ch;
+    color: var(--color-brand-text);
+  }
+  .nv-svaddon__copy2 {
+    margin: 0;
+    max-width: 46ch;
+    font-size: 0.9375rem;
+    line-height: 1.68;
+    color: rgb(243 239 231 / 0.58);
+  }
+
+  .nv-svaddon__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+  }
+  .nv-svaddon__note {
+    max-width: 40ch;
+    color: rgb(243 239 231 / 0.5);
+  }
+
+  .nv-svaddon__showcase {
+    position: relative;
+  }
+  .nv-svaddon__glow {
+    position: absolute;
+    inset: -12% -8%;
+    z-index: -1;
+    background: radial-gradient(60% 60% at 70% 30%, rgb(232 132 60 / 0.16), transparent 70%);
+    filter: blur(30px);
+    pointer-events: none;
+  }
+  .nv-svaddon__showcase img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 30px 50px rgb(0 0 0 / 0.45));
+  }
+</style>

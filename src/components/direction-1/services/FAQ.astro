@@ -1,0 +1,163 @@
+---
+import Eyebrow from '../Eyebrow.astro';
+
+const faqs = [
+  {
+    q: 'How much does real estate photography cost in Calgary?',
+    a: 'Photos start at $149 + GST for properties under 1,500 sq ft. Comprehensive packages including iGuide measurements, floor plans, and virtual tours start at $285 + GST. Pricing varies by square footage – see our pricing page for full details.',
+  },
+  {
+    q: 'How long does a real estate photo shoot take?',
+    a: 'A typical 2-storey home (around 2,000 sq ft) with photos, virtual tour, and measurements generally takes less than 1 hour. Smaller properties may take less time.',
+  },
+  {
+    q: 'What is your turnaround time?',
+    a: 'We always deliver photos, measurements, floor plans, and virtual tours within 24 hours of the shoot – sent to your email as a download link, ready for MLS the next morning.',
+  },
+  {
+    q: 'Do you offer RMS measurements and floor plans?',
+    a: 'Yes. We offer full-service packages that include photos, RMS measurements, floor plans, and iGuide virtual tours. These can be booked as a bundle or added individually to any package.',
+  },
+  {
+    q: 'Are the measurements accurate?',
+    a: "Yes. Every measurement is captured with the iGuide system to the RECA residential measurement standard, accurate to within roughly 1%. They're E&O insured, so the square footage on your listing holds up to scrutiny from buyers, brokerages, and appraisers.",
+  },
+  {
+    q: 'What equipment do you use?',
+    a: 'We shoot with the Sony A7V and Sony A7IV paired with a Sigma 14-24mm ultrawide lens, using a combination of HDR bracketing and professional editing to produce bright, accurate interior images.',
+  },
+  {
+    q: 'How do I book a shoot?',
+    a: 'You can book directly online through our booking system, or contact us by phone or email at hello@northvantagemedia.com / 587-885-6499.',
+  },
+  {
+    q: 'Can I cancel or reschedule?',
+    a: 'Yes – we ask for at least 24 hours notice when cancelling or rescheduling an appointment.',
+  },
+  {
+    q: 'How are photos and media delivered?',
+    a: 'All photos and media are delivered via email with a direct download link to a ZIP file. Photos are JPEG file and sized and ready for MLS upload. Floor plans and measurements are delivered as a PDF file. The virtual tour is sent as a link that you can copy and paste directly into your MLS portal.',
+  },
+  {
+    q: 'Who owns the photos?',
+    a: 'Copyright for all photos and videos is owned by Northvantage Media. A commercial usage licence is included with every booking for the duration of the listing. Continued use after the listing is sold requires a separate licence.',
+  },
+];
+---
+
+<section class="nv-section nv-svfaq" id="faq">
+  <div class="nv-wrap nv-svfaq__grid">
+    <div class="nv-svfaq__aside">
+      <Eyebrow>Common Questions</Eyebrow>
+      <h2 class="nv-h2 nv-svfaq__title" data-reveal="clip">
+        Frequently Asked <span class="nv-accent-word">Questions</span>
+      </h2>
+    </div>
+
+    <div class="nv-svfaq__list">
+      {
+        faqs.map((f, i) => (
+          <details class="nv-svfaq__item" data-reveal="up" style={`--d:${Math.min(i, 6) * 60}ms`}>
+            <summary class="nv-svfaq__q">
+              <span>{f.q}</span>
+              <span class="nv-svfaq__icon" aria-hidden="true"></span>
+            </summary>
+            <p class="nv-svfaq__a">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .nv-svfaq {
+    background: var(--color-brand-bg);
+  }
+
+  .nv-svfaq__grid {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+  @media (min-width: 900px) {
+    .nv-svfaq__grid {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+      gap: clamp(3rem, 6vw, 6rem);
+    }
+    .nv-svfaq__aside {
+      position: sticky;
+      top: 8rem;
+      align-self: start;
+    }
+  }
+
+  .nv-svfaq__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    max-width: 14ch;
+  }
+
+  .nv-svfaq__list {
+    border-top: 1px solid var(--nv-hairline);
+  }
+
+  .nv-svfaq__item {
+    border-bottom: 1px solid var(--nv-hairline);
+  }
+  .nv-svfaq__item[open] .nv-svfaq__icon::before {
+    transform: rotate(90deg);
+  }
+
+  .nv-svfaq__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-heading);
+    font-weight: 380;
+    font-size: clamp(1.0625rem, 1.5vw, 1.2rem);
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+  }
+  .nv-svfaq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .nv-svfaq__icon {
+    position: relative;
+    flex: none;
+    width: 16px;
+    height: 16px;
+  }
+  .nv-svfaq__icon::before,
+  .nv-svfaq__icon::after {
+    content: '';
+    position: absolute;
+    background: var(--color-brand-accent);
+    transition: transform 0.4s var(--nv-ease);
+  }
+  .nv-svfaq__icon::before {
+    top: 0;
+    left: 50%;
+    width: 1.5px;
+    height: 100%;
+    margin-left: -0.75px;
+  }
+  .nv-svfaq__icon::after {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    margin-top: -0.75px;
+  }
+
+  .nv-svfaq__a {
+    margin: 0 0 1.75rem;
+    max-width: 62ch;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: rgb(243 239 231 / 0.6);
+  }
+</style>

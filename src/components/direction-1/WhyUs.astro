@@ -1,0 +1,179 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+const stats = [
+  { num: '5.0', label: 'On Google' },
+  { num: '335+', label: 'Homes Shot' },
+  { num: '1', label: 'Crew, Shutter To Delivery' },
+];
+---
+
+<section class="nv-section nv-why" id="why">
+  <div class="nv-why__wash" aria-hidden="true"></div>
+
+  <div class="nv-wrap nv-why__inner">
+    <div class="nv-why__grid">
+      <div class="nv-why__main">
+        <Eyebrow>Why Agents Re-Book</Eyebrow>
+        <h2 class="nv-h2 nv-why__title" data-reveal="clip">
+          <span class="nv-accent-word">&ldquo;WOW&rdquo;</span> Your Clients, Get More Listings.
+        </h2>
+
+        <p class="nv-body nv-why__copy" data-reveal="up" style="--d:120ms">
+          Great photos and video generate leads, improve turnout for open
+          houses, and sell houses faster. But more importantly, you convey to
+          your clients that their needs are your top priority. You're not
+          just buying photos, you're building your brand. That's what
+          creates long-lasting relationships and future listings.
+        </p>
+        <p class="nv-body nv-why__copy" data-reveal="up" style="--d:180ms">
+          Count on Northvantage Media to support you in providing outstanding
+          service to your current clients — and establishing a presence for
+          future ones.
+        </p>
+      </div>
+
+      <aside class="nv-why__proof nv-frame" data-reveal="up" style="--d:240ms">
+        <img
+          class="nv-why__photo"
+          src="/images/photos/001-twilight%20(Large).jpg"
+          alt="Twilight exterior photograph of a Calgary listing"
+          loading="lazy"
+        />
+        <div class="nv-why__scrim" aria-hidden="true"></div>
+        <div class="nv-why__stats">
+          {
+            stats.map((s, i) => (
+              <div class="nv-why__stat" style={`--i:${i}`}>
+                <span class="nv-why__statnum">{s.num}</span>
+                <span class="nv-micro">{s.label}</span>
+              </div>
+            ))
+          }
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* The one lifted, warmer section — navy raised out of the near-black */
+  .nv-why {
+    position: relative;
+    background: var(--color-brand-primary);
+    border-top: 1px solid rgb(243 239 231 / 0.08);
+    border-bottom: 1px solid rgb(243 239 231 / 0.08);
+    overflow: clip;
+  }
+  .nv-why__wash {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        90% 120% at 12% 0%,
+        rgb(46 72 119 / 0.75),
+        transparent 62%
+      ),
+      radial-gradient(
+        70% 90% at 92% 100%,
+        rgb(232 132 60 / 0.14),
+        transparent 66%
+      );
+    pointer-events: none;
+  }
+
+  .nv-why__inner {
+    position: relative;
+  }
+
+  .nv-why__grid {
+    display: grid;
+    gap: clamp(2.75rem, 5vw, 4rem);
+  }
+  @media (min-width: 940px) {
+    .nv-why__grid {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: stretch;
+    }
+  }
+
+  .nv-why__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    max-width: 18ch;
+  }
+
+  .nv-why__copy {
+    margin: 1.5rem 0 0;
+    max-width: 46ch;
+    color: rgb(243 239 231 / 0.68);
+  }
+
+  /* ── Proof photo ── */
+  .nv-why__proof {
+    --nv-frame-size: 20px;
+    --nv-frame-inset: -1px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    min-height: 320px;
+  }
+  @media (min-width: 940px) {
+    .nv-why__proof {
+      height: 100%;
+      min-height: 460px;
+    }
+  }
+
+  .nv-why__photo {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.95) contrast(1.06) brightness(0.82);
+  }
+
+  .nv-why__scrim {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 62%;
+    background: linear-gradient(to top, rgb(10 14 23 / 0.94), transparent);
+    pointer-events: none;
+  }
+
+  .nv-why__stats {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .nv-why__stat {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1.25rem 1rem 1.5rem;
+  }
+  .nv-why__stat + .nv-why__stat::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.25rem;
+    bottom: 1.5rem;
+    width: 1px;
+    background: rgb(243 239 231 / 0.2);
+  }
+  .nv-why__statnum {
+    font-family: var(--font-heading);
+    font-weight: 280;
+    font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--color-brand-text);
+    font-variant-numeric: tabular-nums;
+  }
+</style>

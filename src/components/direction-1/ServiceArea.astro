@@ -1,0 +1,126 @@
+---
+import Eyebrow from './Eyebrow.astro';
+import FrameMark from './FrameMark.astro';
+
+const cities = ['Calgary', 'Cochrane', 'Airdrie', 'Chestermere', 'Okotoks', 'Bearspaw'];
+---
+
+<section class="nv-section nv-area" id="area">
+  <div class="nv-wrap nv-area__grid">
+    <div class="nv-area__aside">
+      <Eyebrow>Where We Work</Eyebrow>
+      <h2 class="nv-h2 nv-area__title" data-reveal="clip">
+        Serving <span class="nv-accent-word">Calgary</span> and Area
+      </h2>
+      <p class="nv-body nv-area__copy" data-reveal="up" style="--d:120ms">
+        Northvantage Media serves Calgary and the surrounding region. Most
+        locations within the city and nearby communities have no travel fee —
+        contact us to confirm if you're unsure.
+      </p>
+    </div>
+
+    <div class="nv-area__cities">
+      <img
+        class="nv-area__photo nv-frame"
+        src="/images/photos/calgary.jpg"
+        alt="Calgary skyline"
+        width="1440"
+        height="1080"
+        loading="lazy"
+        data-reveal="shot"
+      />
+
+      <ul class="nv-area__list">
+        {
+          cities.map((c, i) => (
+            <li class="nv-area__city" data-reveal="up" style={`--d:${i * 60}ms`}>
+              <FrameMark size={10} dot={false} />
+              <span>{c}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nv-area {
+    background: var(--color-brand-bg);
+  }
+
+  .nv-area__grid {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+  @media (min-width: 900px) {
+    .nv-area__grid {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+      gap: clamp(3rem, 7vw, 6rem);
+      align-items: start;
+    }
+  }
+
+  .nv-area__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    max-width: 14ch;
+  }
+  .nv-area__copy {
+    margin: 1.4rem 0 0;
+    max-width: 40ch;
+  }
+
+  .nv-area__cities {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .nv-area__photo {
+    --nv-frame-size: 20px;
+    --nv-frame-inset: -1px;
+    display: block;
+    width: 100%;
+    aspect-ratio: 21 / 9;
+    object-fit: cover;
+    object-position: 50% 45%;
+    border-radius: 2px;
+  }
+
+  .nv-area__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nv-area__city {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.2rem;
+    border: 1px solid var(--nv-hairline);
+    color: rgb(243 239 231 / 0.82);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition:
+      border-color 0.5s var(--nv-ease),
+      color 0.5s var(--nv-ease);
+  }
+  .nv-area__city :global(.nv-mark) {
+    color: var(--color-brand-accent);
+    opacity: 0.7;
+    transition: opacity 0.5s var(--nv-ease);
+  }
+  .nv-area__city:hover {
+    border-color: var(--color-brand-accent);
+    color: var(--color-brand-text);
+  }
+  .nv-area__city:hover :global(.nv-mark) {
+    opacity: 1;
+  }
+</style>

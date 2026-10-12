@@ -1,0 +1,241 @@
+---
+import Eyebrow from './Eyebrow.astro';
+import FrameMark from './FrameMark.astro';
+
+const services = [
+  {
+    name: 'Photography',
+    copy: 'Show your listing at its best with professionally composed, true-to-life photos. Blue-sky replacement included. MLS-ready and delivered next business day. Twilight photography also available.',
+    spec: 'Up to 50 Edited Photos',
+    href: '/services/real-estate-photography-calgary',
+  },
+  {
+    name: 'Videography',
+    copy: 'A well-crafted property video does more than showcase a listing — it tells future clients you’re the agent they want to work with. Cinematic, on-brand, and delivered in 3 business days.',
+    spec: 'Stop The Scroll',
+    href: '/services/real-estate-videography-calgary',
+  },
+  {
+    name: 'Measurements, Floor Plan & Virtual Tour',
+    copy: 'Accuracy matters. Our iGUIDE service delivers RMS-compliant measurements, precise floor plans, and an interactive 3D tour — so buyers can explore every detail before they visit.',
+    spec: 'Measured plan',
+    href: '/services/iguide',
+  },
+  {
+    name: 'Aerial Drone Photo & Video',
+    copy: 'Give buyers a whole new perspective on your listings. Aerial photos and videos provide a stunning view that would otherwise be missed.',
+    spec: 'Reach New Heights',
+    href: '/services/drone-photography-video',
+  },
+  {
+    name: 'Virtual Staging',
+    copy: 'Vacant rooms, fully furnished — digitally. Show buyers the potential of every space without lifting a finger.',
+    spec: 'Add Life To Your Listing',
+  },
+];
+---
+
+<section class="nv-section nv-services" id="services">
+  <div class="nv-wrap nv-services__grid">
+    <div class="nv-services__aside">
+      <Eyebrow>What We Produce</Eyebrow>
+      <h2 class="nv-h2 nv-services__title" data-reveal="clip">
+        Media that sells listings and <span class="nv-accent-word"
+          >builds brands</span
+        >.
+      </h2>
+      <p class="nv-body nv-services__copy" data-reveal="up" style="--d:120ms">
+        One provider. Every shot you need — from MLS-ready listing media to
+        branded agent content.
+      </p>
+      <a
+        href="/services"
+        class="nv-link nv-services__link"
+        data-reveal="up"
+        style="--d:200ms"
+      >
+        <span>All services</span>
+        <span class="nv-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <ol class="nv-services__list">
+      {
+        services.map((s, i) => (
+          <li class="nv-srv" data-reveal="up" style={`--d:${i * 90}ms`}>
+            <a href={s.href ?? '/services'} class="nv-srv__row">
+              <span class="nv-srv__mark" aria-hidden="true">
+                <FrameMark size={16} />
+              </span>
+              <span class="nv-srv__main">
+                <span class="nv-h3 nv-srv__name">{s.name}</span>
+                <span class="nv-srv__copy">{s.copy}</span>
+              </span>
+              <span class="nv-srv__spec nv-micro">{s.spec}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .nv-services {
+    background: var(--color-brand-bg);
+  }
+
+  .nv-services__grid {
+    display: grid;
+    gap: clamp(2.75rem, 6vw, 5.5rem);
+  }
+  @media (min-width: 1000px) {
+    .nv-services__grid {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+      gap: clamp(3rem, 7vw, 7rem);
+      align-items: start;
+    }
+    .nv-services__aside {
+      position: sticky;
+      top: 8rem;
+    }
+  }
+
+  .nv-services__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    max-width: 16ch;
+  }
+  .nv-services__copy {
+    margin: 1.4rem 0 0;
+    max-width: 42ch;
+  }
+  .nv-services__link {
+    margin-top: 2rem;
+  }
+
+  .nv-services__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: none;
+  }
+
+  .nv-srv {
+    border-top: 1px solid var(--nv-hairline);
+  }
+  .nv-srv:last-child {
+    border-bottom: 1px solid var(--nv-hairline);
+  }
+
+  .nv-srv__row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 0 1fr;
+    align-items: start;
+    gap: 0 0;
+    padding-block: clamp(1.5rem, 2.6vw, 2.1rem);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      grid-template-columns 0.7s var(--nv-ease),
+      padding-left 0.7s var(--nv-ease);
+  }
+  @media (min-width: 620px) {
+    .nv-srv__row {
+      grid-template-columns: 0 minmax(0, 1fr) auto;
+      column-gap: 0;
+    }
+  }
+  /* Reserve the same width the mark grows to, so it slides into its
+     own gutter instead of overlapping the service name. */
+  .nv-srv__row:hover,
+  .nv-srv__row:focus-visible {
+    grid-template-columns: 34px 1fr;
+  }
+  @media (min-width: 620px) {
+    .nv-srv__row:hover,
+    .nv-srv__row:focus-visible {
+      grid-template-columns: 34px minmax(0, 1fr) auto;
+    }
+  }
+
+  /* The frame mark slides in from the gutter on hover — focus locked */
+  .nv-srv__mark {
+    display: block;
+    overflow: hidden;
+    width: 0;
+    color: var(--color-brand-accent);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition:
+      width 0.7s var(--nv-ease),
+      opacity 0.55s var(--nv-ease),
+      transform 0.7s var(--nv-ease);
+    padding-top: 0.28em;
+  }
+  .nv-srv__row:hover .nv-srv__mark,
+  .nv-srv__row:focus-visible .nv-srv__mark {
+    width: 34px;
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .nv-srv__main {
+    display: block;
+    min-width: 0;
+  }
+  .nv-srv__name {
+    display: block;
+    color: rgb(243 239 231 / 0.9);
+    transition: color 0.5s var(--nv-ease);
+  }
+  .nv-srv__row:hover .nv-srv__name {
+    color: var(--color-brand-text);
+  }
+  .nv-srv__copy {
+    display: block;
+    margin-top: 0.62rem;
+    max-width: 52ch;
+    font-size: 0.9375rem;
+    line-height: 1.68;
+    color: rgb(243 239 231 / 0.52);
+    transition: color 0.5s var(--nv-ease);
+  }
+  .nv-srv__row:hover .nv-srv__copy {
+    color: rgb(243 239 231 / 0.72);
+  }
+
+  .nv-srv__spec {
+    display: none;
+    padding-top: 0.45em;
+    padding-left: 2rem;
+    white-space: nowrap;
+    transition: color 0.5s var(--nv-ease);
+  }
+  @media (min-width: 620px) {
+    .nv-srv__spec {
+      display: block;
+    }
+  }
+  .nv-srv__row:hover .nv-srv__spec {
+    color: var(--color-brand-accent);
+  }
+
+  /* Accent hairline wipes across the row's top edge */
+  .nv-srv__row::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-brand-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.75s var(--nv-ease);
+  }
+  .nv-srv__row:hover::before,
+  .nv-srv__row:focus-visible::before {
+    transform: scaleX(1);
+  }
+</style>

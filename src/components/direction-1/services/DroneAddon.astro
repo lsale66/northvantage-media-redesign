@@ -1,0 +1,149 @@
+---
+import FrameMark from '../FrameMark.astro';
+
+const included = [
+  '5 to 8 additional aerial photos',
+  'Overhead shot with property boundary lines*',
+  'Nearby amenities: parks, schools, shopping, roads',
+  'Delivered in 24 hours with your photo set',
+];
+
+const droneShots = ['drone0 (Large).jpg', 'drone1 (Large).jpg', 'drone2 (Large).jpg', 'drone3 (Large).jpg'];
+---
+
+<section class="nv-section nv-svaddon2" id="drone">
+  <div class="nv-wrap nv-svaddon2__grid">
+    <div class="nv-svaddon2__main">
+      <p class="nv-eyebrow"><FrameMark size={12} /><span>Add-On Service · Drone Photography</span></p>
+      <h2 class="nv-h2 nv-svaddon2__title" data-reveal="clip">
+        Drone Photography — Sell the <span class="nv-accent-word">Location</span>, Not Just the House
+      </h2>
+      <p class="nv-lead nv-svaddon2__tagline" data-reveal="up" style="--d:100ms">
+        5 to 8 aerial shots that put the whole neighborhood in your listing.
+      </p>
+      <p class="nv-body nv-svaddon2__copy" data-reveal="up" style="--d:150ms">
+        Buyers aren't just buying a house, they're buying a location. For a
+        small add-on, drone photography shows them exactly what they get:
+        the property's footprint, the lot, and everything nearby that makes
+        the area worth moving to.
+      </p>
+
+      <ul class="nv-svaddon2__list" data-reveal="up" style="--d:200ms">
+        {
+          included.map((item) => (
+            <li>
+              <FrameMark size={10} dot={false} />
+              <span>{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="nv-micro nv-svaddon2__disclaimer" data-reveal="fade" style="--d:240ms">
+        * Boundary lines on photos are an approximate visual guide, not a
+        survey.
+      </p>
+    </div>
+
+    <div class="nv-svaddon2__mosaic">
+      {
+        droneShots.map((file, i) => (
+          <figure class="nv-svaddon2__shot nv-frame nv-frame--hover">
+            <div class="nv-media" data-reveal="shot" style={`--d:${i * 80}ms`}>
+              <img
+                src={`/images/real-estate-photography/${encodeURIComponent(file)}`}
+                alt="Aerial drone photograph of a Calgary property"
+                width="1442"
+                height="1080"
+                loading="lazy"
+              />
+            </div>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .nv-svaddon2 {
+    background: var(--color-brand-bg);
+  }
+
+  .nv-svaddon2__grid {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+  @media (min-width: 900px) {
+    .nv-svaddon2__grid {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+      align-items: center;
+      gap: clamp(3rem, 6vw, 6rem);
+    }
+  }
+
+  .nv-svaddon2__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    max-width: 20ch;
+  }
+  .nv-svaddon2__tagline {
+    margin: 1.4rem 0 0;
+    max-width: 40ch;
+    color: rgb(243 239 231 / 0.86);
+  }
+  .nv-svaddon2__copy {
+    margin: 1rem 0 0;
+    max-width: 46ch;
+  }
+
+  .nv-svaddon2__list {
+    display: grid;
+    gap: 0.75rem;
+    list-style: none;
+    margin: 1.75rem 0 0;
+    padding: 0;
+  }
+  .nv-svaddon2__list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9375rem;
+    color: rgb(243 239 231 / 0.72);
+  }
+  .nv-svaddon2__list :global(.nv-mark) {
+    flex: none;
+    color: var(--color-brand-accent);
+  }
+
+  .nv-svaddon2__disclaimer {
+    margin: 1.5rem 0 0;
+    color: rgb(243 239 231 / 0.4);
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nv-svaddon2__mosaic {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.9rem, 1.8vw, 1.25rem);
+  }
+
+  .nv-svaddon2__shot {
+    --nv-frame-size: 14px;
+    --nv-frame-inset: -8px;
+    margin: 0;
+  }
+  .nv-svaddon2__shot .nv-media {
+    aspect-ratio: 4 / 3;
+  }
+  .nv-svaddon2__shot img {
+    transition:
+      transform 1.1s var(--nv-ease),
+      filter 1s var(--nv-ease);
+    filter: saturate(0.94) contrast(1.05) brightness(0.92);
+  }
+  .nv-svaddon2__shot:hover img {
+    transform: scale(1.05);
+    filter: saturate(1.02) contrast(1.05) brightness(1);
+  }
+</style>

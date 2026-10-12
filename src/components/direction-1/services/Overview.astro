@@ -1,0 +1,171 @@
+---
+import Eyebrow from '../Eyebrow.astro';
+import FrameMark from '../FrameMark.astro';
+
+const features = [
+  {
+    name: 'Premium HDR Photos',
+    copy: "We'll show every space in its best light with up to 50 crisp, premium-quality HDR images.",
+  },
+  {
+    name: '24 Hour Turnaround',
+    copy: 'Guaranteed. When your listing is ready to hit the market, waiting isn’t an option. We deliver professionally edited photos within 24 hours of your shoot, helping you showcase properties quickly and efficiently.',
+  },
+  {
+    name: 'Blue Sky Replacement',
+    copy: 'Grey or overcast on shoot day? We replace flat skies with a clean, realistic blue on every exterior image — at no extra charge. Your listing never goes live under a grey Calgary sky.',
+  },
+  {
+    name: 'Usage Licence',
+    copy: 'Included. A usage licence to market the property for the life of your listing — MLS, social, your website, and print, with no restrictions.',
+  },
+];
+---
+
+<section class="nv-section nv-svov" id="overview">
+  <div class="nv-wrap nv-svov__grid">
+    <div class="nv-svov__aside">
+      <Eyebrow>What You Get</Eyebrow>
+      <h2 class="nv-h2 nv-svov__title" data-reveal="clip">
+        Calgary Real Estate <span class="nv-accent-word">Photography</span>
+      </h2>
+
+      <p class="nv-body nv-svov__copy" data-reveal="up" style="--d:100ms">
+        In Calgary's market, your listing photos are the first showing.
+        Buyers scroll Realtor.ca and MLS on their phones, and they decide in
+        a second or two whether to tap in or keep scrolling. Professional
+        photos are what earn that tap, and listings that look better online
+        book more showings.
+      </p>
+      <p class="nv-body nv-svov__copy" data-reveal="up" style="--d:150ms">
+        At Northvantage Media we shoot every room with ultra wide-angle
+        lenses and HDR editing to deliver balanced, accurate, true-to-life
+        images. Bright windows that aren't blown out, rooms that look as
+        spacious and inviting as they really are, with no distortion or
+        misrepresentation.
+      </p>
+      <p class="nv-body nv-svov__copy" data-reveal="up" style="--d:200ms">
+        Every photo is edited and delivered the next morning, ready for MLS
+        upload with nothing left for you to process.
+      </p>
+    </div>
+
+    <div class="nv-svov__main">
+      <div class="nv-svov__showcase" data-reveal="fade">
+        <span class="nv-svov__glow" aria-hidden="true"></span>
+        <img
+          src="/images/real-estate-photography/Photography-Collage.png"
+          alt="Collage of Northvantage Media real estate photography — twilight exterior, bright kitchen, living room, pool and dusk exterior shots"
+          width="1028"
+          height="776"
+          loading="lazy"
+        />
+      </div>
+
+      <ul class="nv-svov__list">
+        {
+          features.map((f, i) => (
+            <li class="nv-svov__item" data-reveal="up" style={`--d:${i * 90}ms`}>
+              <span class="nv-svov__mark">
+                <FrameMark size={18} dot={false} />
+              </span>
+              <h3 class="nv-h3 nv-svov__name">{f.name}</h3>
+              <p class="nv-svov__copy2">{f.copy}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nv-svov {
+    background: var(--color-brand-bg);
+  }
+
+  .nv-svov__grid {
+    display: grid;
+    gap: clamp(2.75rem, 6vw, 5rem);
+  }
+  @media (min-width: 1000px) {
+    .nv-svov__grid {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+      gap: clamp(3rem, 7vw, 6rem);
+      align-items: start;
+    }
+    .nv-svov__aside {
+      position: sticky;
+      top: 8rem;
+    }
+  }
+
+  .nv-svov__title {
+    margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+    max-width: 16ch;
+  }
+  .nv-svov__copy {
+    margin: 1.2rem 0 0;
+    max-width: 42ch;
+  }
+
+  .nv-svov__main {
+    min-width: 0;
+  }
+
+  .nv-svov__showcase {
+    position: relative;
+    margin: 0 0 clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .nv-svov__glow {
+    position: absolute;
+    inset: -12% -8%;
+    z-index: -1;
+    background: radial-gradient(60% 60% at 30% 20%, rgb(232 132 60 / 0.18), transparent 70%);
+    filter: blur(30px);
+    pointer-events: none;
+  }
+  .nv-svov__showcase img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 30px 50px rgb(0 0 0 / 0.45));
+  }
+
+  .nv-svov__list {
+    display: grid;
+    gap: clamp(1.5rem, 2.6vw, 2rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  @media (min-width: 620px) {
+    .nv-svov__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .nv-svov__item {
+    padding: clamp(1.75rem, 2.6vw, 2.25rem);
+    border: 1px solid var(--nv-hairline);
+    transition: border-color 0.5s var(--nv-ease);
+  }
+  .nv-svov__item:hover {
+    border-color: var(--nv-hairline-strong);
+  }
+  .nv-svov__mark {
+    display: block;
+    color: var(--color-brand-accent);
+    margin-bottom: 1.1rem;
+  }
+  .nv-svov__name {
+    margin: 0;
+    color: var(--color-brand-text);
+  }
+  .nv-svov__copy2 {
+    margin: 0.85rem 0 0;
+    font-size: 0.9375rem;
+    line-height: 1.68;
+    color: rgb(243 239 231 / 0.58);
+  }
+</style>

@@ -1,0 +1,42 @@
+{
+  "images": [
+    {
+      "filename": "image-01.png",
+      "astro_path": "/images/redesign/image-01.png",
+      "alt": "Northvantage Media Google Reviews - Calgary Real Estate Photography",
+      "original_url": "https://northvantagemedia.com/wp-content/uploads/2026/06/google.png"
+    },
+    {
+      "filename": "image-02.jpg",
+      "astro_path": "/images/redesign/image-02.jpg",
+      "alt": "",
+      "original_url": "https://northvantagemedia.com/wp-content/uploads/2023/10/Calgary.jpg"
+    },
+    {
+      "filename": "image-03.jpg",
+      "astro_path": "/images/redesign/image-03.jpg",
+      "alt": "Stunning twilight photography of luxury house in Calgary by Northvantage Media",
+      "original_url": "https://northvantagemedia.com/wp-content/uploads/2024/05/Twilight-clean-1920-1024x664.jpg"
+    },
+    {
+      "filename": "image-04.jpg",
+      "astro_path": "/images/redesign/image-04.jpg",
+      "alt": "Anthony Luong - Calgary realtor, Northvantage Media client",
+      "original_url": "https://northvantagemedia.com/wp-content/uploads/2025/06/tony-black.jpg"
+    },
+    {
+      "filename": "image-05.jpg",
+      "astro_path": "/images/redesign/image-05.jpg",
+      "alt": "Brenda Moffat - Calgary realtor, Northvantage Media client",
+      "original_url": "https://northvantagemedia.com/wp-content/uploads/2025/06/bm2.jpg"
+    },
+    {
+      "filename": "image-06.jpg",
+      "astro_path": "/images/redesign/image-06.jpg",
+      "alt": "Lionel Sale - Calgary realtor, Northvantage Media client",
+      "original_url": "https://northvantagemedia.com/wp-content/uploads/2026/06/sq-1-1024x1024.jpg"
+    }
+  ],
+  "total": 6,
+  "source_url": "https://northvantagemedia.com/"
+}

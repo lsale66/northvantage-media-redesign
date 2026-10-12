@@ -1,0 +1,166 @@
+---
+const testimonials = [
+  {
+    quote:
+      'I have used four photographers in this city. Northvantage is the only one where I book without asking what the photos are going to look like first. Same standard every single time.',
+    name: 'Anthony Luong',
+    role: 'REALTOR® · Calgary',
+    img: '/images/redesign/image-04.jpg',
+    pos: '50% 30%',
+    shift: '',
+  },
+  {
+    quote:
+      'My sellers notice. I have had two listing appointments where the homeowner brought up the last set of photos before I did. That is the whole job, right there.',
+    name: 'Brenda Moffat',
+    role: 'REALTOR® · Calgary',
+    img: '/images/redesign/image-05.jpg',
+    pos: '50% 30%',
+    shift: 'lg:mt-10',
+  },
+  {
+    quote:
+      'Twilight shoot Thursday evening, full gallery and the iGuide live by Friday morning. On a $1.4M listing that timing is worth more than the invoice.',
+    name: 'Lionel Sale',
+    role: 'REALTOR® · Calgary',
+    img: '/images/redesign/image-06.jpg',
+    pos: '50% 24%',
+    shift: 'lg:mt-4',
+  },
+];
+---
+
+<section id="proof" class="relative bg-brand-bg px-5 pb-32 pt-28 sm:px-8 lg:px-12 lg:pb-48 lg:pt-40">
+  <div class="mx-auto w-full max-w-[1500px]">
+    <div class="grid gap-10 border-b border-brand-text/10 pb-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-20">
+      <div>
+        <p class="eyebrow" data-reveal="up">In their words</p>
+        <h2 class="h2 mt-6 max-w-[18ch] text-brand-text" data-reveal="up" style="--i:1">
+          Forty listings in, they still <strong>send the next one.</strong>
+        </h2>
+      </div>
+
+      <!-- Google rating chip -->
+      <div class="rating vp-corners" data-reveal="scale" style="--vp-inset:10px;--vp-arm:14px;--vp-ink:rgba(236,239,243,0.18)">
+        <img src="/images/redesign/image-01.png" alt="Google" class="h-9 w-9 flex-none" width="36" height="36" />
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="numeral text-[1.75rem] leading-none text-brand-text">5.0</span>
+            <span class="flex gap-0.5" aria-hidden="true">
+              {[0, 1, 2, 3, 4].map(() => (
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#FF6A2C">
+                  <path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z"/>
+                </svg>
+              ))}
+            </span>
+          </div>
+          <p class="meta mt-2 text-[9px] text-brand-muted">Rated 5.0 on Google by Calgary agents</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="mt-14 grid gap-5 md:grid-cols-2 lg:mt-20 lg:grid-cols-3 lg:gap-7">
+      {testimonials.map((t, i) => (
+        <figure
+          class={`quote vp-corners vp-grow ${t.shift}`}
+          style={`--vp-inset:14px;--vp-arm:13px;--vp-ink:rgba(236,239,243,0.16);--i:${i}`}
+          data-reveal="rise"
+        >
+          <span class="quote-mark" aria-hidden="true"></span>
+          <blockquote class="quote-text">{t.quote}</blockquote>
+          <figcaption class="mt-8 flex items-center gap-4 border-t border-brand-text/10 pt-6">
+            <span class="avatar">
+              <img src={t.img} alt={t.name} loading="lazy" decoding="async" style={`object-position:${t.pos}`} />
+            </span>
+            <span class="block">
+              <span class="block font-heading text-[1.05rem] font-semibold tracking-[-0.01em] text-brand-text">{t.name}</span>
+              <span class="meta mt-1 block text-[9px] text-brand-muted">{t.role}</span>
+            </span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(236, 239, 243, 0.1);
+    background: linear-gradient(160deg, #1b222b 0%, #12171d 100%);
+    box-shadow: var(--print);
+    padding: 1.4rem 1.6rem;
+    justify-self: start;
+  }
+  @media (min-width: 1024px) { .rating { justify-self: end; } }
+
+  .quote {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 24px;
+    border: 1px solid rgba(236, 239, 243, 0.09);
+    background: linear-gradient(165deg, #1a2029 0%, var(--color-brand-surface) 60%, #10151b 100%);
+    box-shadow: var(--print);
+    padding: 2.5rem 1.75rem 2rem;
+    transition: transform 0.55s var(--ease-snap), box-shadow 0.55s var(--ease-out-quint), border-color 0.4s ease;
+  }
+  @media (min-width: 1024px) {
+    .quote { border-radius: 28px; padding: 3rem 2.25rem 2.25rem; }
+  }
+  .quote:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--print-lift);
+    border-color: rgba(255, 106, 44, 0.28);
+  }
+
+  /* The bracket stands in for a quotation mark */
+  .quote-mark {
+    position: absolute;
+    top: 1.9rem;
+    left: 1.75rem;
+    width: 18px;
+    height: 18px;
+    border-left: 2px solid var(--color-brand-accent);
+    border-top: 2px solid var(--color-brand-accent);
+  }
+  @media (min-width: 1024px) {
+    .quote-mark { top: 2.3rem; left: 2.25rem; }
+  }
+
+  .quote-text {
+    flex: 1;
+    margin-top: 1.9rem;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.55;
+    letter-spacing: -0.012em;
+    color: rgba(236, 239, 243, 0.92);
+  }
+  @media (min-width: 1024px) {
+    .quote-text { font-size: 1.18rem; }
+  }
+
+  .avatar {
+    flex: none;
+    display: block;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--color-brand-primary);
+    border: 1px solid rgba(236, 239, 243, 0.14);
+  }
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.35);
+    filter: saturate(0.92) contrast(1.04);
+  }
+</style>

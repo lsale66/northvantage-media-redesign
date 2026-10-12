@@ -1,0 +1,439 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Styles from '../../components/direction-1/Styles.astro';
+import Nav from '../../components/direction-1/Nav.astro';
+import Motion from '../../components/direction-1/Motion.astro';
+import Footer from '../../components/direction-1/Footer.astro';
+import FinalCta from '../../components/direction-1/FinalCta.astro';
+import ServiceArea from '../../components/direction-1/ServiceArea.astro';
+import Eyebrow from '../../components/direction-1/Eyebrow.astro';
+import FrameMark from '../../components/direction-1/FrameMark.astro';
+
+const advantage = [
+  'Professional interior & exterior photos',
+  'Scaled, multi-level floor plans',
+  'Room-by-room measurements and area calculations',
+  'Immersive, walk-through 3D virtual tour',
+];
+---
+
+<Layout
+  title="iGuide | Measurements & Virtual Tour — Northvantage Media"
+  description="iGuide services for Calgary real estate: RECA-standard RMS measurements, scaled floor plans, and an immersive 3D virtual tour — captured in one visit and delivered within 24 hours."
+>
+  <style is:global>
+    :root {
+      --color-brand-primary: #1b2a45;
+      --color-brand-secondary: #2e4877;
+      --color-brand-accent: #e8843c;
+      --color-brand-bg: #0a0e17;
+      --color-brand-surface: #131b2c;
+      --color-brand-text: #f3efe7;
+      --color-brand-muted: #8d93a3;
+      --font-heading: 'Fraunces Variable', Georgia, serif;
+      --font-body: 'Inter Variable', system-ui, sans-serif;
+    }
+  </style>
+
+  <Styles />
+
+  <div class="nv-grain" aria-hidden="true"></div>
+
+  <Nav />
+
+  <main>
+    <!-- Hero -->
+    <header class="nv-section nv-ighero">
+      <div class="nv-wrap">
+        <Eyebrow>iGuide · Measurements &amp; Virtual Tour</Eyebrow>
+        <h1 class="nv-h2 nv-ighero__title" data-reveal="clip">
+          iGuide Services for <span class="nv-accent-word">Calgary</span> Real Estate
+        </h1>
+        <p class="nv-lead nv-ighero__lead" data-reveal="up" style="--d:120ms">
+          Immersive 3D tours, scaled floor plans, and RMS measurements for
+          your listing — captured in a single visit and delivered as one
+          cost-effective package.
+        </p>
+
+        <ul class="nv-ighero__proof" data-reveal="up" style="--d:200ms">
+          <li><span class="nv-micro">±0.5% Measurement Accuracy</span></li>
+          <li><span class="nv-micro">Starting at $149</span></li>
+          <li><span class="nv-micro">24-Hour Turnaround</span></li>
+        </ul>
+
+        <div class="nv-ighero__ctas" data-reveal="up" style="--d:260ms">
+          <a href="/pricing" class="nv-btn nv-btn--solid">
+            <span>See Packages and Pricing</span>
+            <FrameMark size={11} dot={false} />
+          </a>
+          <a href="https://northvantagemedia.hd.pics/order" class="nv-btn nv-btn--line">
+            <span>Book Online</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- RMS Measurements -->
+    <section class="nv-section nv-igrow" id="measurements">
+      <div class="nv-wrap nv-igrow__grid">
+        <div class="nv-igrow__main">
+          <Eyebrow>RECA-Standard Measurements</Eyebrow>
+          <h2 class="nv-h2 nv-igrow__title" data-reveal="clip">
+            RMS Measurements You Can Put On <span class="nv-accent-word">MLS</span>
+          </h2>
+          <p class="nv-body nv-igrow__copy" data-reveal="up" style="--d:100ms">
+            Every iGUIDE floor plan complies with RECA's Residential
+            Measurement Standard. Typical measurement uncertainty comes in at
+            0.5% or less — well inside the 2% guideline — and every scan is
+            backed by Errors &amp; Omissions insurance, so your square
+            footage holds up to scrutiny.
+          </p>
+        </div>
+        <div class="nv-igrow__media" data-reveal="fade" style="--d:120ms">
+          <img
+            class="nv-frame"
+            src="/images/iguide/floor-plan-multi-level.png"
+            alt="Scaled iGuide floor plans for a three-level home, showing room labels and dimensions for each floor"
+            width="1024"
+            height="591"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Immersive 3D Tour -->
+    <section class="nv-section nv-igrow nv-igrow--reverse" id="tour">
+      <div class="nv-wrap nv-igrow__grid">
+        <div class="nv-igrow__main">
+          <Eyebrow>Explore Before They Step Inside</Eyebrow>
+          <h2 class="nv-h2 nv-igrow__title" data-reveal="clip">
+            An Immersive 3D Tour Buyers Actually <span class="nv-accent-word">Explore</span>
+          </h2>
+          <p class="nv-body nv-igrow__copy" data-reveal="up" style="--d:100ms">
+            The longer a buyer spends with a listing, the more likely they
+            are to book a showing. An iGUIDE tour attracts and holds that
+            attention — letting buyers walk the property room by room, on
+            their own time, from anywhere.
+          </p>
+        </div>
+        <div class="nv-igrow__media nv-igrow__media--tour" data-reveal="fade" style="--d:120ms">
+          <div class="nv-igtour nv-frame">
+            <iframe
+              src="//youriguide.com/1803_demo_road/?unbranded=1&bgcolor=FFFFFF"
+              title="Sample iGUIDE 3D virtual tour"
+              scrolling="no"
+              frameborder="0"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <p class="nv-micro nv-igtour__caption">Sample iGUIDE tour — drag to look around</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Property Report -->
+    <section class="nv-section nv-igrow" id="report">
+      <div class="nv-wrap nv-igrow__grid">
+        <div class="nv-igrow__main">
+          <Eyebrow>Everything In One Link</Eyebrow>
+          <h2 class="nv-h2 nv-igrow__title" data-reveal="clip">
+            Your Property Report, Ready to <span class="nv-accent-word">Share</span>
+          </h2>
+          <p class="nv-body nv-igrow__copy" data-reveal="up" style="--d:100ms">
+            Every iGUIDE shoot comes with a Property Report — the 3D tour
+            link, professional images, property details, and embeddable code
+            for your listing site, MLS, and social — all in one place, ready
+            to hand to your seller or drop into MLS.
+          </p>
+          <a href="/pricing" class="nv-link" data-reveal="up" style="--d:180ms">
+            <span>See Packages and Pricing</span>
+            <span class="nv-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="nv-igrow__media" data-reveal="fade" style="--d:120ms">
+          <img
+            class="nv-frame"
+            src="/images/iguide/property-report.png"
+            alt="iGUIDE property report screen showing the virtual tour link, floor plan downloads, and image gallery"
+            width="1024"
+            height="768"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- The iGuide Advantage -->
+    <section class="nv-section nv-igadv">
+      <div class="nv-wrap nv-igadv__grid">
+        <div class="nv-igadv__main">
+          <header class="nv-igadv__head">
+            <Eyebrow>The iGuide Advantage</Eyebrow>
+            <h2 class="nv-h2 nv-igadv__title" data-reveal="clip">
+              Alberta's Most-Used Marketing Tool for <span class="nv-accent-word">Realtors</span>
+            </h2>
+            <p class="nv-body nv-igadv__copy" data-reveal="up" style="--d:100ms">
+              iGUIDE captures an immersive 3D tour plus all the property data
+              that comes with it. As certified iGUIDE professionals, we
+              capture every property to get the most out of the system —
+              delivering a complete, buyer-ready package including:
+            </p>
+          </header>
+
+          <ul class="nv-igadv__list">
+            {
+              advantage.map((item, i) => (
+                <li data-reveal="up" style={`--d:${i * 70}ms`}>
+                  <FrameMark size={10} dot={false} />
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+
+          <p class="nv-micro nv-igadv__note" data-reveal="fade" style="--d:280ms">
+            All delivered within 24 hours.
+          </p>
+        </div>
+
+        <div class="nv-igadv__media" data-reveal="fade" style="--d:150ms">
+          <div class="nv-igvideo nv-frame">
+            <iframe
+              src="https://www.youtube.com/embed/mSmXUZFnY1E?rel=0"
+              title="iGuide walkthrough — Northvantage Media"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cross-sell -->
+    <section class="nv-section nv-igcross">
+      <div class="nv-wrap nv-igcross__inner">
+        <p class="nv-body nv-igcross__copy">
+          Need photos of your property as well?
+        </p>
+        <a href="/services/real-estate-photography-calgary" class="nv-link">
+          <span>See Our Real Estate Photography Service</span>
+          <span class="nv-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <ServiceArea />
+    <FinalCta />
+  </main>
+
+  <Footer />
+
+  <Motion />
+
+  <style>
+    .nv-ighero {
+      padding-top: clamp(9rem, 16vw, 12rem);
+      padding-bottom: clamp(3.5rem, 7vw, 6rem);
+    }
+    .nv-ighero__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+      max-width: 20ch;
+    }
+    .nv-ighero__lead {
+      margin: clamp(1.4rem, 2.4vw, 1.9rem) 0 0;
+      max-width: 56ch;
+    }
+    .nv-ighero__proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.4rem;
+      margin: clamp(1.75rem, 3vw, 2.25rem) 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .nv-ighero__proof li {
+      position: relative;
+    }
+    .nv-ighero__proof li + li::before {
+      content: '';
+      position: absolute;
+      left: -0.75rem;
+      top: 50%;
+      width: 3px;
+      height: 3px;
+      background: var(--color-brand-accent);
+      transform: translateY(-50%);
+    }
+    .nv-ighero__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: clamp(2rem, 3.5vw, 2.75rem);
+    }
+
+    /* Alternating image + copy rows, shared by all three iGuide feature sections */
+    .nv-igrow:nth-of-type(even) {
+      background: var(--color-brand-surface);
+      border-top: 1px solid var(--nv-hairline);
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-igrow__grid {
+      display: grid;
+      gap: clamp(2.5rem, 5vw, 4rem);
+    }
+    @media (min-width: 900px) {
+      .nv-igrow__grid {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        align-items: center;
+        gap: clamp(3rem, 6vw, 6rem);
+      }
+      .nv-igrow--reverse .nv-igrow__grid {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      }
+      .nv-igrow--reverse .nv-igrow__main {
+        order: 2;
+      }
+      .nv-igrow--reverse .nv-igrow__media {
+        order: 1;
+      }
+    }
+    .nv-igrow__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+      max-width: 20ch;
+    }
+    .nv-igrow__copy {
+      margin: 1.3rem 0 0;
+      max-width: 48ch;
+    }
+    .nv-igrow__main .nv-link {
+      margin-top: 1.5rem;
+    }
+    .nv-igrow__media {
+      --nv-frame-size: 20px;
+      --nv-frame-inset: -1px;
+    }
+    .nv-igrow__media img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 2px;
+    }
+    .nv-igrow__media--tour {
+      --nv-frame-size: 14px;
+      --nv-frame-inset: -8px;
+    }
+    .nv-igtour {
+      position: relative;
+      padding-bottom: 57%;
+      height: 0;
+      overflow: hidden;
+      background: var(--color-brand-surface);
+    }
+    .nv-igtour iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .nv-igtour__caption {
+      margin: 0.85rem 0 0;
+      text-align: center;
+    }
+
+    .nv-igadv {
+      background: var(--color-brand-bg);
+    }
+    .nv-igadv__grid {
+      display: grid;
+      gap: clamp(2.5rem, 5vw, 4rem);
+    }
+    @media (min-width: 900px) {
+      .nv-igadv__grid {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: center;
+        gap: clamp(3rem, 6vw, 6rem);
+      }
+    }
+    .nv-igadv__head {
+      max-width: 56ch;
+    }
+    .nv-igadv__title {
+      margin: clamp(1.1rem, 2vw, 1.6rem) 0 0;
+      max-width: 24ch;
+    }
+    .nv-igadv__copy {
+      margin: 1.2rem 0 0;
+    }
+    .nv-igadv__list {
+      display: grid;
+      gap: 0;
+      list-style: none;
+      margin: clamp(2rem, 4vw, 2.75rem) 0 0;
+      padding: 0;
+      max-width: 56ch;
+    }
+    .nv-igadv__list li {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.9rem 0;
+      border-top: 1px solid var(--nv-hairline);
+      font-size: 0.9375rem;
+      color: rgb(243 239 231 / 0.72);
+    }
+    .nv-igadv__list li:last-child {
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-igadv__list :global(.nv-mark) {
+      flex: none;
+      color: var(--color-brand-accent);
+    }
+    .nv-igadv__note {
+      margin: 1.5rem 0 0;
+      color: rgb(243 239 231 / 0.45);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .nv-igadv__media {
+      --nv-frame-size: 14px;
+      --nv-frame-inset: -8px;
+    }
+    .nv-igvideo {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      background: var(--color-brand-surface);
+    }
+    .nv-igvideo iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .nv-igcross {
+      padding-block: clamp(2.5rem, 5vw, 3.5rem);
+      background: var(--color-brand-surface);
+      border-top: 1px solid var(--nv-hairline);
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-igcross__inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem 1.75rem;
+      text-align: center;
+    }
+    .nv-igcross__copy {
+      margin: 0;
+    }
+  </style>
+</Layout>

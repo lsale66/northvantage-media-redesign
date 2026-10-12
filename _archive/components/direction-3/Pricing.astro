@@ -1,0 +1,256 @@
+---
+const packages = [
+  {
+    name: 'Essential',
+    price: '285',
+    blurb: 'Photography and a floor plan. The listing looks properly shot.',
+    flag: null,
+  },
+  {
+    name: 'Showcase',
+    price: '685',
+    blurb: 'Photo, cinematic video and iGuide 3D. What most agents book.',
+    flag: 'Most booked',
+  },
+  {
+    name: 'Luxury',
+    price: '999',
+    blurb: 'The full production, twilight and drone included. Nothing held back.',
+    flag: null,
+  },
+];
+---
+
+<section class="price" id="pricing">
+  <span class="price__topfade" aria-hidden="true"></span>
+
+  <div class="shell price__inner">
+    <header class="price__head">
+      <p class="price__eyebrow">Packages</p>
+      <h2 class="price__title" data-reveal="rise">
+        <span class="price__thin">Good media starts at</span>
+        <span class="price__big">$285</span>
+      </h2>
+      <p class="price__note" data-reveal="rise" data-rd="120">
+        Three packages, priced so the right one is obvious once we know the home.
+        Add twilight, drone, staging or extra frames to any of them. All prices
+        plus GST.
+      </p>
+    </header>
+
+    <ol class="price__list">
+      {packages.map((p, i) => (
+        <li class="pkg" data-reveal="rise" data-rd={`${i * 110}`}>
+          <span class="horizon horizon--ink pkg__rule" aria-hidden="true"></span>
+          <div class="pkg__row">
+            <div class="pkg__id">
+              <h3 class="pkg__name">{p.name}</h3>
+              {p.flag && <span class="pkg__flag">{p.flag}</span>}
+            </div>
+            <p class="pkg__blurb">{p.blurb}</p>
+            <p class="pkg__price">
+              <span class="pkg__from">from</span>
+              <span class="pkg__num">${p.price}</span>
+              <span class="pkg__gst">+GST</span>
+            </p>
+          </div>
+        </li>
+      ))}
+      <li class="pkg pkg--end">
+        <span class="horizon horizon--ink pkg__rule" aria-hidden="true"></span>
+      </li>
+    </ol>
+
+    <div class="price__foot">
+      <a class="btn btn--ink price__cta" href="/pricing" data-reveal="rise">
+        See full pricing and add-ons <span class="arw">&#8594;</span>
+      </a>
+      <p class="price__aside" data-reveal="fade" data-rd="120">
+        Not sure which one the home needs? That's the conversation we'd rather have first.
+      </p>
+    </div>
+  </div>
+
+  <span class="price__botfade" aria-hidden="true"></span>
+</section>
+
+<style>
+  .price {
+    position: relative;
+    background: var(--bh-accent);
+    color: #070B14;
+    padding-block: clamp(4.5rem, 10vw, 8.5rem);
+    margin-block: clamp(3rem, 7vw, 6rem);
+    overflow: clip;
+  }
+  /* soft dusk edges so the band bleeds into the dark rather than cutting */
+  .price__topfade,
+  .price__botfade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: clamp(60px, 9vw, 130px);
+    pointer-events: none;
+  }
+  .price__topfade {
+    top: 0;
+    background: linear-gradient(to bottom, rgb(7 11 20 / 0.55), transparent);
+  }
+  .price__botfade {
+    bottom: 0;
+    background: linear-gradient(to top, rgb(7 11 20 / 0.55), transparent);
+  }
+
+  .price__inner { position: relative; }
+
+  .price__head {
+    max-width: 70ch;
+    margin-bottom: clamp(3rem, 6vw, 4.5rem);
+  }
+  /* the motif inverted: on amber, the horizon reads as ink */
+  .price__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgb(7 11 20 / 0.62);
+  }
+  .price__eyebrow::before {
+    content: '';
+    flex: none;
+    width: 26px;
+    height: 1px;
+    background: #070B14;
+  }
+
+  .price__title {
+    margin: 1.5rem 0 0;
+    font-family: var(--font-heading);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.2em 0.35em;
+  }
+  .price__thin {
+    font-weight: 200;
+    font-size: clamp(1.5rem, 3vw, 2.75rem);
+    letter-spacing: -0.025em;
+  }
+  .price__big {
+    font-weight: 900;
+    font-size: clamp(3.75rem, 11vw, 9rem);
+    line-height: 0.86;
+    letter-spacing: -0.06em;
+  }
+  .price__note {
+    margin: 1.75rem 0 0;
+    max-width: 50ch;
+    font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+    line-height: 1.7;
+    color: rgb(7 11 20 / 0.74);
+  }
+
+  .price__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .pkg { position: relative; }
+  .pkg__rule { display: block; }
+
+  .pkg__row {
+    display: grid;
+    gap: 0.55rem;
+    padding: clamp(1.5rem, 2.6vw, 2.1rem) 0;
+    transition: transform 0.7s var(--ease);
+  }
+  .pkg:hover .pkg__row { transform: translateX(8px); }
+
+  .pkg__id { display: flex; align-items: center; gap: 0.75rem; }
+  .pkg__name {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.45rem, 2.4vw, 2.05rem);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .pkg__flag {
+    padding: 0.28rem 0.55rem;
+    font-family: var(--font-body);
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bh-accent);
+    background: #070B14;
+    white-space: nowrap;
+  }
+
+  .pkg__blurb {
+    margin: 0;
+    max-width: 42ch;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: rgb(7 11 20 / 0.68);
+  }
+
+  .pkg__price {
+    margin: 0.35rem 0 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+  }
+  .pkg__from {
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgb(7 11 20 / 0.55);
+  }
+  .pkg__num {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    letter-spacing: -0.05em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .pkg__gst {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(7 11 20 / 0.55);
+  }
+
+  .price__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem 2.5rem;
+    margin-top: clamp(2.5rem, 5vw, 3.75rem);
+  }
+  .price__aside {
+    margin: 0;
+    max-width: 34ch;
+    font-size: 0.8125rem;
+    line-height: 1.62;
+    color: rgb(7 11 20 / 0.66);
+  }
+
+  @media (min-width: 820px) {
+    .pkg__row {
+      grid-template-columns: minmax(0, 14rem) minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 2rem;
+    }
+    .pkg__price { margin-top: 0; justify-content: flex-end; }
+    .price__head { margin-left: clamp(0px, 6vw, 110px); }
+  }
+</style>

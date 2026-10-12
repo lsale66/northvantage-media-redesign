@@ -1,0 +1,309 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/direction-2/Nav.astro';
+import Hero from '../components/direction-2/Hero.astro';
+import StatBand from '../components/direction-2/StatBand.astro';
+import Services from '../components/direction-2/Services.astro';
+import FrameStrip from '../components/direction-2/FrameStrip.astro';
+import Portfolio from '../components/direction-2/Portfolio.astro';
+import WhyUs from '../components/direction-2/WhyUs.astro';
+import Proof from '../components/direction-2/Proof.astro';
+import Pricing from '../components/direction-2/Pricing.astro';
+import FinalCta from '../components/direction-2/FinalCta.astro';
+import SiteFooter from '../components/direction-2/SiteFooter.astro';
+import Motion from '../components/direction-2/Motion.astro';
+---
+
+<Layout
+  title="Vantage Point — Northvantage Media"
+  description="Calgary's listing media partner. Photography, cinematic video, iGuide 3D tours, drone and virtual staging for agents selling homes that deserve more than a phone-camera walkthrough."
+>
+  <style is:global>
+    :root {
+      --color-brand-primary:   #21324D;
+      --color-brand-secondary: #3D5578;
+      --color-brand-accent:    #FF6A2C;
+      --color-brand-bg:        #0C1015;
+      --color-brand-surface:   #161B22;
+      --color-brand-text:      #ECEFF3;
+      --color-brand-muted:     #7B8494;
+      --font-heading: 'Newsreader Variable', Georgia, serif;
+      --font-body:    'Manrope Variable', system-ui, sans-serif;
+
+      /* ── Motion + elevation language ───────────────────────── */
+      --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-snap:      cubic-bezier(0.34, 1.32, 0.42, 1);
+
+      /* "Prints stacked on a light table" — layered, directional shadow */
+      --print:      0 1px 2px rgba(0,0,0,.5),
+                    0 10px 20px -8px rgba(0,0,0,.55),
+                    0 36px 56px -24px rgba(0,0,0,.7);
+      --print-lift: 0 2px 4px rgba(0,0,0,.5),
+                    0 22px 36px -10px rgba(0,0,0,.6),
+                    0 64px 84px -28px rgba(0,0,0,.85);
+    }
+
+    /* ── Viewfinder bracket motif ─────────────────────────────
+       The signature mark: four crop-corner arms drawn with
+       gradients so the arm length can be animated on hover.    */
+    @property --vp-arm {
+      syntax: '<length>';
+      inherits: true;
+      initial-value: 16px;
+    }
+
+    .vp-corners {
+      --vp-arm: 16px;
+      --vp-ink: rgba(236, 239, 243, 0.3);
+      --vp-weight: 1.5px;
+      --vp-inset: 12px;
+      position: relative;
+    }
+    .vp-corners::after {
+      content: '';
+      position: absolute;
+      inset: var(--vp-inset);
+      pointer-events: none;
+      z-index: 3;
+      transition: --vp-arm 0.55s var(--ease-out-quint),
+                  opacity 0.4s var(--ease-out-quint);
+      background:
+        linear-gradient(var(--vp-ink), var(--vp-ink)) 0 0 / var(--vp-arm) var(--vp-weight) no-repeat,
+        linear-gradient(var(--vp-ink), var(--vp-ink)) 0 0 / var(--vp-weight) var(--vp-arm) no-repeat,
+        linear-gradient(var(--vp-ink), var(--vp-ink)) 100% 0 / var(--vp-arm) var(--vp-weight) no-repeat,
+        linear-gradient(var(--vp-ink), var(--vp-ink)) 100% 0 / var(--vp-weight) var(--vp-arm) no-repeat,
+        linear-gradient(var(--vp-ink), var(--vp-ink)) 0 100% / var(--vp-arm) var(--vp-weight) no-repeat,
+        linear-gradient(var(--vp-ink), var(--vp-ink)) 0 100% / var(--vp-weight) var(--vp-arm) no-repeat,
+        linear-gradient(var(--vp-ink), var(--vp-ink)) 100% 100% / var(--vp-arm) var(--vp-weight) no-repeat,
+        linear-gradient(var(--vp-ink), var(--vp-ink)) 100% 100% / var(--vp-weight) var(--vp-arm) no-repeat;
+    }
+    .vp-corners-quiet::after { opacity: 0.55; }
+    .vp-grow:hover::after,
+    .vp-grow:focus-within::after {
+      --vp-arm: 34px;
+      --vp-ink: var(--color-brand-accent);
+    }
+
+    /* ── Eyebrow: every tracked label carries a corner mark ──── */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--color-brand-muted);
+    }
+    .eyebrow::before {
+      content: '';
+      flex: none;
+      width: 10px;
+      height: 10px;
+      border-left: 1.5px solid var(--color-brand-accent);
+      border-top: 1.5px solid var(--color-brand-accent);
+      transform: translateY(-1px);
+    }
+    .eyebrow-light { color: rgba(236, 239, 243, 0.62); }
+
+    /* ── Type scale ───────────────────────────────────────────── */
+    .display {
+      font-family: var(--font-heading);
+      font-size: clamp(2.9rem, 7.2vw, 6.1rem);
+      line-height: 0.94;
+      letter-spacing: -0.035em;
+      font-weight: 300;
+      text-wrap: balance;
+    }
+    /* The emphasised phrase carries all the weight — 300 against 800 */
+    .display em {
+      font-style: normal;
+      font-weight: 800;
+      letter-spacing: -0.045em;
+    }
+    /* Sized to the split-screen column so every line breaks where it should */
+    .display-hero { font-size: clamp(2.55rem, 5.6vw, 5.1rem); line-height: 0.98; }
+    .display-cta  { font-size: clamp(2.2rem, 4.3vw, 3.9rem); line-height: 1.02; }
+    .h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4.2vw, 3.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.028em;
+      font-weight: 400;
+      text-wrap: balance;
+    }
+    .h2 strong { font-weight: 700; }
+    .h3 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.3rem, 1.9vw, 1.6rem);
+      line-height: 1.15;
+      letter-spacing: -0.018em;
+      font-weight: 600;
+    }
+    .numeral {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      line-height: 0.86;
+      font-variant-numeric: tabular-nums;
+    }
+    .meta {
+      font-family: var(--font-body);
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-variant-numeric: tabular-nums;
+    }
+    .lede {
+      font-size: clamp(1rem, 1.15vw, 1.125rem);
+      line-height: 1.65;
+      color: var(--color-brand-muted);
+      max-width: 46ch;
+    }
+
+    /* ── Pills ────────────────────────────────────────────────── */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      border-radius: 999px;
+      padding: 0.95rem 1.7rem;
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: transform 0.4s var(--ease-snap),
+                  background-color 0.35s var(--ease-out-quint),
+                  color 0.35s var(--ease-out-quint),
+                  border-color 0.35s var(--ease-out-quint),
+                  box-shadow 0.45s var(--ease-out-quint);
+    }
+    .pill svg { transition: transform 0.4s var(--ease-snap); }
+    .pill:hover { transform: translateY(-2px); }
+    .pill:hover svg { transform: translateX(3px); }
+
+    .pill-accent {
+      background: var(--color-brand-accent);
+      color: #14100C;
+      box-shadow: 0 8px 22px -8px rgba(255, 106, 44, 0.65);
+    }
+    .pill-accent:hover {
+      background: #ff7f4c;
+      box-shadow: 0 16px 34px -10px rgba(255, 106, 44, 0.8);
+    }
+    .pill-outline {
+      border: 1.5px solid rgba(236, 239, 243, 0.28);
+      color: var(--color-brand-text);
+      background: rgba(236, 239, 243, 0.02);
+    }
+    .pill-outline:hover {
+      border-color: var(--color-brand-text);
+      background: rgba(236, 239, 243, 0.08);
+    }
+    .pill-sm {
+      padding: 0.6rem 1.1rem;
+      font-size: 0.6875rem;
+      letter-spacing: 0.14em;
+    }
+
+    /* ── Reveal system ─────────────────────────────────────────
+       Reveals animate the independent `translate` / `scale`
+       properties, leaving `transform` free for hover states.    */
+    [data-reveal] {
+      opacity: 0;
+      transition:
+        opacity 0.85s var(--ease-out-quint),
+        translate 0.9s var(--ease-out-quint),
+        scale 0.9s var(--ease-out-quint),
+        clip-path 1.05s var(--ease-out-quint);
+      transition-delay: calc(var(--i, 0) * 85ms);
+    }
+    [data-reveal='up']    { translate: 0 26px; }
+    [data-reveal='rise']  { translate: 0 58px; scale: 0.975; }
+    [data-reveal='slide'] { translate: -34px 0; }
+    [data-reveal='scale'] { scale: 0.93; }
+    [data-reveal='mask']  { opacity: 1; clip-path: inset(0 100% 0 0); }
+    [data-reveal='drawx'] { opacity: 1; scale: 0 1; }
+    [data-reveal='drawy'] { opacity: 1; scale: 1 0; }
+    [data-reveal].is-in {
+      opacity: 1;
+      translate: none;
+      scale: none;
+      clip-path: inset(0 0 0 0);
+    }
+
+    /* ── Hero entrance ────────────────────────────────────────── */
+    @keyframes vp-enter {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes vp-wipe {
+      from { clip-path: inset(0 0 105% 0); }
+      to   { clip-path: inset(0 0 -10% 0); }
+    }
+    .enter {
+      opacity: 0;
+      animation: vp-enter 1s var(--ease-out-quint) both;
+      animation-delay: calc(120ms + var(--i, 0) * 110ms);
+    }
+    .enter-wipe {
+      animation: vp-wipe 1.15s var(--ease-out-quint) both;
+      animation-delay: calc(120ms + var(--i, 0) * 110ms);
+    }
+
+    /* ── Marquees ─────────────────────────────────────────────── */
+    @keyframes vp-track-up   { to { transform: translate3d(0, -50%, 0); } }
+    @keyframes vp-track-down { from { transform: translate3d(0, -50%, 0); } to { transform: translate3d(0, 0, 0); } }
+    @keyframes vp-track-left { to { transform: translate3d(-50%, 0, 0); } }
+
+    .sheet-mask {
+      -webkit-mask-image: linear-gradient(to bottom, transparent, #000 9%, #000 88%, transparent);
+      mask-image: linear-gradient(to bottom, transparent, #000 9%, #000 88%, transparent);
+    }
+
+    /* ── Misc ─────────────────────────────────────────────────── */
+    body { -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--color-brand-accent); color: #14100C; }
+    :focus-visible {
+      outline: 2px solid var(--color-brand-accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    .hairline { background: rgba(236, 239, 243, 0.1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal] {
+        opacity: 1 !important;
+        translate: none !important;
+        scale: none !important;
+        clip-path: none !important;
+        transition: none !important;
+      }
+      .enter, .enter-wipe { animation: none !important; opacity: 1 !important; clip-path: none !important; }
+      .vp-track { animation: none !important; }
+      .pill:hover { transform: none; }
+      * { scroll-behavior: auto !important; }
+    }
+  </style>
+
+  <Nav />
+  <main id="top">
+    <Hero />
+    <StatBand />
+    <Services />
+    <FrameStrip />
+    <Portfolio />
+    <WhyUs />
+    <Proof />
+    <Pricing />
+    <FinalCta />
+  </main>
+  <SiteFooter />
+  <Motion />
+</Layout>

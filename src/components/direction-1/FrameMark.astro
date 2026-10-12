@@ -1,0 +1,66 @@
+---
+/**
+ * The Frame Mark — this direction's signature.
+ *
+ * Two opposing viewfinder corners with a focus point sitting between them.
+ * It's the gesture a photographer makes before every frame: bracket the
+ * composition, set the focus. Recurs in the nav, eyebrows, service rows,
+ * portfolio hover, pull-quotes, pricing, CTA and footer.
+ */
+interface Props {
+  size?: number;
+  class?: string;
+  dot?: boolean;
+  stroke?: number;
+  float?: boolean;
+}
+
+const {
+  size = 14,
+  class: className = '',
+  dot = true,
+  stroke = 1,
+  float = false,
+} = Astro.props;
+---
+
+<svg
+  class:list={['nv-mark', className]}
+  width={size}
+  height={size}
+  viewBox="0 0 14 14"
+  fill="none"
+  aria-hidden="true"
+  data-float={float ? '' : undefined}
+>
+  <path
+    d="M0.5 4.75V0.5H4.75"
+    stroke="currentColor"
+    stroke-width={stroke}
+    vector-effect="non-scaling-stroke"
+  />
+  <path
+    d="M13.5 9.25V13.5H9.25"
+    stroke="currentColor"
+    stroke-width={stroke}
+    vector-effect="non-scaling-stroke"
+  />
+  {dot && <circle class="nv-mark-dot" cx="7" cy="7" r="1.1" />}
+</svg>
+
+<style>
+  svg[data-float] {
+    animation: nv-mark-breathe 6.5s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+  }
+  @keyframes nv-mark-breathe {
+    0%,
+    100% {
+      transform: rotate(0deg) scale(1);
+      opacity: 0.85;
+    }
+    50% {
+      transform: rotate(90deg) scale(1.08);
+      opacity: 1;
+    }
+  }
+</style>

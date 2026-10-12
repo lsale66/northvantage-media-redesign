@@ -1,0 +1,101 @@
+{
+  "directions": [
+    {
+      "id": 1,
+      "slug": "night-showing",
+      "name": "Night Showing",
+      "description": "Full-bleed twilight exterior photography as the hero, headline in elegant variable-optical serif overlaid directly on the image. Generous whitespace, alternating full-width photo sections and text blocks, thin hairline dividers instead of cards. Warm ivory text against near-black navy. Testimonials get large pull-quote treatment.",
+      "rationale": "Twilight photography is one of the actual services offered, and it's the most cinematic thing Northvantage shoots — leading with it makes the hero itself proof of production quality. Classic navy carries a thread from the current branding so the redesign reads as an elevation, not a rebrand from zero.",
+      "palette": {
+        "primary": "#1B2A45",
+        "secondary": "#2E4877",
+        "accent": "#E8843C",
+        "bg": "#0A0E17",
+        "surface": "#131B2C",
+        "text": "#F3EFE7",
+        "muted": "#8D93A3"
+      },
+      "fonts": {
+        "heading": { "family": "Fraunces", "package": "fraunces", "fallback": "Georgia, serif" },
+        "body": { "family": "Inter", "package": "inter", "fallback": "system-ui, sans-serif" }
+      },
+      "contrast_axes": {
+        "density": "spacious",
+        "typography": "elegant-optical-serif + humanist-sans, subtle hierarchy",
+        "weight_play": "light + bold contrast",
+        "visual_metaphor": "editorial",
+        "hero": "full-bleed-image",
+        "section_rhythm": "alternating",
+        "shape_language": "sharp edges, hairline dividers",
+        "elevation": "subtle shadows",
+        "proof_style": "testimonials-forward",
+        "whitespace": "generous"
+      }
+    },
+    {
+      "id": 2,
+      "slug": "vantage-point",
+      "name": "Vantage Point",
+      "description": "Split-screen hero: bold serif headline and dual CTA on the left, auto-scrolling portfolio grid on the right. Uppercase tracked eyebrow labels throughout. Modular card grid for services with rounded corners and pill-shaped CTA buttons; dramatic shadow elevation makes cards feel like physical prints stacked on a light table. Stat callout front and center.",
+      "rationale": "Plays directly on the Northvantage name while giving the grid/portfolio structure a literal reason to exist — the studio-craft direction for agents who want proof of volume and consistency before they call.",
+      "palette": {
+        "primary": "#21324D",
+        "secondary": "#3D5578",
+        "accent": "#FF6A2C",
+        "bg": "#0C1015",
+        "surface": "#161B22",
+        "text": "#ECEFF3",
+        "muted": "#7B8494"
+      },
+      "fonts": {
+        "heading": { "family": "Newsreader", "package": "newsreader", "fallback": "Georgia, serif" },
+        "body": { "family": "Manrope", "package": "manrope", "fallback": "system-ui, sans-serif" }
+      },
+      "contrast_axes": {
+        "density": "balanced",
+        "typography": "uppercase tracked labels + one dominant headline size",
+        "weight_play": "medium labels + black headline contrast",
+        "visual_metaphor": "studio",
+        "hero": "split-screen",
+        "section_rhythm": "modular blocks / consistent grid",
+        "shape_language": "rounded corners, pill CTAs",
+        "elevation": "dramatic shadows",
+        "proof_style": "statistics-forward",
+        "whitespace": "balanced"
+      }
+    },
+    {
+      "id": 3,
+      "slug": "blue-hour",
+      "name": "Blue Hour",
+      "description": "Full-bleed cinematic video loop hero (muted, autoplay) with one massive headline word in extreme size contrast against tiny supporting text — thin-weight serif paired with a black-weight accent word. No card shadows; depth comes from soft amber glow blurs instead. Asymmetric section rhythm, portfolio-grid proof with a single-line testimonial marquee instead of quote blocks.",
+      "rationale": "The boldest, most editorial-studio direction — looks the least like a real-estate-marketing-company and the most like a premium production house, matching the explicit 'not corporate/stock-photo' reposition.",
+      "palette": {
+        "primary": "#16233D",
+        "secondary": "#24406B",
+        "accent": "#F2802E",
+        "bg": "#070B14",
+        "surface": "#101828",
+        "text": "#F5F2EC",
+        "muted": "#7C879C"
+      },
+      "fonts": {
+        "heading": { "family": "Literata", "package": "literata", "fallback": "Georgia, serif" },
+        "body": { "family": "Work Sans", "package": "work-sans", "fallback": "system-ui, sans-serif" }
+      },
+      "contrast_axes": {
+        "density": "dense body, spacious hero",
+        "typography": "extreme size contrast, one dominant headline word",
+        "weight_play": "thin + black pairing",
+        "visual_metaphor": "spatial",
+        "hero": "video",
+        "section_rhythm": "asymmetric",
+        "shape_language": "mixed",
+        "elevation": "flat with glow accents",
+        "proof_style": "portfolio/case-study grid",
+        "whitespace": "generous in hero, tight in body"
+      }
+    }
+  ],
+  "total": 3
+}

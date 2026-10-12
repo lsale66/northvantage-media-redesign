@@ -1,0 +1,134 @@
+---
+import FrameMark from './FrameMark.astro';
+---
+
+<!-- Layout ported from Vantage Point's final CTA: a centered, framed card
+     over a gradient wash + radial glow, rather than the old image band. -->
+<section class="nv-cta" id="contact">
+  <div class="nv-cta__wash" aria-hidden="true"></div>
+  <div class="nv-cta__glow" aria-hidden="true"></div>
+
+  <div class="nv-wrap">
+    <div class="nv-cta__frame">
+      <div class="nv-cta__body">
+        <p class="nv-eyebrow nv-cta__eyebrow" data-reveal="fade">
+          <FrameMark size={12} float />
+          <span>Let's Talk Scope</span>
+        </p>
+
+        <h2 class="nv-display nv-cta__title" data-reveal="clip">
+          Your Next Buyer Is <span class="nv-accent-word">Scrolling</span>. Will They Stop for You?
+        </h2>
+
+        <p class="nv-lead nv-cta__copy" data-reveal="up" style="--d:120ms">
+          Every property is an opportunity. Great content sells listings faster,
+          attracts higher-tier buyers, and builds your reputation along the way.
+        </p>
+
+        <div class="nv-cta__actions" data-reveal="up" style="--d:200ms">
+          <a href="/contact" class="nv-btn nv-btn--solid">
+            <span>Call or Text</span>
+            <FrameMark size={11} dot={false} />
+          </a>
+          <a href="#pricing" class="nv-btn nv-btn--line"><span>Book Online</span></a>
+        </div>
+
+        <p class="nv-micro nv-cta__area" data-reveal="fade" style="--d:280ms">
+          Calgary · Cochrane · Airdrie · Chestermere · Okotoks
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nv-cta {
+    position: relative;
+    overflow: clip;
+    padding-block: clamp(5rem, 10vw, 8rem);
+  }
+
+  .nv-cta__wash {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: linear-gradient(
+      180deg,
+      var(--color-brand-surface) 0%,
+      var(--color-brand-bg) 55%,
+      var(--color-brand-primary) 100%
+    );
+  }
+
+  .nv-cta__glow {
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    bottom: -24%;
+    width: min(120vw, 1300px);
+    height: min(52vw, 560px);
+    transform: translateX(-50%);
+    background: var(--color-brand-accent);
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.22;
+  }
+
+  .nv-cta__frame {
+    position: relative;
+    max-width: 1080px;
+    margin-inline: auto;
+    border-radius: 28px;
+    border: 1px solid var(--nv-hairline-strong);
+    background: rgb(10 14 23 / 0.42);
+    backdrop-filter: blur(6px);
+    box-shadow:
+      0 2px 6px rgb(0 0 0 / 0.26),
+      0 20px 40px -12px rgb(0 0 0 / 0.32),
+      0 60px 96px -32px rgb(0 0 0 / 0.42);
+  }
+
+  .nv-cta__body {
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.75rem, 5vw, 5rem) clamp(2.5rem, 5vw, 3.5rem);
+    text-align: center;
+  }
+
+  .nv-cta__eyebrow {
+    justify-content: center;
+  }
+
+  .nv-cta__title {
+    margin: clamp(1.2rem, 2.4vw, 1.9rem) auto 0;
+    max-width: 20ch;
+    font-size: clamp(2.1rem, 4.4vw, 3.6rem);
+    line-height: 1.32;
+  }
+
+  .nv-cta__copy {
+    margin: clamp(1.5rem, 3vw, 2rem) auto 0;
+    max-width: 52ch;
+    font-size: clamp(0.9rem, 1.05vw, 1rem);
+  }
+
+  .nv-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+  }
+  .nv-cta__actions > a {
+    flex: 1 1 auto;
+    min-width: 172px;
+  }
+  @media (min-width: 480px) {
+    .nv-cta__actions > a {
+      flex: 0 0 auto;
+    }
+  }
+
+  .nv-cta__area {
+    margin: clamp(2rem, 4vw, 2.75rem) 0 0;
+    text-align: center;
+  }
+</style>
