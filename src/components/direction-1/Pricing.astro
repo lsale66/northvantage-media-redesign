@@ -1,27 +1,5 @@
 ---
 import Eyebrow from './Eyebrow.astro';
-import FrameMark from './FrameMark.astro';
-
-const packages = [
-  {
-    name: 'Essential',
-    price: '285',
-    copy: 'Photos, RMS measurements with floor plan, and a virtual tour — delivered the next morning.',
-    featured: false,
-  },
-  {
-    name: 'Showcase',
-    price: '685',
-    copy: "Everything in Essential, plus a cinematic social media reel featuring the agent, script writing, and drone photos + video.",
-    featured: true,
-  },
-  {
-    name: 'Luxury',
-    price: '999',
-    copy: 'Everything in Essential and Showcase, plus a full property showcase video tour and stunning twilight photography and video.',
-    featured: false,
-  },
-];
 ---
 
 <section class="nv-section nv-pricing" id="pricing">
@@ -41,8 +19,9 @@ The <span class="nv-accent-word">right package</span> for every listing
       </p>
 
       <p class="nv-body nv-pricing__copy" data-reveal="up" style="--d:160ms">
-        No bundles you don't need, and add-ons priced off the same sheet
-        everyone gets. Scope is usually a five-minute phone call.
+        Professional real estate photography &amp; video — priced by square
+        footage. All packages designed to help you sell faster and build
+        your brand.
       </p>
 
       <a
@@ -54,39 +33,6 @@ The <span class="nv-accent-word">right package</span> for every listing
         <span>Full Pricing &amp; Add-Ons</span>
       </a>
     </aside>
-
-    <ul class="nv-pricing__list">
-      {
-        packages.map((p, i) => (
-          <li
-            class:list={['nv-pkg', p.featured && 'nv-pkg--featured']}
-            data-reveal="up"
-            style={`--d:${i * 110}ms`}
-          >
-            <div class:list={['nv-pkg__inner', p.featured && 'nv-frame']}>
-              <h3 class="nv-h3 nv-pkg__name">
-                {p.name}
-                {p.featured && (
-                  <span class="nv-pkg__tag">
-                    <FrameMark size={9} dot={false} />
-                    Most booked
-                  </span>
-                )}
-              </h3>
-              <p class="nv-pkg__price">
-                <span class="nv-pkg__pricelabel nv-micro">Starting From</span>
-                <span class="nv-pkg__pricenum">
-                  <span class="nv-pkg__dollar">$</span>
-                  {p.price}
-                  <span class="nv-pkg__gst">+GST</span>
-                </span>
-              </p>
-              <p class="nv-pkg__copy">{p.copy}</p>
-            </div>
-          </li>
-        ))
-      }
-    </ul>
   </div>
 </section>
 
@@ -98,14 +44,10 @@ The <span class="nv-accent-word">right package</span> for every listing
 
   .nv-pricing__grid {
     display: grid;
-    gap: clamp(2.75rem, 6vw, 5rem);
   }
-  @media (min-width: 1000px) {
-    .nv-pricing__grid {
-      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-      gap: clamp(3rem, 7vw, 7rem);
-      align-items: start;
-    }
+
+  .nv-pricing__aside {
+    max-width: 640px;
   }
 
   .nv-pricing__title {
@@ -150,128 +92,4 @@ The <span class="nv-accent-word">right package</span> for every listing
     margin-top: 2rem;
   }
 
-  /* ── Package rows, not cards ── */
-  .nv-pricing__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .nv-pkg {
-    border-top: 1px solid var(--nv-hairline);
-  }
-  .nv-pkg:last-child {
-    border-bottom: 1px solid var(--nv-hairline);
-  }
-
-  .nv-pkg__inner {
-    --nv-frame-size: 20px;
-    --nv-frame-inset: 8px;
-    --nv-frame-color: var(--color-brand-accent);
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: clamp(1rem, 3vw, 2rem);
-    align-items: start;
-    padding-block: clamp(1.6rem, 2.8vw, 2.25rem);
-    transition: padding-inline 0.7s var(--nv-ease);
-  }
-  .nv-pkg--featured .nv-pkg__inner {
-    padding-inline: clamp(1rem, 2vw, 1.75rem);
-    background: linear-gradient(
-      to right,
-      rgb(232 132 60 / 0.07),
-      transparent 78%
-    );
-  }
-
-  .nv-pkg__name {
-    grid-column: 1;
-    grid-row: 1;
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    flex-wrap: wrap;
-    margin: 0;
-    color: var(--color-brand-text);
-  }
-  .nv-pkg__tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.28rem 0.6rem;
-    border: 1px solid rgb(232 132 60 / 0.45);
-    font-family: var(--font-body);
-    font-size: 0.5938rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--color-brand-accent);
-    white-space: nowrap;
-  }
-
-  .nv-pkg__price {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    align-self: start;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.3rem;
-    margin: 0;
-    text-align: right;
-  }
-  .nv-pkg__pricelabel {
-    color: var(--color-brand-muted);
-  }
-  .nv-pkg__pricenum {
-    font-family: var(--font-heading);
-    font-weight: 300;
-    font-size: clamp(1.6rem, 2.6vw, 2.15rem);
-    letter-spacing: -0.04em;
-    color: var(--color-brand-text);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-  }
-  .nv-pkg__dollar {
-    font-size: 0.55em;
-    color: var(--color-brand-accent);
-    vertical-align: 0.42em;
-  }
-  .nv-pkg__gst {
-    margin-left: 0.5rem;
-    font-family: var(--font-body);
-    font-size: 0.6875rem;
-    font-weight: 400;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-brand-muted);
-    vertical-align: 0.35em;
-  }
-
-  .nv-pkg__copy {
-    grid-column: 1;
-    grid-row: 2;
-    margin: 0.4rem 0 0;
-    max-width: 46ch;
-    font-size: 0.9375rem;
-    line-height: 1.68;
-    color: rgb(243 239 231 / 0.55);
-  }
-
-  @media (max-width: 640px) {
-    .nv-pkg__inner {
-      grid-template-columns: 1fr;
-    }
-    .nv-pkg__price {
-      grid-column: 1;
-      grid-row: auto;
-      align-items: flex-start;
-      text-align: left;
-      margin-top: 0.5rem;
-    }
-    .nv-pkg__copy {
-      grid-column: 1;
-      grid-row: auto;
-    }
-  }
 </style>

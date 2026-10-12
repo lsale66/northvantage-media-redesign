@@ -67,7 +67,10 @@ const stats = [
   .nv-stats {
     position: relative;
     z-index: 4;
-    background: var(--color-brand-surface);
+    background:
+      radial-gradient(60% 130% at 8% -15%, rgb(232 132 60 / 0.16), transparent 62%),
+      radial-gradient(55% 130% at 95% 120%, rgb(46 72 119 / 0.4), transparent 62%),
+      var(--color-brand-surface);
     padding-block: clamp(3rem, 6vw, 5.25rem);
     border-bottom: 1px solid var(--nv-hairline);
   }

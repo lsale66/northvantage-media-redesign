@@ -9,7 +9,7 @@ import FrameMark from './FrameMark.astro';
   <div class="nv-cta__glow" aria-hidden="true"></div>
 
   <div class="nv-wrap">
-    <div class="nv-cta__frame">
+    <div class="nv-cta__frame nv-frame">
       <div class="nv-cta__body">
         <p class="nv-eyebrow nv-cta__eyebrow" data-reveal="fade">
           <FrameMark size={12} float />
@@ -75,10 +75,13 @@ import FrameMark from './FrameMark.astro';
   }
 
   .nv-cta__frame {
+    --nv-frame-size: 32px;
+    --nv-frame-inset: -1px;
+    --nv-frame-color: var(--color-brand-accent);
     position: relative;
     max-width: 1080px;
     margin-inline: auto;
-    border-radius: 28px;
+    border-radius: 2px;
     border: 1px solid var(--nv-hairline-strong);
     background: rgb(10 14 23 / 0.42);
     backdrop-filter: blur(6px);
