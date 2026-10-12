@@ -471,6 +471,11 @@
   [data-reveal='rule'].is-in {
     transform: scaleX(1);
   }
+  /* Tight display line-heights let descenders (g, p, y) and accents hang
+     outside the box — open the mask past it so the glyphs aren't cropped. */
+  [data-reveal='clip'].is-in {
+    clip-path: inset(-0.25em -0.15em -0.35em -0.15em);
+  }
 
   /* ─────────────────────────────────────────────────────────
      Reduced motion — everything resolves instantly, nothing loops
