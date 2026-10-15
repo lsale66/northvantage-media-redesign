@@ -4,6 +4,8 @@ import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
+  // Swap to https://northvantagemedia.com once it's the primary URL.
+  site: 'https://northvantage-media-redesign.lsale.workers.dev',
   output: 'static',
   session: false,
   adapter: cloudflare({
