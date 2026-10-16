@@ -8,6 +8,10 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## SEO
+
+Head tags, sitemap, robots.txt, structured data, and redirects: **[docs/seo.md](docs/seo.md)**. Read it before adding a page, changing a title or description, or renaming a URL. Pages set SEO through `Layout` props (`title`, `description`, `image`, `imageAlt`, `noindex`), not by using `<SEO>` directly.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build
