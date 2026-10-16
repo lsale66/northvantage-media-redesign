@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { breadcrumbs, service } from '../../lib/schema';
 import Styles from '../../components/direction-1/Styles.astro';
 import Nav from '../../components/direction-1/Nav.astro';
 import Motion from '../../components/direction-1/Motion.astro';
@@ -15,11 +16,22 @@ const advantage = [
   'Room-by-room measurements and area calculations',
   'Immersive, walk-through 3D virtual tour',
 ];
+
+const pageSchema = [
+  service({
+    path: '/services/iguide/',
+    name: 'iGuide RMS Measurements & Virtual Tour',
+    serviceType: 'RMS measurement, floor plans, and 3D virtual tour',
+    description: 'RECA-standard RMS measurements, scaled floor plans, and an immersive iGuide 3D virtual tour for Calgary listings.'
+  }),
+  breadcrumbs([{ name: 'iGuide', path: '/services/iguide/' }]),
+];
 ---
 
 <Layout
   title="iGuide | RMS Measurements & Virtual Tour — Northvantage Media"
   description="iGuide services for Calgary real estate: RECA-standard RMS measurements, scaled floor plans, and an immersive 3D virtual tour — captured in one visit and delivered within 24 hours."
+  schema={pageSchema}
 >
   <Styles />
 

@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { breadcrumbs, service } from '../../lib/schema';
 import Styles from '../../components/direction-1/Styles.astro';
 import Nav from '../../components/direction-1/Nav.astro';
 import Motion from '../../components/direction-1/Motion.astro';
@@ -34,11 +35,22 @@ const gallery = [
   { file: '/images/real-estate-photography/drone1 (Large).jpg', alt: 'Aerial drone photograph of a Calgary property' },
   { file: '/images/real-estate-photography/drone2 (Large).jpg', alt: 'Aerial drone photograph of a Calgary property' },
 ];
+
+const pageSchema = [
+  service({
+    path: '/services/drone-photography-video/',
+    name: 'Real Estate Drone Photography & Video',
+    serviceType: 'Aerial drone photography and video',
+    description: 'Licensed aerial drone photography and video for Calgary real estate listings, including property line overlays.'
+  }),
+  breadcrumbs([{ name: 'Drone', path: '/services/drone-photography-video/' }]),
+];
 ---
 
 <Layout
   title="Drone Photography & Video — Northvantage Media"
   description="Calgary real estate drone photography and video. Licensed pilots, aerial photos and social-ready video, property line overlays, and 24-hour delivery alongside your listing photos."
+  schema={pageSchema}
 >
   <Styles />
 

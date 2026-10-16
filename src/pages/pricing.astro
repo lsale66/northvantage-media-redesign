@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { breadcrumbs } from '../lib/schema';
 import Styles from '../components/direction-1/Styles.astro';
 import Nav from '../components/direction-1/Nav.astro';
 import Eyebrow from '../components/direction-1/Eyebrow.astro';
@@ -9,11 +10,16 @@ import ServiceArea from '../components/direction-1/ServiceArea.astro';
 import FinalCta from '../components/direction-1/FinalCta.astro';
 import Footer from '../components/direction-1/Footer.astro';
 import Motion from '../components/direction-1/Motion.astro';
+
+const pageSchema = [
+  breadcrumbs([{ name: 'Pricing', path: '/pricing/' }]),
+];
 ---
 
 <Layout
   title="Pricing & Packages — Northvantage Media"
   description="Real estate media pricing for Calgary agents. Essential, Showcase and Luxury packages priced by property size, plus à la carte photography, iGuide, drone, twilight and video services."
+  schema={pageSchema}
 >
   <Styles />
 

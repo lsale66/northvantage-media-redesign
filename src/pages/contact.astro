@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { breadcrumbs } from '../lib/schema';
 import Styles from '../components/direction-1/Styles.astro';
 import Nav from '../components/direction-1/Nav.astro';
 import Eyebrow from '../components/direction-1/Eyebrow.astro';
@@ -33,11 +34,16 @@ const social = [
   { label: 'Instagram', icon: 'instagram' as const, href: 'https://www.instagram.com/northvantagemedia/' },
   { label: 'Facebook', icon: 'facebook' as const, href: 'https://www.facebook.com/northvantagemedia' },
 ];
+
+const pageSchema = [
+  breadcrumbs([{ name: 'Contact', path: '/contact/' }]),
+];
 ---
 
 <Layout
   title="Contact — Northvantage Media"
   description="Call, text, or email Northvantage Media to book Calgary real estate photography, video, iGuide, drone, or virtual staging. Or book directly online."
+  schema={pageSchema}
 >
   <Styles />
 

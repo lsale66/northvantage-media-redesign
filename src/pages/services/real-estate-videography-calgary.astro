@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { breadcrumbs, service } from '../../lib/schema';
 import Styles from '../../components/direction-1/Styles.astro';
 import Nav from '../../components/direction-1/Nav.astro';
 import Motion from '../../components/direction-1/Motion.astro';
@@ -90,11 +91,22 @@ const faqs = [
     a: 'Every video is delivered as a downloadable MP4 file via a link to your email, ready to post or upload — no watermark, no compression loss.',
   },
 ];
+
+const pageSchema = [
+  service({
+    path: '/services/real-estate-videography-calgary/',
+    name: 'Calgary Real Estate Videography',
+    serviceType: 'Real estate video production',
+    description: 'Vertical social media property reels, cinematic property showcases, and agent branding videos for Calgary real estate agents.'
+  }),
+  breadcrumbs([{ name: 'Videography', path: '/services/real-estate-videography-calgary/' }]),
+];
 ---
 
 <Layout
   title="Calgary Real Estate Videography — Northvantage Media"
   description="Calgary real estate video production: vertical Social Media Property Reels, horizontal Cinematic Property Showcases, and Agent Branding Videos. Built to sell listings faster, with 3-day delivery."
+  schema={pageSchema}
 >
   <Styles />
 

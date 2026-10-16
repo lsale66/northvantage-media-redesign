@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { breadcrumbs, service } from '../../lib/schema';
 import Styles from '../../components/direction-1/Styles.astro';
 import Nav from '../../components/direction-1/Nav.astro';
 import Motion from '../../components/direction-1/Motion.astro';
@@ -18,11 +19,22 @@ import DroneAddon from '../../components/direction-1/services/DroneAddon.astro';
 import TwilightAddon from '../../components/direction-1/services/TwilightAddon.astro';
 import FAQ from '../../components/direction-1/services/FAQ.astro';
 import GalleryTeaser from '../../components/direction-1/services/GalleryTeaser.astro';
+
+const pageSchema = [
+  service({
+    path: '/services/real-estate-photography-calgary/',
+    name: 'Calgary Real Estate Photography',
+    serviceType: 'Real estate photography',
+    description: 'Professional HDR interior and exterior listing photography for Calgary real estate agents, delivered within 24 hours.'
+  }),
+  breadcrumbs([{ name: 'Photography', path: '/services/real-estate-photography-calgary/' }]),
+];
 ---
 
 <Layout
   title="Calgary Real Estate Photography — Northvantage Media"
   description="Professional real estate photography in Calgary. Crisp, true-to-life HDR interior and exterior images, blue-sky replacement on every exterior, and next-day delivery on every listing."
+  schema={pageSchema}
 >
   <Styles />
 
