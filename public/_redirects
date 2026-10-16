@@ -1,0 +1,39 @@
+# Old WordPress (WPX) URLs → new site. 301 = permanent.
+
+# Pages
+/contact-us/                                /contact/                                          301
+/contact-us                                 /contact/                                          301
+/iguide/                                    /services/iguide/                                  301
+/iguide                                     /services/iguide/                                  301
+/real-estate-photography-calgary/           /services/real-estate-photography-calgary/         301
+/real-estate-photography-calgary            /services/real-estate-photography-calgary/         301
+/real-estate-social-media-videos/           /services/real-estate-videography-calgary/         301
+/real-estate-social-media-videos            /services/real-estate-videography-calgary/         301
+/real-estate-drone-photography-and-video/   /services/drone-photography-video/                 301
+/real-estate-drone-photography-and-video    /services/drone-photography-video/                 301
+/services/                                  /                                                  301
+/services                                   /                                                  301
+/gallery/                                   /                                                  301
+/gallery                                    /                                                  301
+
+# Blog → closest service page
+/blog/                                      /                                                  301
+/blog                                       /                                                  301
+/prep-home-real-estate-photography/         /services/real-estate-photography-calgary/#prep    301
+/prep-home-real-estate-photography          /services/real-estate-photography-calgary/#prep    301
+/real-estate-photography-necessary/         /services/real-estate-photography-calgary/         301
+/real-estate-photography-necessary          /services/real-estate-photography-calgary/         301
+/facebook-post-ideas-for-real-estate-agents/ /services/real-estate-videography-calgary/        301
+/facebook-post-ideas-for-real-estate-agents /services/real-estate-videography-calgary/         301
+/increase-your-homes-value-before-selling/  /                                                  301
+/increase-your-homes-value-before-selling   /                                                  301
+
+# WordPress feeds
+/feed/                                      /                                                  301
+/comments/feed/                             /                                                  301
+
+# TEMPORARY (302) until the new pages are built, then delete these lines.
+/card/                                      /contact/                                          302
+/card                                       /contact/                                          302
+/virtual-staging/                           /pricing/                                          302
+/virtual-staging                            /pricing/                                          302
