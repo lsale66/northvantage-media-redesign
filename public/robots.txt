@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://northvantagemedia.com/sitemap-index.xml

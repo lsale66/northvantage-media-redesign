@@ -4,6 +4,7 @@ import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 
 import sitemap from '@astrojs/sitemap';
+import robotsTxt from 'astro-robots-txt';
 
 export default defineConfig({
   // Canonical origin for SEO tags + sitemap. The workers.dev URL serves the
@@ -14,7 +15,7 @@ export default defineConfig({
   adapter: cloudflare({
     imageService: 'compile',
   }),
-  integrations: [react(), sitemap()],
+  integrations: [react(), sitemap(), robotsTxt()],
   vite: {
     plugins: [tailwindcss()],
   },
