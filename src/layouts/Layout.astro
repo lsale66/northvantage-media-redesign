@@ -1,11 +1,13 @@
 ---
+import { SEO } from 'astro-seo';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description?: string;
-  /** Social share image, path relative to the site root. */
+  /** Social share image, path relative to the site root. Assumed 1620×1080. */
   image?: string;
+  imageAlt?: string;
   noindex?: boolean;
 }
 
@@ -13,6 +15,7 @@ const {
   title,
   description = '',
   image = '/images/photos/001-twilight%20(Large).jpg',
+  imageAlt = 'Twilight exterior of a Calgary home photographed by Northvantage Media',
   noindex = false,
 } = Astro.props;
 
@@ -54,19 +57,19 @@ const schema = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <title>{title}</title>
-    <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex" />}
-
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Northvantage Media" />
-    <meta property="og:locale" content="en_CA" />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
-    <meta name="twitter:card" content="summary_large_image" />
+    <SEO
+      title={title}
+      description={description}
+      canonical={noindex ? null : canonical}
+      noindex={noindex}
+      openGraph={{
+        basic: { title, type: 'website', image: ogImage, url: canonical },
+        optional: { description, locale: 'en_CA', siteName: 'Northvantage Media' },
+        image: { alt: imageAlt, width: 1620, height: 1080 },
+      }}
+      twitter={{ card: 'summary_large_image', imageAlt }}
+      surpressWarnings
+    />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
