@@ -24,7 +24,7 @@ export const business: ProfessionalService = {
   description:
     'Real estate photography, video, RMS measurements, drone, and iGuide virtual tours serving Calgary and area.',
   telephone: '+1-587-885-6499',
-  email: 'hello@northvantagemedia.com',
+  email: 'lee@northvantagemedia.com',
   logo: `${SITE}/icon-512.png`,
   image: `${SITE}/images/photos/001-twilight%20(Large).jpg`,
   address: {

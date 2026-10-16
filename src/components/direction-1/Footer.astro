@@ -1,6 +1,12 @@
 ---
 import FrameMark from './FrameMark.astro';
 
+interface Props {
+  /** Show the "Chasing the last twenty minutes of light" sign-off line. */
+  signoff?: boolean;
+}
+
+const { signoff = true } = Astro.props;
 const year = new Date().getFullYear();
 
 const columns = [
@@ -28,7 +34,7 @@ const columns = [
     links: [
       { label: 'Book Online', href: 'https://northvantagemedia.hd.pics/order' },
       { label: '(587) 885-6499', href: 'tel:+15878856499' },
-      { label: 'hello@northvantagemedia.com', href: 'mailto:hello@northvantagemedia.com' },
+      { label: 'lee@northvantagemedia.com', href: 'mailto:lee@northvantagemedia.com' },
       { label: 'Instagram', href: 'https://www.instagram.com/northvantagemedia/' },
       { label: 'Facebook', href: 'https://www.facebook.com/northvantagemedia' },
     ],
@@ -81,13 +87,15 @@ const columns = [
     </div>
 
     <!-- Sign-off: bookends the headline the page opened with -->
-    <div class="nv-foot__signoff">
-      <FrameMark size={13} />
-      <p>
-        Chasing the last twenty minutes of light in Calgary since October 2023.
-      </p>
-      <FrameMark size={13} />
-    </div>
+    {signoff && (
+      <div class="nv-foot__signoff">
+        <FrameMark size={13} />
+        <p>
+          Chasing the last twenty minutes of light in Calgary since October 2023.
+        </p>
+        <FrameMark size={13} />
+      </div>
+    )}
 
     <div class="nv-foot__legal">
       <p class="nv-micro">© {year} Northvantage Media — Calgary, Alberta</p>
