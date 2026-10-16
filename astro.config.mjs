@@ -4,8 +4,9 @@ import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  // Swap to https://northvantagemedia.com once it's the primary URL.
-  site: 'https://northvantage-media-redesign.lsale.workers.dev',
+  // Canonical origin for SEO tags + sitemap. The workers.dev URL serves the
+  // same build but must never be canonical.
+  site: 'https://northvantagemedia.com',
   output: 'static',
   session: false,
   adapter: cloudflare({

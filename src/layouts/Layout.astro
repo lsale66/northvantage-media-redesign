@@ -4,9 +4,49 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  /** Social share image, path relative to the site root. */
+  image?: string;
+  noindex?: boolean;
 }
 
-const { title, description = '' } = Astro.props;
+const {
+  title,
+  description = '',
+  image = '/images/photos/001-twilight%20(Large).jpg',
+  noindex = false,
+} = Astro.props;
+
+const GA_ID = 'G-QMG4PY9CTN';
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': `${Astro.site}#organization`,
+  name: 'Northvantage Media',
+  url: Astro.site?.href,
+  description:
+    'Real estate photography, video, RMS measurements, drone, and iGuide virtual tours serving Calgary and area.',
+  telephone: '+1-587-885-6499',
+  email: 'hello@northvantagemedia.com',
+  logo: new URL('/icon-512.png', Astro.site).href,
+  image: ogImage,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Calgary',
+    addressRegion: 'AB',
+    postalCode: 'T2X 1T6',
+    addressCountry: 'CA',
+  },
+  areaServed: { '@type': 'City', name: 'Calgary' },
+  openingHours: 'Mo-Sa 09:00-17:00',
+  sameAs: [
+    'https://www.facebook.com/northvantagemedia',
+    'https://www.instagram.com/northvantagemedia/',
+    'https://share.google/ki6GMLUZmbMXYdLj8',
+  ],
+};
 ---
 
 <!doctype html>
@@ -16,10 +56,33 @@ const { title, description = '' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Northvantage Media" />
+    <meta property="og:locale" content="en_CA" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap.xml" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+    <script is:inline define:vars={{ GA_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', GA_ID);
+    </script>
   </head>
   <body>
     <slot />

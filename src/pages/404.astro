@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Styles from '../components/direction-1/Styles.astro';
+import Nav from '../components/direction-1/Nav.astro';
+import Eyebrow from '../components/direction-1/Eyebrow.astro';
+import Footer from '../components/direction-1/Footer.astro';
+import Motion from '../components/direction-1/Motion.astro';
+
+const links = [
+  { label: 'Photography', href: '/services/real-estate-photography-calgary/' },
+  { label: 'Videography', href: '/services/real-estate-videography-calgary/' },
+  { label: 'Drone', href: '/services/drone-photography-video/' },
+  { label: 'iGuide', href: '/services/iguide/' },
+  { label: 'Pricing', href: '/pricing/' },
+  { label: 'Contact', href: '/contact/' },
+];
+---
+
+<Layout
+  title="Page Not Found — Northvantage Media"
+  description="This page doesn't exist. Find Calgary real estate photography, video, drone, and iGuide services from Northvantage Media."
+  noindex
+>
+  <Styles />
+
+  <div class="nv-grain" aria-hidden="true"></div>
+
+  <Nav />
+
+  <main>
+    <header class="nv-section nv-404">
+      <div class="nv-wrap">
+        <Eyebrow>404</Eyebrow>
+        <h1 class="nv-h2 nv-404__title" data-reveal="clip">
+          This Shot Didn't Make the <span class="nv-accent-word">Final Cut</span>
+        </h1>
+        <p class="nv-lead nv-404__lead" data-reveal="up" style="--d:120ms">
+          The page you're looking for has moved or doesn't exist. Try one of these instead.
+        </p>
+        <nav class="nv-404__links" aria-label="Popular pages" data-reveal="up" style="--d:200ms">
+          <a href="/" class="nv-btn nv-btn--solid">Back to Home</a>
+          {links.map((l) => <a href={l.href} class="nv-btn nv-btn--line">{l.label}</a>)}
+        </nav>
+      </div>
+    </header>
+  </main>
+
+  <Footer />
+
+  <Motion />
+
+  <style>
+    .nv-404 {
+      padding-top: clamp(9rem, 16vw, 13rem);
+      padding-bottom: clamp(5rem, 10vw, 8rem);
+    }
+    .nv-404__title {
+      max-width: 18ch;
+      margin-top: 1.25rem;
+    }
+    .nv-404__lead {
+      max-width: 46ch;
+      margin-top: 1.5rem;
+    }
+    .nv-404__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+    }
+  </style>
+</Layout>

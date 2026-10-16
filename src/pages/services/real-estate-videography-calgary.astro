@@ -17,8 +17,8 @@ const overviewFeatures = [
   { name: '3-Day Delivery', copy: 'A finished, download-ready edit lands in your inbox within 3 days of the shoot — ready to post or upload immediately.' },
 ];
 
-// Placeholder video sets. Add a `youtubeId` or `src` to any item once a real
-// video link is provided and it will render as an embed instead of a placeholder.
+// Video sets. Each item takes a `youtubeId` or an embed `src`; an item with
+// neither renders as a placeholder tile.
 const reels = [
   { label: 'Property Reel 01', src: 'https://iframe.mediadelivery.net/embed/469110/a398883b-93b3-4fc5-a769-2f53e5a536a7?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
   { label: 'Property Reel 02', src: 'https://iframe.mediadelivery.net/embed/469110/5e262981-3ef2-4357-ac91-73686c3c08f2?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
@@ -96,20 +96,6 @@ const faqs = [
   title="Calgary Real Estate Videography — Northvantage Media"
   description="Calgary real estate video production: vertical Social Media Property Reels, horizontal Cinematic Property Showcases, and Agent Branding Videos. Built to sell listings faster, with 3-day delivery."
 >
-  <style is:global>
-    :root {
-      --color-brand-primary: #1b2a45;
-      --color-brand-secondary: #2e4877;
-      --color-brand-accent: #e8843c;
-      --color-brand-bg: #0a0e17;
-      --color-brand-surface: #131b2c;
-      --color-brand-text: #f3efe7;
-      --color-brand-muted: #8d93a3;
-      --font-heading: 'Fraunces Variable', Georgia, serif;
-      --font-body: 'Inter Variable', system-ui, sans-serif;
-    }
-  </style>
-
   <Styles />
 
   <div class="nv-grain" aria-hidden="true"></div>
