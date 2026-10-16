@@ -1,32 +1,26 @@
 ---
-import FrameMark from './FrameMark.astro';
+import SocialIcon from './SocialIcon.astro';
 
-interface Props {
-  /** Show the "Chasing the last twenty minutes of light" sign-off line. */
-  signoff?: boolean;
-}
-
-const { signoff = true } = Astro.props;
 const year = new Date().getFullYear();
 
+// Section anchors live on the home page, so prefix them with / to work site-wide.
 const columns = [
   {
     title: 'Explore',
     links: [
-      { label: 'Work', href: '#work' },
-      { label: 'Gallery', href: '/gallery' },
-      { label: 'Why Us', href: '#why' },
-      { label: 'Pricing', href: '/pricing' },
+      { label: 'Work', href: '/#work' },
+      { label: 'Why Us', href: '/#why' },
+      { label: 'Pricing', href: '/pricing/' },
+      { label: 'Contact', href: '/contact/' },
     ],
   },
   {
     title: 'Services',
     links: [
-      { label: 'Photography', href: '/services/real-estate-photography-calgary' },
-      { label: 'Cinematic Video', href: '/services/real-estate-photography-calgary' },
-      { label: 'iGuide 3D Tours', href: '/services/iguide' },
-      { label: 'Drone Photo & Video', href: '/services/drone-photography-video' },
-      { label: 'Virtual Staging', href: '/services/real-estate-photography-calgary' },
+      { label: 'Photography', href: '/services/real-estate-photography-calgary/' },
+      { label: 'Cinematic Video', href: '/services/real-estate-videography-calgary/' },
+      { label: 'iGuide 3D Tours', href: '/services/iguide/' },
+      { label: 'Drone Photo & Video', href: '/services/drone-photography-video/' },
     ],
   },
   {
@@ -35,10 +29,13 @@ const columns = [
       { label: 'Book Online', href: 'https://northvantagemedia.hd.pics/order' },
       { label: '(587) 885-6499', href: 'tel:+15878856499' },
       { label: 'lee@northvantagemedia.com', href: 'mailto:lee@northvantagemedia.com' },
-      { label: 'Instagram', href: 'https://www.instagram.com/northvantagemedia/' },
-      { label: 'Facebook', href: 'https://www.facebook.com/northvantagemedia' },
     ],
   },
+];
+
+const social = [
+  { name: 'instagram' as const, label: 'Instagram', href: 'https://www.instagram.com/northvantagemedia/' },
+  { name: 'facebook' as const, label: 'Facebook', href: 'https://www.facebook.com/northvantagemedia' },
 ];
 ---
 
@@ -64,10 +61,17 @@ const columns = [
             <span class="nv-foot__sub">Media</span>
           </span>
         </a>
-        <p class="nv-foot__pitch">
-          Calgary's listing media partner for agents selling homes that deserve
-          more than a phone-camera walkthrough.
-        </p>
+        <ul class="nv-foot__social">
+          {
+            social.map((s) => (
+              <li>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`Northvantage Media on ${s.label}`}>
+                  <SocialIcon name={s.name} size={20} />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </div>
 
       {
@@ -86,21 +90,10 @@ const columns = [
       }
     </div>
 
-    <!-- Sign-off: bookends the headline the page opened with -->
-    {signoff && (
-      <div class="nv-foot__signoff">
-        <FrameMark size={13} />
-        <p>
-          Chasing the last twenty minutes of light in Calgary since October 2023.
-        </p>
-        <FrameMark size={13} />
-      </div>
-    )}
-
     <div class="nv-foot__legal">
       <p class="nv-micro">© {year} Northvantage Media — Calgary, Alberta</p>
       <p class="nv-micro">
-        Real estate photography · Video · iGuide 3D · Drone · Virtual staging
+        Real estate photography · Video · iGuide 3D · Drone
       </p>
     </div>
   </div>
@@ -202,12 +195,28 @@ const columns = [
     text-transform: uppercase;
     color: var(--color-brand-muted);
   }
-  .nv-foot__pitch {
+  .nv-foot__social {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
     margin: 1.35rem 0 0;
-    max-width: 34ch;
-    font-size: 0.875rem;
-    line-height: 1.7;
-    color: rgb(243 239 231 / 0.52);
+    padding: 0;
+  }
+  .nv-foot__social a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--nv-hairline);
+    color: rgb(243 239 231 / 0.62);
+    transition:
+      color 0.5s var(--nv-ease),
+      border-color 0.5s var(--nv-ease);
+  }
+  .nv-foot__social a:hover,
+  .nv-foot__social a:focus-visible {
+    color: var(--color-brand-accent);
+    border-color: var(--color-brand-accent);
   }
 
   .nv-foot__coltitle {
@@ -249,35 +258,15 @@ const columns = [
     width: 12px;
   }
 
-  .nv-foot__signoff {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(0.9rem, 2.5vw, 1.75rem);
-    margin-top: clamp(3rem, 6vw, 5rem);
-    padding-block: clamp(1.5rem, 3vw, 2.25rem);
-    border-top: 1px solid var(--nv-hairline);
-    border-bottom: 1px solid var(--nv-hairline);
-    color: var(--color-brand-muted);
-    text-align: center;
-  }
-  .nv-foot__signoff p {
-    margin: 0;
-    font-family: var(--font-heading);
-    font-weight: 300;
-    font-size: clamp(0.9375rem, 2vw, 1.25rem);
-    letter-spacing: -0.015em;
-    color: rgb(243 239 231 / 0.72);
-    text-wrap: balance;
-  }
-
   .nv-foot__legal {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem 2rem;
-    margin-top: clamp(1.5rem, 3vw, 2rem);
+    margin-top: clamp(3rem, 6vw, 5rem);
+    padding-top: clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px solid var(--nv-hairline);
   }
   .nv-foot__legal p {
     margin: 0;

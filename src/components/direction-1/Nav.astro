@@ -2,6 +2,7 @@
 import FrameMark from './FrameMark.astro';
 
 const HOME = '/';
+const BOOKING_URL = 'https://northvantagemedia.hd.pics/order';
 
 const links = [
   { label: 'Work', href: `${HOME}#work` },
@@ -131,7 +132,7 @@ const links = [
           </>
         ))
       }
-      <a href="#pricing" class="nv-menu__link" style="--i:5">
+      <a href={BOOKING_URL} class="nv-menu__link" style="--i:5">
         <span>Book Online</span>
         <FrameMark size={13} />
       </a>
