@@ -37,3 +37,8 @@
 /card                                       /contact/                                          302
 /virtual-staging/                           /pricing/                                          302
 /virtual-staging                            /pricing/                                          302
+
+# Old sitemap URLs (WordPress + first hand-built sitemap) → Astro sitemap index
+/sitemap.xml                                 /sitemap-index.xml                                 301
+/sitemap_index.xml                           /sitemap-index.xml                                 301
+/wp-sitemap.xml                              /sitemap-index.xml                                 301
