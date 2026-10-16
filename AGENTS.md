@@ -10,7 +10,7 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 ## SEO
 
-Head tags, sitemap, robots.txt, structured data, and redirects: **[docs/seo.md](docs/seo.md)**. Read it before adding a page, changing a title or description, or renaming a URL. Pages set SEO through `Layout` props (`title`, `description`, `image`, `imageAlt`, `noindex`), not by using `<SEO>` directly.
+Head tags, schema markup (JSON-LD), sitemap, robots.txt, and redirects: **[docs/seo.md](docs/seo.md)**. Read it before adding a page, changing a title or description, or renaming a URL. Pages set SEO through `Layout` props (`title`, `description`, `image`, `imageAlt`, `noindex`, `schema`), not by using `<SEO>` or `<Schema>` directly. Schema helpers and business facts live in `src/lib/schema.ts`.
 
 ## Documentation
 
