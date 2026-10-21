@@ -1,5 +1,6 @@
 ---
 import Eyebrow from './Eyebrow.astro';
+import BunnyVideo from './BunnyVideo.astro';
 
 const horizontalVideo = {
   src: 'https://www.youtube.com/embed/gyvaricJimI?rel=0',
@@ -67,13 +68,7 @@ const photos = [
           verticalVideos.map((src, i) => (
             <figure class="nv-vid nv-vid--tall nv-frame nv-frame--hover">
               <div class="nv-vid__frame" data-reveal="shot" style={`--d:${i * 90}ms`}>
-                <iframe
-                  src={src}
-                  title={`Northvantage Media — vertical reel ${i + 1}`}
-                  loading="lazy"
-                  allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
-                  allowfullscreen
-                />
+                <BunnyVideo src={src} title={`Northvantage Media — vertical reel ${i + 1}`} />
               </div>
             </figure>
           ))

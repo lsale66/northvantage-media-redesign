@@ -8,6 +8,7 @@ import Footer from '../../components/direction-1/Footer.astro';
 import FinalCta from '../../components/direction-1/FinalCta.astro';
 import ServiceArea from '../../components/direction-1/ServiceArea.astro';
 import Eyebrow from '../../components/direction-1/Eyebrow.astro';
+import BunnyVideo from '../../components/direction-1/BunnyVideo.astro';
 import FrameMark from '../../components/direction-1/FrameMark.astro';
 import PriceIcon from '../../components/direction-1/pricing/PriceIcon.astro';
 
@@ -232,13 +233,7 @@ const pageSchema = [
               <div class="nv-vidbox nv-frame nv-frame--hover" data-reveal="up" style={`--d:${i * 70}ms`}>
                 <div class="nv-vidbox__inner nv-vidbox__inner--vert">
                   {r.src ? (
-                    <iframe
-                      src={r.src}
-                      title={r.label}
-                      loading="lazy"
-                      allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
-                      allowfullscreen
-                    />
+                    <BunnyVideo src={r.src} title={r.label} />
                   ) : r.youtubeId ? (
                     <iframe
                       src={`https://www.youtube.com/embed/${r.youtubeId}`}
@@ -342,13 +337,7 @@ const pageSchema = [
               <div class="nv-vidbox nv-frame nv-frame--hover" data-reveal="up" style={`--d:${i * 90}ms`}>
                 <div class="nv-vidbox__inner nv-vidbox__inner--vert">
                   {a.src ? (
-                    <iframe
-                      src={a.src}
-                      title={a.label}
-                      loading="lazy"
-                      allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
-                      allowfullscreen
-                    />
+                    <BunnyVideo src={a.src} title={a.label} />
                   ) : a.youtubeId ? (
                     <iframe
                       src={`https://www.youtube.com/embed/${a.youtubeId}`}

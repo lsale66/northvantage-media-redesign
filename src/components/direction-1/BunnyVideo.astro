@@ -1,0 +1,96 @@
+---
+// Click-to-load Bunny Stream embed. Shows the library's own thumbnail as a
+// plain <img> and only creates the (heavy) player iframe on click, so the page
+// doesn't spin up a full player per video on load. Fills its positioned parent.
+interface Props {
+  src: string;
+  title: string;
+}
+
+const { src, title } = Astro.props;
+
+const CDN = 'https://vz-8e06a074-ee0.b-cdn.net';
+// Bunny serves each video's thumbnail under a hashed filename (older videos have
+// no plain thumbnail.jpg). Find it in the video's embed page source, or the
+// Thumbnail URL on the video's page in the Bunny dashboard.
+const thumbs: Record<string, string> = {
+  'a398883b-93b3-4fc5-a769-2f53e5a536a7': 'thumbnail_345b9c52.jpg',
+  '5e262981-3ef2-4357-ac91-73686c3c08f2': 'thumbnail_8e0fadaa.jpg',
+  'ab02e49c-ec76-4177-9b6e-b69d7df60512': 'thumbnail_03511463.jpg',
+  'cd183067-e645-4ff6-9cc2-313b89f6e251': 'thumbnail_9c450bad.jpg',
+  '415bc110-011a-46c5-8cb8-daaac92ab4e9': 'thumbnail_509bb4ce.jpg',
+  '8d7fabda-f5bb-4b4e-a936-095c86900a4d': 'thumbnail_07370028.jpg',
+  '4c5e182c-a96c-4f80-ab99-d2992bc13e42': 'thumbnail_2a723b87.jpg',
+  'fa91653c-8e19-4a2c-98ef-5fe4e21adec0': 'thumbnail_11d75388.jpg',
+  'd06939c7-91da-484b-80ae-00ee67190b93': 'thumbnail_d067766c.jpg',
+};
+const id = src.match(/\/embed\/\d+\/([0-9a-f-]{36})/)?.[1];
+const poster = id ? `${CDN}/${id}/${thumbs[id] ?? 'thumbnail.jpg'}` : undefined;
+// The click is a user gesture, so the player can start with sound.
+const playSrc = src.replace('autoplay=false', 'autoplay=true').replace('muted=true', 'muted=false');
+---
+
+<button type="button" class="nv-bunny" data-bunny-src={playSrc} data-bunny-title={title} aria-label={`Play video: ${title}`}>
+  {poster && <img src={poster} alt="" loading="lazy" decoding="async" />}
+  <span class="nv-bunny__play" aria-hidden="true">
+    <svg viewBox="0 0 20 20" fill="none"><path d="M7.5 5.5v9l7-4.5z" fill="currentColor"></path></svg>
+  </span>
+</button>
+
+<style>
+  .nv-bunny {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: var(--color-brand-surface);
+    cursor: pointer;
+  }
+  .nv-bunny img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .nv-bunny__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    color: #fff;
+    background: rgb(0 0 0 / 0.55);
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .nv-bunny__play svg {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  .nv-bunny:hover .nv-bunny__play,
+  .nv-bunny:focus-visible .nv-bunny__play {
+    background: rgb(0 0 0 / 0.75);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+</style>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as Element).closest<HTMLButtonElement>('[data-bunny-src]');
+    if (!btn) return;
+    const iframe = document.createElement('iframe');
+    iframe.src = btn.dataset.bunnySrc!;
+    iframe.title = btn.dataset.bunnyTitle ?? '';
+    iframe.allow = 'accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen';
+    iframe.allowFullscreen = true;
+    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;';
+    btn.replaceWith(iframe);
+  });
+</script>
