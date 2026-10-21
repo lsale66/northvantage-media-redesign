@@ -92,5 +92,13 @@ const playSrc = src.replace('autoplay=false', 'autoplay=true').replace('muted=tr
     iframe.allowFullscreen = true;
     iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;';
     btn.replaceWith(iframe);
+
+    // The embed ignores autoplay with preload=false, so send its native play
+    // command once the player page has loaded (twice, in case the first lands early).
+    const play = () => iframe.contentWindow?.postMessage({ command: "play" }, "*");
+    iframe.addEventListener("load", () => {
+      play();
+      setTimeout(play, 800);
+    });
   });
 </script>
