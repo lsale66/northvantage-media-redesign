@@ -32,9 +32,7 @@
 /feed/                                      /                                                  301
 /comments/feed/                             /                                                  301
 
-# TEMPORARY (302) until the new pages are built, then delete these lines.
-/card/                                      /contact/                                          302
-/card                                       /contact/                                          302
+# TEMPORARY (302) until the new page is built, then delete these lines.
 /virtual-staging/                           /pricing/                                          302
 /virtual-staging                            /pricing/                                          302
 

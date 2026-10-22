@@ -15,7 +15,12 @@ export default defineConfig({
   adapter: cloudflare({
     imageService: 'compile',
   }),
-  integrations: [react(), sitemap(), robotsTxt()],
+  integrations: [
+    react(),
+    // /card/ is a noindex QR landing page — keep it out of the sitemap too.
+    sitemap({ filter: (page) => !page.endsWith('/card/') }),
+    robotsTxt(),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

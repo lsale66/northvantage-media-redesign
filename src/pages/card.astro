@@ -1,0 +1,546 @@
+---
+/**
+ * /card/ — landing page for the QR code on the business card.
+ * Written for First Place Realty agents; kept out of search (noindex)
+ * so the offer stays with people who were handed a card.
+ */
+import Layout from '../layouts/Layout.astro';
+import Styles from '../components/direction-1/Styles.astro';
+import FrameMark from '../components/direction-1/FrameMark.astro';
+import BeforeAfter from '../components/direction-1/BeforeAfter.astro';
+import Footer from '../components/direction-1/Footer.astro';
+import Motion from '../components/direction-1/Motion.astro';
+
+const PHONE = '+15878856499';
+const PHONE_LABEL = '(587) 885-6499';
+const ORDER_URL = 'https://northvantagemedia.hd.pics/order';
+const VCARD = '/northvantage-media.vcf';
+
+const perks = [
+  { k: 'Next-Day', v: 'Photo & RMS delivery' },
+  { k: 'RMS', v: 'Compliant measurements' },
+  { k: '5 Min', v: 'To book online' },
+];
+
+const packages = [
+  { name: 'Essential', from: '$285', note: 'HDR photos, RMS, floor plan, virtual tour' },
+  { name: 'Showcase', from: '$685', note: 'Essential + 45-sec reel, agent intro, drone' },
+  { name: 'Luxury', from: '$999', note: 'Showcase + cinematic video, twilight' },
+];
+
+const testimonials = [
+  {
+    quote:
+      "I've been using Northvantage Media for real estate services for all my clients homes. Lee's attention to details in lighting, the use of professional equipment and video editing makes the homes stand out.",
+    name: 'Anthony Luong',
+    img: '/images/redesign/image-04.jpg',
+  },
+  {
+    quote:
+      'Great photos. Excellent video creation, giving positive direction and suggestions to create effective videos in a short amount of time. Highly recommend',
+    name: 'Lionel Sale',
+    img: '/images/redesign/image-06.jpg',
+  },
+];
+---
+
+<Layout
+  title="For First Place Realty Agents — Northvantage Media"
+  description="Calgary real estate photography, video, RMS and drone for First Place Realty agents. Free drone photos on your first listing. Call, text, or save Lee's contact."
+  noindex
+>
+  <Styles />
+
+  <div class="nv-grain" aria-hidden="true"></div>
+
+  <header class="nv-card-bar">
+    <a href="/" class="nv-card-bar__brand" aria-label="Northvantage Media home">
+      <img src="/images/redesign/logo.png" alt="" width="40" height="40" />
+      <span>Northvantage <em>Media</em></span>
+    </a>
+    <a href={`tel:${PHONE}`} class="nv-micro nv-card-bar__tel">{PHONE_LABEL}</a>
+  </header>
+
+  <main>
+    <section class="nv-card-hero">
+      <div class="nv-card-hero__glow" aria-hidden="true"></div>
+      <div class="nv-wrap nv-card-hero__inner">
+        <p class="nv-eyebrow" data-reveal="fade">
+          <FrameMark size={12} float />
+          <span>For First Place Realty Agents</span>
+        </p>
+
+        <h1 class="nv-h2 nv-card-hero__title" data-reveal="clip">
+          Real Estate Media That Makes You Look Like a <span class="nv-accent-word">Top Producer</span>.
+        </h1>
+
+        <p class="nv-lead nv-card-hero__lead" data-reveal="up" style="--d:100ms">
+          Photo, video, RMS, drone &amp; iGuide — booked, shot, and delivered.
+          So you can focus on closing.
+        </p>
+
+        <div class="nv-card-offer nv-frame" data-reveal="up" style="--d:160ms">
+          <p class="nv-micro nv-card-offer__kicker">Your card perk</p>
+          <p class="nv-h3 nv-card-offer__title">
+            Free <span class="nv-accent-word">drone photos</span> on your first listing.
+          </p>
+          <p class="nv-card-offer__fine">
+            For First Place Realty agents. Mention “First Place” when you book.
+          </p>
+        </div>
+
+        <div class="nv-card-actions" data-reveal="up" style="--d:220ms">
+          <a href={`tel:${PHONE}`} class="nv-btn nv-btn--solid">
+            <span>Call</span>
+          </a>
+          <a href={`sms:${PHONE}`} class="nv-btn nv-btn--solid">
+            <span>Text</span>
+          </a>
+          <a href={VCARD} class="nv-btn nv-btn--line nv-card-actions__wide" download>
+            <span>Save My Contact</span>
+            <FrameMark size={11} dot={false} />
+          </a>
+          <a href="#pricing" class="nv-btn nv-btn--line nv-card-actions__wide">
+            <span>See Pricing</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="nv-card-perks" aria-label="What you can expect">
+      <div class="nv-wrap">
+        <ul class="nv-card-perks__list">
+          {
+            perks.map((p, i) => (
+              <li data-reveal="up" style={`--d:${i * 80}ms`}>
+                <span class="nv-card-perks__k">{p.k}</span>
+                <span class="nv-micro">{p.v}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="nv-micro nv-card-perks__area">
+          Calgary · Airdrie · Cochrane · Chestermere · Okotoks
+        </p>
+      </div>
+    </section>
+
+    <section class="nv-card-sec">
+      <div class="nv-wrap">
+        <p class="nv-eyebrow">Wow Your Sellers</p>
+        <h2 class="nv-h2 nv-card-sec__title" data-reveal="clip">
+          Great media markets <span class="nv-accent-word">you</span>, too.
+        </h2>
+        <p class="nv-body nv-card-sec__copy" data-reveal="up" style="--d:100ms">
+          When the photos look this good, neighbours notice. That's how you hear
+          “you need to call my agent” — and get the next listing without asking for it.
+        </p>
+        <BeforeAfter
+          before={{ src: '/images/real-estate-photography/twilight-before.jpg', alt: 'Daytime exterior photo before editing', width: 1536, height: 1024 }}
+          after={{ src: '/images/real-estate-photography/twilight-after.jpg', alt: 'Same exterior as a virtual twilight with glowing windows', width: 1536, height: 1025 }}
+          label="Drag to compare the before and after photo"
+          style="--d:160ms"
+        />
+      </div>
+    </section>
+
+    <section class="nv-card-sec nv-card-sec--surface" id="pricing">
+      <div class="nv-wrap">
+        <p class="nv-eyebrow">Packages</p>
+        <h2 class="nv-h2 nv-card-sec__title" data-reveal="clip">
+          Priced by <span class="nv-accent-word">square footage</span>.
+        </h2>
+        <ul class="nv-card-pkgs">
+          {
+            packages.map((p, i) => (
+              <li class="nv-card-pkg" data-reveal="up" style={`--d:${i * 80}ms`}>
+                <div>
+                  <p class="nv-card-pkg__name">{p.name}</p>
+                  <p class="nv-card-pkg__note">{p.note}</p>
+                </div>
+                <p class="nv-card-pkg__price">
+                  <span class="nv-micro">From</span>
+                  <span class="nv-card-pkg__num">{p.from}</span>
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="nv-micro nv-card-pkgs__gst">All prices + GST</p>
+        <a href="/pricing/" class="nv-link nv-card-sec__more">
+          <span>Full pricing &amp; add-ons</span>
+          <span class="nv-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="nv-card-sec">
+      <div class="nv-wrap">
+        <p class="nv-eyebrow">Your Colleagues Say</p>
+        <h2 class="nv-h2 nv-card-sec__title" data-reveal="clip">
+          Trusted by <span class="nv-accent-word">First Place</span> agents.
+        </h2>
+        <div class="nv-card-quotes">
+          {
+            testimonials.map((t, i) => (
+              <figure class="nv-card-quote" data-reveal="up" style={`--d:${i * 100}ms`}>
+                <p class="nv-card-quote__stars" aria-label="Rated 5 out of 5">★★★★★</p>
+                <blockquote>{t.quote}</blockquote>
+                <figcaption>
+                  <img src={t.img} alt="" width="44" height="44" loading="lazy" />
+                  <span>
+                    <span class="nv-card-quote__name">{t.name}</span>
+                    <span class="nv-micro">First Place Realty</span>
+                  </span>
+                </figcaption>
+              </figure>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="nv-card-sec nv-card-close">
+      <div class="nv-wrap">
+        <h2 class="nv-h2 nv-card-sec__title" data-reveal="clip">
+          Let's <span class="nv-accent-word">Connect</span>.
+        </h2>
+        <p class="nv-body nv-card-sec__copy" data-reveal="up" style="--d:100ms">
+          You're already working with some of the best agents at First Place —
+          let's get your listings looking the part.
+        </p>
+        <div class="nv-card-actions" data-reveal="up" style="--d:160ms">
+          <a href={ORDER_URL} class="nv-btn nv-btn--solid nv-card-actions__wide">
+            <span>Book Your First Shoot</span>
+            <FrameMark size={11} dot={false} />
+          </a>
+          <a href={`tel:${PHONE}`} class="nv-btn nv-btn--line"><span>Call</span></a>
+          <a href={`sms:${PHONE}`} class="nv-btn nv-btn--line"><span>Text</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <!-- Thumb-reach action bar on phones -->
+  <nav class="nv-card-dock" aria-label="Quick contact">
+    <a href={`tel:${PHONE}`}>Call</a>
+    <a href={`sms:${PHONE}`}>Text</a>
+    <a href={VCARD} download>Save Contact</a>
+  </nav>
+
+  <Motion />
+
+  <style>
+    .nv-card-bar {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem var(--nv-gutter);
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-card-bar__brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: var(--color-brand-text);
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+    }
+    .nv-card-bar__brand img {
+      width: 34px;
+      height: 34px;
+    }
+    .nv-card-bar__brand em {
+      font-style: normal;
+      color: var(--color-brand-muted);
+    }
+    .nv-card-bar__tel {
+      color: var(--color-brand-text);
+      text-decoration: none;
+    }
+
+    /* ── Hero ── */
+    .nv-card-hero {
+      position: relative;
+      overflow: clip;
+      padding-block: clamp(2.5rem, 7vw, 6rem) clamp(2.5rem, 6vw, 5rem);
+    }
+    .nv-card-hero__glow {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(80% 60% at 90% 0%, rgb(232 132 60 / 0.16), transparent 70%),
+        linear-gradient(180deg, var(--color-brand-bg), var(--color-brand-primary));
+    }
+    .nv-card-hero__inner {
+      max-width: 760px;
+    }
+    .nv-card-hero__title {
+      margin: 1.1rem 0 0;
+      max-width: 18ch;
+    }
+    .nv-card-hero__lead {
+      margin: 1.2rem 0 0;
+      max-width: 44ch;
+    }
+
+    .nv-card-offer {
+      --nv-frame-size: 22px;
+      --nv-frame-color: var(--color-brand-accent);
+      margin-top: 2rem;
+      padding: 1.4rem 1.5rem;
+      background: rgb(232 132 60 / 0.08);
+      border: 1px solid rgb(232 132 60 / 0.28);
+    }
+    .nv-card-offer__kicker {
+      margin: 0;
+      color: var(--color-brand-accent);
+    }
+    .nv-card-offer__title {
+      margin: 0.6rem 0 0;
+    }
+    .nv-card-offer__fine {
+      margin: 0.6rem 0 0;
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      color: rgb(243 239 231 / 0.55);
+    }
+
+    .nv-card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .nv-card-actions .nv-btn {
+      padding-inline: 1rem;
+    }
+    .nv-card-actions__wide {
+      grid-column: 1 / -1;
+    }
+    @media (min-width: 720px) {
+      .nv-card-actions {
+        grid-template-columns: repeat(4, auto);
+        justify-content: start;
+      }
+      .nv-card-actions__wide {
+        grid-column: auto;
+      }
+      .nv-card-actions .nv-btn {
+        padding-inline: 2rem;
+      }
+    }
+
+    /* ── Perks strip ── */
+    .nv-card-perks {
+      padding-block: 2rem;
+      background: var(--color-brand-surface);
+      border-block: 1px solid var(--nv-hairline);
+    }
+    .nv-card-perks__list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .nv-card-perks__list li {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .nv-card-perks__list .nv-micro {
+      letter-spacing: 0.12em;
+      line-height: 1.5;
+    }
+    .nv-card-perks__k {
+      font-family: var(--font-heading);
+      font-weight: 350;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      line-height: 1;
+      color: var(--color-brand-accent);
+    }
+    .nv-card-perks__area {
+      margin: 1.5rem 0 0;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--nv-hairline);
+      letter-spacing: 0.12em;
+    }
+
+    /* ── Sections ── */
+    .nv-card-sec {
+      padding-block: clamp(3.5rem, 8vw, 6rem);
+    }
+    .nv-card-sec > .nv-wrap {
+      max-width: 960px;
+    }
+    .nv-card-sec--surface {
+      background: var(--color-brand-surface);
+      border-block: 1px solid var(--nv-hairline);
+    }
+    .nv-card-sec__title {
+      margin: 1rem 0 0;
+      max-width: 18ch;
+    }
+    .nv-card-sec__copy {
+      margin: 1rem 0 2rem;
+      max-width: 46ch;
+    }
+    .nv-card-sec__more {
+      margin-top: 1.75rem;
+    }
+
+    /* ── Packages ── */
+    .nv-card-pkgs {
+      margin: 2rem 0 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--nv-hairline);
+    }
+    .nv-card-pkg {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-block: 1.25rem;
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-card-pkg__name {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 350;
+    }
+    .nv-card-pkg__note {
+      margin: 0.3rem 0 0;
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      color: rgb(243 239 231 / 0.55);
+    }
+    .nv-card-pkg__price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.2rem;
+      margin: 0;
+      flex: none;
+    }
+    .nv-card-pkg__num {
+      font-family: var(--font-heading);
+      font-weight: 280;
+      font-size: 2rem;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-variant-numeric: tabular-nums;
+    }
+    .nv-card-pkgs__gst {
+      margin: 0.9rem 0 0;
+    }
+
+    /* ── Testimonials ── */
+    .nv-card-quotes {
+      display: grid;
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    @media (min-width: 760px) {
+      .nv-card-quotes {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .nv-card-quote {
+      margin: 0;
+      padding: 1.5rem;
+      border: 1px solid var(--nv-hairline);
+      background: var(--color-brand-surface);
+    }
+    .nv-card-quote__stars {
+      margin: 0;
+      color: var(--color-brand-accent);
+      letter-spacing: 0.2em;
+      font-size: 0.8rem;
+    }
+    .nv-card-quote blockquote {
+      margin: 0.9rem 0 0;
+      font-size: 0.975rem;
+      line-height: 1.65;
+      color: rgb(243 239 231 / 0.78);
+    }
+    .nv-card-quote figcaption {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-top: 1.25rem;
+    }
+    .nv-card-quote figcaption img {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      object-fit: cover;
+    }
+    .nv-card-quote figcaption > span {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .nv-card-quote__name {
+      font-weight: 500;
+      color: var(--color-brand-text);
+    }
+
+    .nv-card-close {
+      background: linear-gradient(180deg, var(--color-brand-bg), var(--color-brand-primary));
+    }
+
+    /* ── Mobile dock ── */
+    .nv-card-dock {
+      position: fixed;
+      inset: auto 0 0 0;
+      z-index: 60;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.4fr;
+      background: rgb(10 14 23 / 0.92);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--nv-hairline-strong);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .nv-card-dock a {
+      padding: 1.05rem 0.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-brand-text);
+      text-decoration: none;
+    }
+    .nv-card-dock a + a {
+      border-left: 1px solid var(--nv-hairline);
+    }
+    .nv-card-dock a:last-child {
+      background: var(--color-brand-accent);
+      color: #0a0e17;
+    }
+    /* Keep the footer clear of the dock. */
+    :global(body) {
+      padding-bottom: calc(3.4rem + env(safe-area-inset-bottom));
+    }
+    @media (min-width: 720px) {
+      .nv-card-dock {
+        display: none;
+      }
+      :global(body) {
+        padding-bottom: 0;
+      }
+    }
+  </style>
+</Layout>
