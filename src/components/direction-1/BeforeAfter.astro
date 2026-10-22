@@ -51,7 +51,7 @@ const { before, after, label, style = '' } = Astro.props;
 </div>
 
 <script>
-  document.querySelectorAll<HTMLElement>('.nv-twi-slider').forEach((el) => {
+  document.querySelectorAll('.nv-twi-slider').forEach((el) => {
     const range = el.querySelector('.nv-twi-slider__range');
     if (!(range instanceof HTMLInputElement)) return;
     el.style.setProperty('--pos', `${range.value}%`);
