@@ -22,13 +22,28 @@ const essential = [
   'RMS measurements & floor plan',
   'Virtual tour',
   'Blue-sky replacement',
-  'Next-day delivery',
+  '24-hour delivery',
+];
+
+const testimonials = [
+  {
+    quote:
+      "Lee's attention to detail in lighting, the professional equipment and video editing make the homes stand out.",
+    name: 'Anthony Luong',
+    img: '/images/redesign/image-04.jpg',
+  },
+  {
+    quote:
+      'Great photos. Excellent video creation, giving positive direction and suggestions to create effective videos in a short amount of time.',
+    name: 'Lionel Sale',
+    img: '/images/redesign/image-06.jpg',
+  },
 ];
 ---
 
 <Layout
   title="For First Place Realty Agents — Northvantage Media"
-  description="Calgary real estate photography, video, RMS and drone for First Place Realty agents. Free drone photos on your first listing. Call, text, or save Lee's contact."
+  description="Calgary real estate photography, video, RMS and drone for First Place Realty agents. Delivered within 24 hours, and drone photos are free for First Place agents. Call, text, or save Lee's contact."
   noindex
 >
   <Styles />
@@ -44,17 +59,15 @@ const essential = [
           <img src="/images/redesign/logo.png" alt="" width="56" height="56" />
         </a>
 
-        <p class="nv-eyebrow nv-c-hero__eyebrow" data-reveal="fade">
-          For First Place Realty agents
-        </p>
-
         <h1 class="nv-h2 nv-c-hero__title" data-reveal="clip">
-          Your first listing gets <span class="nv-accent-word">free drone photos</span>.
+          Real Estate Media That Makes You Look Like a <span class="nv-accent-word">Top Producer</span>.
         </h1>
 
         <p class="nv-lead nv-c-hero__lead" data-reveal="up" style="--d:100ms">
-          Hi, I'm Lee. Photo, video, RMS and drone for Calgary listings —
-          delivered next day.
+          Photo, video, RMS &amp; drone — delivered within 24 hours.
+        </p>
+        <p class="nv-c-hero__perk" data-reveal="up" style="--d:140ms">
+          First Place agents get free drone photos.
         </p>
 
         <div class="nv-c-hero__actions" data-reveal="up" style="--d:180ms" id="hero-actions">
@@ -131,7 +144,7 @@ const essential = [
 
           <ul class="nv-c-pkg__list">
             {essential.map((f) => <li>{f}</li>)}
-            <li class="nv-c-pkg__perk">Drone photos — <strong>free on your first listing</strong></li>
+            <li class="nv-c-pkg__perk">Drone photos — <strong>free for First Place agents</strong></li>
           </ul>
 
           <a href={ORDER_URL} class="nv-btn nv-btn--solid nv-c-btn">
@@ -145,22 +158,25 @@ const essential = [
       </div>
     </section>
 
-    <!-- 4 · One voice of proof -->
+    <!-- 4 · Proof from their own office -->
     <section class="nv-c-sec">
-      <figure class="nv-c-col nv-c-quote" data-reveal="up">
-        <p class="nv-c-quote__stars" aria-label="Rated 5 out of 5">★★★★★</p>
-        <blockquote class="nv-c-quote__text">
-          “Lee's attention to detail in lighting, the professional equipment and
-          video editing make the homes stand out.”
-        </blockquote>
-        <figcaption class="nv-c-quote__by">
-          <img src="/images/redesign/image-04.jpg" alt="" width="48" height="48" loading="lazy" />
-          <span>
-            <span class="nv-c-quote__name">Anthony Luong</span>
-            <span class="nv-micro">First Place Realty</span>
-          </span>
-        </figcaption>
-      </figure>
+      <div class="nv-c-col nv-c-quotes">
+        {
+          testimonials.map((t, i) => (
+            <figure class="nv-c-quote" data-reveal="up" style={`--d:${i * 100}ms`}>
+              <p class="nv-c-quote__stars" aria-label="Rated 5 out of 5">★★★★★</p>
+              <blockquote class="nv-c-quote__text">“{t.quote}”</blockquote>
+              <figcaption class="nv-c-quote__by">
+                <img src={t.img} alt="" width="48" height="48" loading="lazy" />
+                <span>
+                  <span class="nv-c-quote__name">{t.name}</span>
+                  <span class="nv-micro">First Place Realty</span>
+                </span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
     </section>
 
     <!-- 5 · Close -->
@@ -290,18 +306,20 @@ const essential = [
       width: 56px;
       height: 56px;
     }
-    .nv-c-hero__eyebrow {
-      display: block;
-      margin-top: 2.5rem;
-      color: var(--color-brand-accent);
-    }
     .nv-c-hero__title {
-      margin: 1rem 0 0;
-      font-size: clamp(2.4rem, 10vw, 3.6rem);
+      margin: 2.25rem 0 0;
+      font-size: clamp(2.2rem, 9vw, 3.4rem);
     }
     .nv-c-hero__lead {
       margin: 1.25rem 0 0;
       max-width: 30ch;
+    }
+    .nv-c-hero__perk {
+      margin: 0.75rem 0 0;
+      font-size: clamp(1.0625rem, 1.35vw, 1.25rem);
+      line-height: 1.5;
+      font-weight: 500;
+      color: var(--color-brand-accent);
     }
     .nv-c-hero__actions {
       display: grid;
@@ -476,9 +494,17 @@ const essential = [
       text-align: center;
     }
 
-    /* ── 4 · Testimonial ── */
+    /* ── 4 · Testimonials ── */
+    .nv-c-quotes {
+      display: grid;
+      gap: 3rem;
+    }
+    .nv-c-quote + .nv-c-quote {
+      padding-top: 3rem;
+      border-top: 1px solid var(--nv-hairline);
+    }
     .nv-c-quote {
-      margin-block: 0;
+      margin: 0;
       text-align: center;
     }
     .nv-c-quote__stars {
