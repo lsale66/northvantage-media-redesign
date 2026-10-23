@@ -340,7 +340,7 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
               )}
             </p>
           </header>
-          <ul class="nv-wk-plans" data-lightbox-group>
+          <ul class="nv-wk-plans" data-lightbox-group style={`--cols:${Math.min(plans.length, 3)}`}>
             {
               plans.map((p, i) => (
                 <li data-reveal="up" style={`--d:${i * 80}ms`}>
@@ -708,7 +708,7 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
     }
     @media (min-width: 760px) {
       .nv-wk-plans {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(var(--cols, 3), 1fr);
       }
     }
     .nv-wk-plan {
