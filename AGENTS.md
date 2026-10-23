@@ -12,6 +12,10 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 Head tags, schema markup (JSON-LD), sitemap, robots.txt, and redirects: **[docs/seo.md](docs/seo.md)**. Read it before adding a page, changing a title or description, or renaming a URL. Pages set SEO through `Layout` props (`title`, `description`, `image`, `imageAlt`, `noindex`, `schema`), not by using `<SEO>` or `<Schema>` directly. Schema helpers and business facts live in `src/lib/schema.ts`.
 
+## Work Case Studies
+
+Package showcase pages at `/work/<slug>/` (one real listing per page, written for agents): **[docs/work-case-studies.md](docs/work-case-studies.md)**. Read it before adding or changing one. New pages are a data entry in `src/data/work.ts` plus assets prepped with `scripts/prep-work-assets.mjs`, not a copy of the template.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build

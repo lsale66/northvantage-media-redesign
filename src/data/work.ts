@@ -20,18 +20,22 @@ export interface WorkListing {
   packageFrom: string;
   agent: { name: string; url: string };
   summary: string;
+  /** Filename in photos/; also the social share image. */
   hero: string;
-  /** Bunny embed URL (same format as the videography page). */
-  reel: string;
-  /** What this reel was, e.g. agent on camera or property-only. */
-  reelCopy: string;
-  youtubeId: string;
+  // Every deliverable except photos is optional: leave it out and its section,
+  // its row in the "what's included" list and its mention in the CTA all drop.
+  /** Bunny embed URL (same format as the videography page) + a line on what this reel was. */
+  reel?: { src: string; copy: string };
+  /** Cinematic Property Showcase on YouTube. */
+  youtubeId?: string;
   photos: WorkPhoto[];
-  drone: WorkPhoto[];
-  website: { url: string; label: string; screenshot: string };
-  floorplans: { file: string; label: string }[];
-  floorplanPdf: string;
-  iguide: { embed: string; url: string };
+  /** Listing-specific line added to the photos blurb (twilight, staging...). */
+  photosNote?: string;
+  drone?: WorkPhoto[];
+  website?: { url: string; label: string; screenshot: string };
+  floorplans?: { file: string; label: string }[];
+  floorplanPdf?: string;
+  iguide?: { embed: string; url: string };
 }
 
 export const work: WorkListing[] = [
@@ -45,9 +49,10 @@ export const work: WorkListing[] = [
     summary:
       'A 2010 Astoria custom two-storey in Monterra on Cochrane Lake, backing onto a treed green space. Vaulted great room, chef’s kitchen, a finished lower level with a home theatre, and a heated triple garage. A home like this needs media that keeps up with it.',
     hero: '001-twilight.jpg',
-    reel: 'https://iframe.mediadelivery.net/embed/469110/fa91653c-8e19-4a2c-98ef-5fe4e21adec0?autoplay=true&loop=false&muted=true&preload=false&responsive=true',
-    reelCopy:
-      'A fast, vertical cut built to stop the scroll on Instagram, Facebook and TikTok. This one is property-only, with the agent’s name and brokerage built into the edit, so every view points back to them.',
+    reel: {
+      src: 'https://iframe.mediadelivery.net/embed/469110/fa91653c-8e19-4a2c-98ef-5fe4e21adec0?autoplay=true&loop=false&muted=true&preload=false&responsive=true',
+      copy: 'A fast, vertical cut built to stop the scroll on Instagram, Facebook and TikTok. This one is property-only, with the agent’s name and brokerage built into the edit, so every view points back to them.',
+    },
     youtubeId: '03e0BEo2s1c',
     photos: [
       { file: '001-twilight.jpg', caption: 'Front elevation at dusk', wide: true },
@@ -96,6 +101,7 @@ export const work: WorkListing[] = [
       { file: '046-DSC04272b.jpg', caption: 'Basketball court on the green space behind the home', wide: true },
       { file: '047-DSC04282.jpg', caption: 'Rear elevation, deck and patio', wide: true },
     ],
+    photosNote: 'Includes the twilight exterior and a virtually staged room.',
     drone: [
       { file: '049-DJI_0646_pinned.jpg', caption: 'Aerial view with the property pinned' },
       { file: '050-DJI_0649_pinned.jpg', caption: 'Aerial view with the property pinned' },

@@ -50,26 +50,32 @@ async function withFull(folder: string, photos: WorkPhoto[]) {
 }
 
 const photos = await withFull('photos', listing.photos);
-const drone = await withFull('drone', listing.drone);
+const drone = await withFull('drone', listing.drone ?? []);
 const plans = await withFull(
   'plans',
-  listing.floorplans.map((f) => ({ file: f.file, caption: f.label }))
+  (listing.floorplans ?? []).map((f) => ({ file: f.file, caption: f.label }))
 );
 const hero = img('photos', listing.hero);
-const screenshot = img('website', listing.website.screenshot);
+const heroCaption = listing.photos.find((p) => p.file === listing.hero)?.caption ?? listing.address;
+const screenshot = listing.website && img('website', listing.website!.screenshot);
 const share = await getImage({ src: hero, width: 1620, height: 1080, format: 'jpg' });
 
-// The table of contents and the section numbers come from the same list.
+// The "what's included" list, the section numbers and the CTA/meta copy all
+// come from this one list, so a listing without a deliverable just drops it.
+type KitItem = { id: string; name: string; note: string; short: string };
 const kit = [
-  { id: 'reel', name: 'Social Media Reel', note: 'Vertical, 9:16' },
-  { id: 'video', name: 'Cinematic Video', note: 'Horizontal, 16:9' },
-  { id: 'photos', name: 'HDR Photos', note: `${photos.length} images` },
-  { id: 'drone', name: 'Drone Photos', note: `${drone.length} aerials` },
-  { id: 'website', name: 'Property Website', note: 'Single-listing site' },
-  { id: 'floor-plans', name: 'Floor Plans', note: `${plans.length} levels + RMS` },
-  { id: 'iguide', name: 'iGuide 3D Tour', note: 'Self-guided' },
-];
+  listing.reel && { id: 'reel', name: 'Social Media Reel', note: 'Vertical, 9:16', short: 'reel' },
+  listing.youtubeId && { id: 'video', name: 'Cinematic Video', note: 'Horizontal, 16:9', short: 'cinematic video' },
+  { id: 'photos', name: 'HDR Photos', note: `${photos.length} images`, short: 'photos' },
+  drone.length > 0 && { id: 'drone', name: 'Drone Photos', note: `${drone.length} aerials`, short: 'drone' },
+  listing.website && { id: 'website', name: 'Property Website', note: 'Single-listing site', short: 'a property website' },
+  plans.length > 0 && { id: 'floor-plans', name: 'Floor Plans', note: `${plans.length} levels + RMS`, short: 'floor plans' },
+  listing.iguide && { id: 'iguide', name: 'iGuide 3D Tour', note: 'Self-guided', short: 'a 3D tour' },
+].filter((k): k is KitItem => Boolean(k));
+const has = (id: string) => kit.some((k) => k.id === id);
 const num = (id: string) => String(kit.findIndex((k) => k.id === id) + 1).padStart(2, '0');
+const shorts = kit.map((k) => k.short);
+const kitSentence = shorts.length > 1 ? `${shorts.slice(0, -1).join(', ')} and ${shorts.at(-1)}` : shorts[0];
 
 const path = `/work/${listing.slug}/`;
 const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
@@ -77,9 +83,9 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
 
 <Layout
   title={`${listing.address}: ${listing.packageName} — Northvantage Media`}
-  description={`Everything one ${listing.packageName} shoot delivered for ${listing.address} in ${listing.city}: social reel, cinematic video, ${photos.length} photos, drone, property website, floor plans and an iGuide tour.`}
+  description={`Everything one ${listing.packageName} shoot delivered for ${listing.address} in ${listing.city}: ${kitSentence.replace('photos', `${photos.length} photos`)}.`}
   image={share.src}
-  imageAlt={`${listing.address}, ${listing.city}, photographed at twilight`}
+  imageAlt={`${listing.address}, ${listing.city}: ${heroCaption.toLowerCase()}`}
   schema={pageSchema}
 >
   <Styles />
@@ -94,7 +100,7 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
       <div class="nv-wk-hero__media" data-parallax="0.1">
         <Image
           src={hero}
-          alt={`${listing.address} at twilight`}
+          alt={`${listing.address}: ${heroCaption.toLowerCase()}`}
           widths={[960, 1600, 2000]}
           sizes="100vw"
           loading="eager"
@@ -155,47 +161,51 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
     </section>
 
     <!-- 01 Reel -->
-    <section class="nv-section nv-wk-sec" id="reel">
-      <div class="nv-wrap nv-wk-reel">
-        <header class="nv-wk-head">
-          <p class="nv-micro nv-wk-head__n">{num('reel')}</p>
-          <h2 class="nv-h2" data-reveal="clip">Social Media <span class="nv-accent-word">Reel</span></h2>
-          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
-            {listing.reelCopy}
-          </p>
-        </header>
-        <div class="nv-wk-reel__video nv-frame nv-frame--hover" data-reveal="up">
-          <div class="nv-wk-ratio nv-wk-ratio--vert">
-            <BunnyVideo src={listing.reel} title={`${listing.address} property reel`} />
+    {has('reel') && (
+      <section class="nv-section nv-wk-sec" id="reel">
+        <div class="nv-wrap nv-wk-reel">
+          <header class="nv-wk-head">
+            <p class="nv-micro nv-wk-head__n">{num('reel')}</p>
+            <h2 class="nv-h2" data-reveal="clip">Social Media <span class="nv-accent-word">Reel</span></h2>
+            <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+              {listing.reel!.copy}
+            </p>
+          </header>
+          <div class="nv-wk-reel__video nv-frame nv-frame--hover" data-reveal="up">
+            <div class="nv-wk-ratio nv-wk-ratio--vert">
+              <BunnyVideo src={listing.reel!.src} title={`${listing.address} property reel`} />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )}
 
     <!-- 02 Cinematic video -->
-    <section class="nv-section nv-wk-sec" id="video">
-      <div class="nv-wrap">
-        <header class="nv-wk-head nv-wk-head--row">
-          <p class="nv-micro nv-wk-head__n">{num('video')}</p>
-          <h2 class="nv-h2" data-reveal="clip">Cinematic <span class="nv-accent-word">Property Video</span></h2>
-          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
-            The full walkthrough: interior, exterior and drone footage, color graded and cut
-            to music. Made for MLS, YouTube, and sending straight to buyers.
-          </p>
-        </header>
-        <div class="nv-frame nv-frame--hover" data-reveal="up">
-          <div class="nv-wk-ratio nv-wk-ratio--horiz">
-            <iframe
-              src={`https://www.youtube.com/embed/${listing.youtubeId}?rel=0`}
-              title={`${listing.address} cinematic property video`}
-              loading="lazy"
-              allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
-              allowfullscreen
-            />
+    {has('video') && (
+      <section class="nv-section nv-wk-sec" id="video">
+        <div class="nv-wrap">
+          <header class="nv-wk-head nv-wk-head--row">
+            <p class="nv-micro nv-wk-head__n">{num('video')}</p>
+            <h2 class="nv-h2" data-reveal="clip">Cinematic <span class="nv-accent-word">Property Video</span></h2>
+            <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+              The full walkthrough: interior, exterior and drone footage, color graded and cut
+              to music. Made for MLS, YouTube, and sending straight to buyers.
+            </p>
+          </header>
+          <div class="nv-frame nv-frame--hover" data-reveal="up">
+            <div class="nv-wk-ratio nv-wk-ratio--horiz">
+              <iframe
+                src={`https://www.youtube.com/embed/${listing.youtubeId}?rel=0`}
+                title={`${listing.address} cinematic property video`}
+                loading="lazy"
+                allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
+                allowfullscreen
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )}
 
     <!-- 03 Photos -->
     <section class="nv-section nv-wk-sec" id="photos">
@@ -206,8 +216,8 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
             {photos.length} <span class="nv-accent-word">HDR Photos</span>
           </h2>
           <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
-            The complete set, edited and delivered next day, including the twilight exterior
-            and a virtually staged room. Tap any photo to see it full size.
+            The complete set, edited and delivered next day. {listing.photosNote} Tap any photo
+            to see it full size.
           </p>
         </header>
         <ul class="nv-wk-grid" data-lightbox-group>
@@ -231,149 +241,159 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
     </section>
 
     <!-- 04 Drone -->
-    <section class="nv-section nv-wk-sec" id="drone">
-      <div class="nv-wrap">
-        <header class="nv-wk-head nv-wk-head--row">
-          <p class="nv-micro nv-wk-head__n">{num('drone')}</p>
-          <h2 class="nv-h2" data-reveal="clip">Drone <span class="nv-accent-word">Photos</span></h2>
-          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
-            Aerials that show what ground shots can't: the lot, the green space behind it, and
-            where the home sits in the community, with the property pinned so buyers find it
-            instantly.
-          </p>
-        </header>
-        <ul class="nv-wk-grid nv-wk-grid--drone" data-lightbox-group>
-          {
-            drone.map((p) => (
-              <li class="nv-wk-grid__item">
-                <a href={p.full} class="nv-wk-shot" data-lightbox data-caption={p.caption}>
-                  <Image
-                    src={p.src}
-                    alt={p.caption}
-                    widths={[600, 900, 1200]}
-                    sizes="(min-width: 1440px) 650px, (min-width: 700px) 50vw, 100vw"
-                    loading="lazy"
-                  />
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </section>
+    {has('drone') && (
+      <section class="nv-section nv-wk-sec" id="drone">
+        <div class="nv-wrap">
+          <header class="nv-wk-head nv-wk-head--row">
+            <p class="nv-micro nv-wk-head__n">{num('drone')}</p>
+            <h2 class="nv-h2" data-reveal="clip">Drone <span class="nv-accent-word">Photos</span></h2>
+            <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+              Aerials that show what ground shots can't: the lot, the green space behind it, and
+              where the home sits in the community, with the property pinned so buyers find it
+              instantly.
+            </p>
+          </header>
+          <ul class="nv-wk-grid nv-wk-grid--drone" data-lightbox-group>
+            {
+              drone.map((p) => (
+                <li class="nv-wk-grid__item">
+                  <a href={p.full} class="nv-wk-shot" data-lightbox data-caption={p.caption}>
+                    <Image
+                      src={p.src}
+                      alt={p.caption}
+                      widths={[600, 900, 1200]}
+                      sizes="(min-width: 1440px) 650px, (min-width: 700px) 50vw, 100vw"
+                      loading="lazy"
+                    />
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+    )}
 
     <!-- 05 Website -->
-    <section class="nv-section nv-wk-sec" id="website">
-      <div class="nv-wrap nv-wk-site">
-        <header class="nv-wk-head">
-          <p class="nv-micro nv-wk-head__n">{num('website')}</p>
-          <h2 class="nv-h2" data-reveal="clip">Property <span class="nv-accent-word">Website</span></h2>
-          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
-            A dedicated site for the listing that puts every photo, the video, the floor plans
-            and the 3D tour behind one clean link, ready for the sign rider, the brochure QR
-            code and every social post.
-          </p>
+    {has('website') && (
+      <section class="nv-section nv-wk-sec" id="website">
+        <div class="nv-wrap nv-wk-site">
+          <header class="nv-wk-head">
+            <p class="nv-micro nv-wk-head__n">{num('website')}</p>
+            <h2 class="nv-h2" data-reveal="clip">Property <span class="nv-accent-word">Website</span></h2>
+            <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+              A dedicated site for the listing that puts every photo, the video, the floor plans
+              and the 3D tour behind one clean link, ready for the sign rider, the brochure QR
+              code and every social post.
+            </p>
+            <a
+              href={listing.website!.url}
+              class="nv-link nv-wk-site__link"
+              target="_blank"
+              rel="noopener"
+              data-reveal="up"
+              style="--d:160ms"
+            >
+              Visit {listing.website!.label} <span class="nv-arrow" aria-hidden="true">→</span>
+            </a>
+          </header>
+
           <a
-            href={listing.website.url}
-            class="nv-link nv-wk-site__link"
+            href={listing.website!.url}
             target="_blank"
             rel="noopener"
+            class="nv-wk-browser nv-frame nv-frame--hover"
             data-reveal="up"
-            style="--d:160ms"
+            aria-label={`Open ${listing.website!.label} in a new tab`}
           >
-            Visit {listing.website.label} <span class="nv-arrow" aria-hidden="true">→</span>
+            <span class="nv-wk-browser__bar" aria-hidden="true">
+              <span class="nv-wk-browser__dots"><i></i><i></i><i></i></span>
+              <span class="nv-wk-browser__url">{listing.website!.label}</span>
+            </span>
+            <Image
+              src={screenshot!}
+              alt={`Homepage of ${listing.website!.label}`}
+              widths={[800, 1400, 2160]}
+              sizes="(min-width: 1100px) 60vw, 100vw"
+              loading="lazy"
+            />
           </a>
-        </header>
-
-        <a
-          href={listing.website.url}
-          target="_blank"
-          rel="noopener"
-          class="nv-wk-browser nv-frame nv-frame--hover"
-          data-reveal="up"
-          aria-label={`Open ${listing.website.label} in a new tab`}
-        >
-          <span class="nv-wk-browser__bar" aria-hidden="true">
-            <span class="nv-wk-browser__dots"><i></i><i></i><i></i></span>
-            <span class="nv-wk-browser__url">{listing.website.label}</span>
-          </span>
-          <Image
-            src={screenshot}
-            alt={`Homepage of ${listing.website.label}`}
-            widths={[800, 1400, 2160]}
-            sizes="(min-width: 1100px) 60vw, 100vw"
-            loading="lazy"
-          />
-        </a>
-      </div>
-    </section>
+        </div>
+      </section>
+    )}
 
     <!-- 06 Floor plans -->
-    <section class="nv-section nv-wk-sec" id="floor-plans">
-      <div class="nv-wrap">
-        <header class="nv-wk-head nv-wk-head--row">
-          <p class="nv-micro nv-wk-head__n">{num('floor-plans')}</p>
-          <h2 class="nv-h2" data-reveal="clip">Floor Plans &amp; <span class="nv-accent-word">RMS</span></h2>
-          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
-            RECA-standard RMS measurements and a scaled, labelled plan for every level, as
-            images for the listing and as a PDF for buyers.
-            <a href={listing.floorplanPdf} class="nv-link" target="_blank" rel="noopener">
-              Open the PDF <span class="nv-arrow" aria-hidden="true">→</span>
-            </a>
-          </p>
-        </header>
-        <ul class="nv-wk-plans" data-lightbox-group>
-          {
-            plans.map((p, i) => (
-              <li data-reveal="up" style={`--d:${i * 80}ms`}>
-                <a href={p.full} class="nv-wk-plan" data-lightbox data-caption={p.caption}>
-                  <Image
-                    src={p.src}
-                    alt={`${p.caption} floor plan`}
-                    widths={[600, 900, 1200]}
-                    sizes="(min-width: 900px) 33vw, 100vw"
-                    loading="lazy"
-                  />
+    {has('floor-plans') && (
+      <section class="nv-section nv-wk-sec" id="floor-plans">
+        <div class="nv-wrap">
+          <header class="nv-wk-head nv-wk-head--row">
+            <p class="nv-micro nv-wk-head__n">{num('floor-plans')}</p>
+            <h2 class="nv-h2" data-reveal="clip">Floor Plans &amp; <span class="nv-accent-word">RMS</span></h2>
+            <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+              RECA-standard RMS measurements and a scaled, labelled plan for every level, as
+              images for the listing and as a PDF for buyers.
+              {listing.floorplanPdf && (
+                <a href={listing.floorplanPdf} class="nv-link" target="_blank" rel="noopener">
+                  Open the PDF <span class="nv-arrow" aria-hidden="true">→</span>
                 </a>
-                <p class="nv-micro nv-wk-plan__label">{p.caption}</p>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </section>
+              )}
+            </p>
+          </header>
+          <ul class="nv-wk-plans" data-lightbox-group>
+            {
+              plans.map((p, i) => (
+                <li data-reveal="up" style={`--d:${i * 80}ms`}>
+                  <a href={p.full} class="nv-wk-plan" data-lightbox data-caption={p.caption}>
+                    <Image
+                      src={p.src}
+                      alt={`${p.caption} floor plan`}
+                      widths={[600, 900, 1200]}
+                      sizes="(min-width: 900px) 33vw, 100vw"
+                      loading="lazy"
+                    />
+                  </a>
+                  <p class="nv-micro nv-wk-plan__label">{p.caption}</p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+    )}
 
     <!-- 07 iGuide -->
-    <section class="nv-section nv-wk-sec" id="iguide">
-      <div class="nv-wrap">
-        <header class="nv-wk-head nv-wk-head--row">
-          <p class="nv-micro nv-wk-head__n">{num('iguide')}</p>
-          <h2 class="nv-h2" data-reveal="clip">iGuide <span class="nv-accent-word">3D Tour</span></h2>
-          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
-            A walk-through buyers steer themselves, linked to the floor plan so they always know
-            where they're standing. Try it below.
-            <a href={listing.iguide.url} class="nv-link" target="_blank" rel="noopener">
-              Open full screen <span class="nv-arrow" aria-hidden="true">→</span>
-            </a>
-          </p>
-        </header>
-        <div class="nv-frame" data-reveal="up">
-          <div class="nv-wk-ratio nv-wk-ratio--horiz">
-            <iframe
-              src={listing.iguide.embed}
-              title={`${listing.address} iGuide 3D virtual tour`}
-              loading="lazy"
-              allow="fullscreen; xr-spatial-tracking"
-              allowfullscreen
-            />
+    {has('iguide') && (
+      <section class="nv-section nv-wk-sec" id="iguide">
+        <div class="nv-wrap">
+          <header class="nv-wk-head nv-wk-head--row">
+            <p class="nv-micro nv-wk-head__n">{num('iguide')}</p>
+            <h2 class="nv-h2" data-reveal="clip">iGuide <span class="nv-accent-word">3D Tour</span></h2>
+            <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+              A walk-through buyers steer themselves, linked to the floor plan so they always know
+              where they're standing. Try it below.
+              <a href={listing.iguide!.url} class="nv-link" target="_blank" rel="noopener">
+                Open full screen <span class="nv-arrow" aria-hidden="true">→</span>
+              </a>
+            </p>
+          </header>
+          <div class="nv-frame" data-reveal="up">
+            <div class="nv-wk-ratio nv-wk-ratio--horiz">
+              <iframe
+                src={listing.iguide!.embed}
+                title={`${listing.address} iGuide 3D virtual tour`}
+                loading="lazy"
+                allow="fullscreen; xr-spatial-tracking"
+                allowfullscreen
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )}
 
     <FinalCta
       eyebrow={listing.packageName}
-      copy={`Reel, cinematic video, photos, drone, floor plans and a 3D tour from one booking. The ${listing.packageName} starts at ${listing.packageFrom} + GST, priced by square footage.`}
+      copy={`${kitSentence[0].toUpperCase()}${kitSentence.slice(1)} from one booking. The ${listing.packageName} starts at ${listing.packageFrom} + GST, priced by square footage.`}
       primary={{ label: 'Book a Shoot', href: BOOKING_URL }}
       secondary={{ label: 'See Pricing', href: '/pricing#packages' }}
     >
