@@ -46,6 +46,9 @@ const cards = [
   })),
 ];
 
+// Hero background: the first photo of the Photography grid below.
+const heroPhoto = photos[0];
+
 const pageSchema = [breadcrumbs([{ name: 'Work', path: '/work/' }])];
 ---
 
@@ -65,9 +68,9 @@ const pageSchema = [breadcrumbs([{ name: 'Work', path: '/work/' }])];
     <header class="nv-wh-hero">
       <div class="nv-wh-hero__media" data-parallax="0.1">
         <img
-          src="/images/photos/DJI_0430_1_2_3_4-Large.jpg"
-          alt="Aerial photograph of a lake community in Calgary"
-          width="1440"
+          src={photoSrc(heroPhoto.file)}
+          alt={heroPhoto.alt}
+          width="1620"
           height="1080"
           fetchpriority="high"
         />
