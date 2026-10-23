@@ -1,0 +1,468 @@
+---
+/**
+ * /work/ — the portfolio hub. Selected Works cards link to the per-listing
+ * case studies (src/data/work.ts); reels and cinematic videos are the same
+ * set as the videography page (src/data/videos.ts); photos are the shared
+ * portfolio set (src/data/portfolio.ts).
+ */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import { breadcrumbs } from '../../lib/schema';
+import { work, upcoming } from '../../data/work';
+import { reels, cinematic } from '../../data/videos';
+import { photos, photoSrc } from '../../data/portfolio';
+import Styles from '../../components/direction-1/Styles.astro';
+import Nav from '../../components/direction-1/Nav.astro';
+import Motion from '../../components/direction-1/Motion.astro';
+import Footer from '../../components/direction-1/Footer.astro';
+import FinalCta from '../../components/direction-1/FinalCta.astro';
+import Eyebrow from '../../components/direction-1/Eyebrow.astro';
+import FrameMark from '../../components/direction-1/FrameMark.astro';
+import BunnyVideo from '../../components/direction-1/BunnyVideo.astro';
+import Lightbox from '../../components/direction-1/Lightbox.astro';
+
+const assets = import.meta.glob<{ default: ImageMetadata }>('/src/assets/work/*/photos/*.{jpg,jpeg,png}', {
+  eager: true,
+});
+const heroOf = (slug: string, file?: string) =>
+  file ? assets[`/src/assets/work/${slug}/photos/${file}`]?.default : undefined;
+
+// Built case studies first, then the ones still to come.
+const cards = [
+  ...work.map((w) => ({
+    address: w.address,
+    city: w.city,
+    packageName: w.packageName,
+    image: heroOf(w.slug, w.hero),
+    href: `/work/${w.slug}/`,
+  })),
+  ...upcoming.map((u) => ({
+    address: u.address,
+    city: u.city,
+    packageName: u.packageName,
+    image: heroOf(u.slug, u.hero),
+    href: undefined,
+  })),
+];
+
+const pageSchema = [breadcrumbs([{ name: 'Work', path: '/work/' }])];
+---
+
+<Layout
+  title="Our Work — Northvantage Media"
+  description="Real Calgary listings shot by Northvantage Media: full package case studies, social media property reels, cinematic property showcases and HDR real estate photography."
+  schema={pageSchema}
+>
+  <Styles />
+
+  <div class="nv-grain" aria-hidden="true"></div>
+
+  <Nav />
+
+  <main>
+    <!-- Hero -->
+    <header class="nv-section nv-wh-hero">
+      <div class="nv-wrap">
+        <Eyebrow>Our Work</Eyebrow>
+        <h1 class="nv-display nv-wh-hero__title" data-reveal="clip">
+          Real Listings. <span class="nv-accent-word">Real Results</span>.
+        </h1>
+        <p class="nv-lead nv-wh-hero__lead" data-reveal="up" style="--d:120ms">
+          Everything here came off a real listing shoot: no stock, no borrowed portfolio.
+          Start with a full listing to see exactly what a package delivers.
+        </p>
+      </div>
+    </header>
+
+    <!-- Selected Works -->
+    <section class="nv-section nv-wh-sec" id="selected">
+      <div class="nv-wrap">
+        <header class="nv-wh-head">
+          <Eyebrow>Selected Works</Eyebrow>
+          <h2 class="nv-h2" data-reveal="clip">
+            Full Listing <span class="nv-accent-word">Case Studies</span>
+          </h2>
+          <p class="nv-body nv-wh-head__copy" data-reveal="up" style="--d:100ms">
+            One listing, every deliverable: photos, video, drone, floor plans and the tour,
+            laid out the way you'd get them.
+          </p>
+        </header>
+
+        <ul class="nv-wh-cards">
+          {
+            cards.map((c, i) => {
+              const Tag = c.href ? 'a' : 'div';
+              return (
+                <li data-reveal="up" style={`--d:${i * 90}ms`}>
+                  <Tag
+                    href={c.href}
+                    class:list={['nv-wh-card', 'nv-frame', { 'nv-frame--hover': c.href, 'is-soon': !c.href }]}
+                  >
+                    <span class="nv-wh-card__media">
+                      {c.image ? (
+                        <Image
+                          src={c.image}
+                          alt={`${c.address}, ${c.city}`}
+                          widths={[480, 720, 960]}
+                          sizes="(min-width: 960px) 30vw, (min-width: 640px) 50vw, 100vw"
+                          loading={i < 3 ? 'eager' : 'lazy'}
+                        />
+                      ) : (
+                        <span class="nv-wh-card__ph" aria-hidden="true">
+                          <FrameMark size={28} />
+                        </span>
+                      )}
+                      <span class="nv-micro nv-wh-card__tag">{c.packageName}</span>
+                    </span>
+                    <span class="nv-wh-card__body">
+                      <span class="nv-wh-card__address">{c.address}</span>
+                      <span class="nv-micro nv-wh-card__city">{c.city.split(',')[0]}</span>
+                      <span class="nv-micro nv-wh-card__cta">
+                        {c.href ? (
+                          <>
+                            View the listing <span class="nv-arrow" aria-hidden="true">→</span>
+                          </>
+                        ) : (
+                          'Case study coming soon'
+                        )}
+                      </span>
+                    </span>
+                  </Tag>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- Social Media Reels -->
+    <section class="nv-section nv-wh-sec" id="reels">
+      <div class="nv-wrap">
+        <header class="nv-wh-head nv-wh-head--row">
+          <div>
+            <Eyebrow>Vertical &amp; Built for the Feed</Eyebrow>
+            <h2 class="nv-h2" data-reveal="clip">
+              Social Media <span class="nv-accent-word">Property Reels</span>
+            </h2>
+          </div>
+          <a href="/services/real-estate-videography-calgary/#reels" class="nv-link" data-reveal="up">
+            <span>Videography services</span>
+            <span class="nv-arrow" aria-hidden="true">→</span>
+          </a>
+        </header>
+
+        <div class="nv-wh-videos nv-wh-videos--vert">
+          {
+            reels.map((r, i) => (
+              <div class="nv-wh-vid nv-frame nv-frame--hover" data-reveal="up" style={`--d:${(i % 3) * 70}ms`}>
+                <div class="nv-wh-vid__inner nv-wh-vid__inner--vert">
+                  {r.src && <BunnyVideo src={r.src} title={r.label} />}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Cinematic Property Showcases -->
+    <section class="nv-section nv-wh-sec" id="cinematic">
+      <div class="nv-wrap">
+        <header class="nv-wh-head nv-wh-head--row">
+          <div>
+            <Eyebrow>Horizontal &amp; Built to Sell</Eyebrow>
+            <h2 class="nv-h2" data-reveal="clip">
+              Cinematic <span class="nv-accent-word">Property Showcases</span>
+            </h2>
+          </div>
+          <a href="/services/real-estate-videography-calgary/#cinematic" class="nv-link" data-reveal="up">
+            <span>Videography services</span>
+            <span class="nv-arrow" aria-hidden="true">→</span>
+          </a>
+        </header>
+
+        <div class="nv-wh-videos nv-wh-videos--horiz">
+          {
+            cinematic.map((c, i) => (
+              <div class="nv-wh-vid nv-frame nv-frame--hover" data-reveal="up" style={`--d:${i * 90}ms`}>
+                <div class="nv-wh-vid__inner nv-wh-vid__inner--horiz">
+                  {c.youtubeId && (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${c.youtubeId}?rel=0`}
+                      title={c.label}
+                      loading="lazy"
+                      allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
+                      allowfullscreen
+                    />
+                  )}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Photography -->
+    <section class="nv-section nv-wh-sec" id="photography">
+      <div class="nv-wrap">
+        <header class="nv-wh-head nv-wh-head--row">
+          <div>
+            <Eyebrow>HDR &amp; Drone</Eyebrow>
+            <h2 class="nv-h2" data-reveal="clip">
+              Real Estate <span class="nv-accent-word">Photography</span>
+            </h2>
+          </div>
+          <a href="/services/real-estate-photography-calgary/" class="nv-link" data-reveal="up">
+            <span>Photography services</span>
+            <span class="nv-arrow" aria-hidden="true">→</span>
+          </a>
+        </header>
+
+        <ul class="nv-wh-photos" data-lightbox-group>
+          {
+            photos.map((p, i) => (
+              <li data-reveal="up" style={`--d:${(i % 3) * 70}ms`}>
+                <a href={photoSrc(p.file)} class="nv-wh-photo" data-lightbox data-caption={p.alt}>
+                  <img src={photoSrc(p.file)} alt={p.alt} width="1620" height="1080" loading="lazy" decoding="async" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <FinalCta
+      eyebrow="Your Listing Next"
+      copy="Photos, video, drone, floor plans and 3D tours for Calgary listings, delivered fast and built to sell."
+      primary={{ label: 'Book a Shoot', href: 'https://northvantagemedia.hd.pics/order' }}
+      secondary={{ label: 'See Pricing', href: '/pricing#packages' }}
+    >
+      <Fragment slot="title">
+        Want Your Listing <span class="nv-accent-word">Here</span>?
+      </Fragment>
+    </FinalCta>
+  </main>
+
+  <Footer />
+
+  <Lightbox />
+
+  <Motion />
+
+  <style>
+    /* ── Hero ── */
+    .nv-wh-hero {
+      padding-top: clamp(9rem, 16vw, 12rem);
+      padding-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+    .nv-wh-hero__title {
+      margin: clamp(1rem, 2vw, 1.5rem) 0 0;
+      max-width: 16ch;
+    }
+    .nv-wh-hero__lead {
+      max-width: 54ch;
+      margin: clamp(1.5rem, 2.6vw, 2rem) 0 0;
+    }
+
+    /* ── Section heads ── */
+    .nv-wh-sec {
+      border-top: 1px solid var(--nv-hairline);
+      scroll-margin-top: 4rem;
+    }
+    .nv-wh-head {
+      margin-bottom: clamp(2rem, 4vw, 3.25rem);
+    }
+    .nv-wh-head .nv-h2 {
+      margin-top: 1rem;
+    }
+    .nv-wh-head__copy {
+      max-width: 56ch;
+      margin: 1.25rem 0 0;
+    }
+    .nv-wh-head--row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.25rem 2rem;
+    }
+
+    /* ── Selected Works cards ── */
+    .nv-wh-cards {
+      display: grid;
+      gap: clamp(1.25rem, 2.4vw, 1.75rem);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    @media (min-width: 640px) {
+      .nv-wh-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (min-width: 960px) {
+      .nv-wh-cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .nv-wh-card {
+      --nv-frame-size: 18px;
+      --nv-frame-inset: -9px;
+      display: block;
+      height: 100%;
+      color: var(--color-brand-text);
+      text-decoration: none;
+    }
+    .nv-wh-card__media {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      border-radius: 2px;
+      background: var(--color-brand-surface);
+    }
+    .nv-wh-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s var(--nv-ease);
+    }
+    a.nv-wh-card:hover .nv-wh-card__media img {
+      transform: scale(1.04);
+    }
+    .nv-wh-card.is-soon .nv-wh-card__media img {
+      filter: saturate(0.6) brightness(0.7);
+    }
+    .nv-wh-card__ph {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: var(--nv-hairline-strong);
+      background:
+        radial-gradient(circle at 50% 40%, rgb(46 72 119 / 0.35), transparent 70%),
+        var(--color-brand-surface);
+    }
+    .nv-wh-card__tag {
+      position: absolute;
+      top: 0.85rem;
+      left: 0.85rem;
+      padding: 0.45rem 0.7rem;
+      border-radius: 2px;
+      color: var(--color-brand-bg);
+      background: var(--color-brand-accent);
+      font-weight: 600;
+      letter-spacing: 0.14em;
+    }
+    .nv-wh-card__body {
+      display: grid;
+      gap: 0.4rem;
+      padding: 1.1rem 0.1rem 0.25rem;
+    }
+    .nv-wh-card__address {
+      font-family: var(--font-heading);
+      font-weight: 350;
+      font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+    }
+    .nv-wh-card__cta {
+      margin-top: 0.6rem;
+      color: var(--color-brand-text);
+    }
+    a.nv-wh-card .nv-wh-card__cta {
+      color: var(--color-brand-accent);
+    }
+    a.nv-wh-card .nv-arrow {
+      display: inline-block;
+      transition: transform 0.3s var(--nv-ease);
+    }
+    a.nv-wh-card:hover .nv-arrow {
+      transform: translateX(4px);
+    }
+    .nv-wh-card.is-soon .nv-wh-card__cta {
+      color: var(--color-brand-muted);
+    }
+
+    /* ── Videos ── */
+    .nv-wh-videos {
+      display: grid;
+      gap: clamp(1rem, 2.2vw, 1.5rem);
+    }
+    .nv-wh-videos--vert {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (min-width: 640px) {
+      .nv-wh-videos--vert {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    @media (min-width: 780px) {
+      .nv-wh-videos--horiz {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .nv-wh-vid {
+      --nv-frame-size: 16px;
+      --nv-frame-inset: -9px;
+    }
+    .nv-wh-vid__inner {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      background: var(--color-brand-surface);
+    }
+    .nv-wh-vid__inner--vert {
+      aspect-ratio: 9 / 16;
+    }
+    .nv-wh-vid__inner--horiz {
+      aspect-ratio: 16 / 9;
+    }
+    .nv-wh-vid__inner iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ── Photography ── */
+    .nv-wh-photos {
+      display: grid;
+      gap: clamp(0.5rem, 1vw, 0.9rem);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    @media (min-width: 560px) {
+      .nv-wh-photos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (min-width: 960px) {
+      .nv-wh-photos {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .nv-wh-photo {
+      display: block;
+      overflow: hidden;
+      aspect-ratio: 3 / 2;
+      background: var(--color-brand-surface);
+      cursor: zoom-in;
+    }
+    .nv-wh-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s var(--nv-ease);
+    }
+    .nv-wh-photo:hover img {
+      transform: scale(1.03);
+    }
+  </style>
+</Layout>

@@ -12,9 +12,19 @@ One page per real listing, showing everything a package produced, deliverable by
 | One entry per listing | `work` array in `src/data/work.ts` |
 | Images | `src/assets/work/<slug>/{photos,drone,plans,website}/` |
 | Asset prep | `scripts/prep-work-assets.mjs` |
+| Hub page (`/work/`) | `src/pages/work/index.astro` |
+| Photo viewer | `Lightbox.astro` (shared with the hub) |
 | Closing CTA | `FinalCta` with props (`eyebrow`, `copy`, `primary`, `secondary`, `title` slot) |
 
 A new case study is a data entry plus an image folder. Don't copy the template. If a listing needs something the template can't do, extend the template so every case study gets it.
+
+## The /work/ Hub
+
+The nav's "Work" item, the footer and the old `/gallery` URL all lead to `/work/`. Its sections:
+
+1. **Selected Works:** 3 columns of listing cards (hero photo, package tag, address, city). Built case studies come first and link to their page. Listings in the `upcoming` array in `src/data/work.ts` show as "Case study coming soon" and don't link anywhere. Each card uses the `hero` photo if it has one, or a placeholder tile if not. **When you build a case study, move its listing from `upcoming` to `work`.**
+2. **Social Media Property Reels** and 3. **Cinematic Property Showcases:** the same videos as the videography page, from `src/data/videos.ts`. Edit them there and both pages update.
+4. **Photography:** the 12 portfolio photos from `src/data/portfolio.ts` (shared with the home page and `/card/`), 3 columns on desktop, with the lightbox.
 
 ## Page Layout
 
@@ -74,4 +84,4 @@ Then serve `dist/client` with any static file server and open `/work/<slug>/`. C
 - Title: `<address>: <package> — Northvantage Media`. Description: generated from what was delivered.
 - Share image: the `hero` photo, generated at 1620×1080. Alt text comes from that photo's caption.
 - Schema: `BreadcrumbList` only (Home › address). See [seo.md](seo.md).
-- Pages are in the sitemap automatically. Nothing in the nav links to them yet. Once there are a few, add a `/work/` index page and point the nav's "Work" item at it.
+- Pages are in the sitemap automatically and are linked from the `/work/` hub.

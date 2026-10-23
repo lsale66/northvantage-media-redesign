@@ -121,3 +121,30 @@ export const work: WorkListing[] = [
     },
   },
 ];
+
+// Shown on the /work/ hub as "case study coming soon" cards until their page
+// is built; then move the listing into `work` above. `hero` is a filename in
+// src/assets/work/<slug>/photos/; without one the card shows a placeholder.
+export interface UpcomingListing {
+  slug: string;
+  address: string;
+  city: string;
+  packageName: string;
+  hero?: string;
+}
+
+export const upcoming: UpcomingListing[] = [
+  {
+    slug: '159-greenwich-drive-nw',
+    address: '159 Greenwich Drive NW',
+    city: 'Calgary, Alberta',
+    packageName: 'Luxury Package',
+    hero: '001-twilight.jpg',
+  },
+  {
+    slug: '342-hawkside-mews-nw',
+    address: '342 Hawkside Mews NW',
+    city: 'Calgary, Alberta',
+    packageName: 'Showcase Package',
+  },
+];

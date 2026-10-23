@@ -16,6 +16,7 @@ import Footer from '../../components/direction-1/Footer.astro';
 import FinalCta from '../../components/direction-1/FinalCta.astro';
 import FrameMark from '../../components/direction-1/FrameMark.astro';
 import BunnyVideo from '../../components/direction-1/BunnyVideo.astro';
+import Lightbox from '../../components/direction-1/Lightbox.astro';
 
 export function getStaticPaths() {
   return work.map((listing) => ({ params: { slug: listing.slug }, props: { listing } }));
@@ -405,74 +406,9 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
 
   <Footer />
 
-  <!-- Lightbox: one dialog shared by every [data-lightbox-group] on the page. -->
-  <dialog class="nv-lb" data-lb aria-label="Photo viewer">
-    <figure class="nv-lb__fig">
-      <img data-lb-img alt="" />
-      <figcaption class="nv-micro nv-lb__cap">
-        <span data-lb-cap></span>
-        <span data-lb-count></span>
-      </figcaption>
-    </figure>
-    <button type="button" class="nv-lb__btn nv-lb__close" data-lb-close aria-label="Close">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13" stroke="currentColor" stroke-width="1.4" /></svg>
-    </button>
-    <button type="button" class="nv-lb__btn nv-lb__prev" data-lb-prev aria-label="Previous photo">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.4" /></svg>
-    </button>
-    <button type="button" class="nv-lb__btn nv-lb__next" data-lb-next aria-label="Next photo">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m6 3 5 5-5 5" stroke="currentColor" stroke-width="1.4" /></svg>
-    </button>
-  </dialog>
+  <Lightbox />
 
   <Motion />
-
-  <script>
-    const dialog = document.querySelector('[data-lb]');
-    const image = dialog.querySelector('[data-lb-img]');
-    const cap = dialog.querySelector('[data-lb-cap]');
-    const count = dialog.querySelector('[data-lb-count]');
-    let items = [];
-    let index = 0;
-
-    function show(i) {
-      index = (i + items.length) % items.length;
-      const a = items[index];
-      image.src = a.href;
-      image.alt = a.dataset.caption || '';
-      cap.textContent = a.dataset.caption || '';
-      count.textContent = `${index + 1} / ${items.length}`;
-    }
-
-    document.addEventListener('click', (e) => {
-      const a = e.target.closest('[data-lightbox]');
-      if (!a) return;
-      e.preventDefault();
-      items = Array.from(a.closest('[data-lightbox-group]').querySelectorAll('[data-lightbox]'));
-      show(items.indexOf(a));
-      dialog.showModal();
-    });
-
-    dialog.querySelector('[data-lb-prev]').addEventListener('click', () => show(index - 1));
-    dialog.querySelector('[data-lb-next]').addEventListener('click', () => show(index + 1));
-    dialog.querySelector('[data-lb-close]').addEventListener('click', () => dialog.close());
-    // Clicking the dark backdrop (the dialog itself, not its contents) closes it.
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) dialog.close();
-    });
-    dialog.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') show(index - 1);
-      if (e.key === 'ArrowRight') show(index + 1);
-    });
-
-    // Swipe on touch screens.
-    let startX = 0;
-    dialog.addEventListener('touchstart', (e) => (startX = e.touches[0].clientX), { passive: true });
-    dialog.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
-    });
-  </script>
 
   <style>
     /* ── Hero ── */
@@ -793,84 +729,6 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
     }
     .nv-wk-plan__label {
       margin: 0.9rem 0 0;
-    }
-
-    /* ── Lightbox ── */
-    .nv-lb {
-      width: 100vw;
-      max-width: none;
-      height: 100dvh;
-      max-height: none;
-      margin: 0;
-      padding: 0;
-      border: 0;
-      color: var(--color-brand-text);
-      background: rgb(6 9 15 / 0.96);
-    }
-    .nv-lb::backdrop {
-      background: rgb(6 9 15 / 0.8);
-    }
-    .nv-lb[open] {
-      display: grid;
-      place-items: center;
-    }
-    .nv-lb__fig {
-      display: grid;
-      gap: 0.9rem;
-      margin: 0;
-      padding: 4rem clamp(1rem, 6vw, 5.5rem) 1.5rem;
-      max-width: 100%;
-    }
-    .nv-lb__fig img {
-      max-width: 100%;
-      max-height: calc(100dvh - 8rem);
-      margin-inline: auto;
-      object-fit: contain;
-    }
-    .nv-lb__cap {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .nv-lb__btn {
-      position: absolute;
-      display: grid;
-      place-items: center;
-      width: 2.75rem;
-      height: 2.75rem;
-      border: 1px solid var(--nv-hairline-strong);
-      border-radius: 50%;
-      color: var(--color-brand-text);
-      background: rgb(10 14 23 / 0.6);
-      cursor: pointer;
-      transition: border-color 0.2s ease, color 0.2s ease;
-    }
-    .nv-lb__btn:hover {
-      border-color: var(--color-brand-accent);
-      color: var(--color-brand-accent);
-    }
-    .nv-lb__close {
-      top: 1rem;
-      right: 1rem;
-    }
-    .nv-lb__prev,
-    .nv-lb__next {
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    .nv-lb__prev {
-      left: 1rem;
-    }
-    .nv-lb__next {
-      right: 1rem;
-    }
-    @media (max-width: 640px) {
-      .nv-lb__prev,
-      .nv-lb__next {
-        top: auto;
-        bottom: 1rem;
-        transform: none;
-      }
     }
   </style>
 </Layout>

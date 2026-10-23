@@ -11,6 +11,7 @@ import Eyebrow from '../../components/direction-1/Eyebrow.astro';
 import BunnyVideo from '../../components/direction-1/BunnyVideo.astro';
 import FrameMark from '../../components/direction-1/FrameMark.astro';
 import PriceIcon from '../../components/direction-1/pricing/PriceIcon.astro';
+import { reels, cinematic } from '../../data/videos';
 
 const overviewFeatures = [
   { name: 'Sells The Listing Faster', copy: 'Compelling video puts more eyes on a listing, faster — more showings, more offers, and less time sitting on the market.' },
@@ -19,22 +20,7 @@ const overviewFeatures = [
   { name: '3-Day Delivery', copy: 'A finished, download-ready edit lands in your inbox within 3 days of the shoot — ready to post or upload immediately.' },
 ];
 
-// Video sets. Each item takes a `youtubeId` or an embed `src`; an item with
-// neither renders as a placeholder tile.
-const reels = [
-  { label: 'Property Reel 01', src: 'https://iframe.mediadelivery.net/embed/469110/a398883b-93b3-4fc5-a769-2f53e5a536a7?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
-  { label: 'Property Reel 02', src: 'https://iframe.mediadelivery.net/embed/469110/d06939c7-91da-484b-80ae-00ee67190b93?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
-  { label: 'Property Reel 03', src: 'https://iframe.mediadelivery.net/embed/469110/fa91653c-8e19-4a2c-98ef-5fe4e21adec0?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
-  { label: 'Property Reel 04', src: 'https://iframe.mediadelivery.net/embed/469110/cd183067-e645-4ff6-9cc2-313b89f6e251?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
-  { label: 'Property Reel 05', src: 'https://iframe.mediadelivery.net/embed/469110/415bc110-011a-46c5-8cb8-daaac92ab4e9?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
-  { label: 'Property Reel 06', src: 'https://iframe.mediadelivery.net/embed/469110/5e262981-3ef2-4357-ac91-73686c3c08f2?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
-];
-
-const cinematic = [
-  { label: 'Greenwich — Cinematic Showcase', youtubeId: 'gyvaricJimI' },
-  { label: 'Cinematic Showcase 02', youtubeId: 'tZ1Q5klP3Zo' },
-];
-
+// Bunny embeds; reels and cinematic come from src/data/videos.ts.
 const agentVideos = [
   { label: 'Agent Branding 01', src: 'https://iframe.mediadelivery.net/embed/469110/8d7fabda-f5bb-4b4e-a936-095c86900a4d?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
   { label: 'Agent Branding 02', src: 'https://iframe.mediadelivery.net/embed/469110/4c5e182c-a96c-4f80-ab99-d2992bc13e42?autoplay=true&loop=false&muted=true&preload=false&responsive=true' },
