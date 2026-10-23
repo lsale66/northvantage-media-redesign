@@ -73,11 +73,11 @@ Package contents are defined in `src/components/direction-1/pricing/Packages.ast
 
 iGuide locks the live tour once a property sells, which breaks the embed. Download the tour's offline version from iGuide and host it on this site:
 
-1. Put the unzipped folder at  (the folder holding , , , , ). Keep it as downloaded. A tour is roughly 100–150 MB, and Cloudflare's 25 MiB per-file limit is far above any single file in it.
-2. **Patch one path in .** iGuide's 3D loader requests the floor logo disc (the cover over the tripod spot) from the site root, so under  it 404s and leaves a hole when you look down. Replace  with . The file hash may differ in other exports: find the 404 in the browser's network tab and patch that one.
-3. In  set , and point  at .
+1. Put the unzipped folder at `public/tours/<slug>/` (the folder holding `index.html`, `assets/`, `doc/`, `gallery/` and `html_assets/`). Keep it as downloaded. A tour is roughly 100–150 MB, and Cloudflare's 25 MiB per-file limit is far above any single file in it.
+2. **Patch one path in `html_assets/index.js`.** iGuide's 3D loader requests the floor logo disc (the cover over the tripod spot) from the site root, so under `/tours/<slug>/` it 404s and leaves a hole when you look down. Replace `e.exports=n.p+"a/3312e98fd0ff2b88d02c.png"` with `e.exports="/tours/<slug>/html_assets/a/3312e98fd0ff2b88d02c.png"`. The file hash may differ in other exports: find the 404 in the browser's network tab and patch that one.
+3. In `src/data/work.ts` set `iguide: { embed: '/tours/<slug>/', url: '/tours/<slug>/' }`, and point `floorplanPdf` at `/tours/<slug>/doc/floorplan_imperial_en.pdf`.
 
-Expected and harmless: 404s for  and  (the viewer checking iGuide's servers for a login). The export still loads Google Fonts and iGuide's Heap analytics from their CDNs.
+Expected and harmless: 404s for `/api/v1/sessions/0` and `/apiro/v1/tags/icons` (the viewer checking iGuide's servers for a login). The export still loads Google Fonts and iGuide's Heap analytics from their CDNs.
 
 ## Checking a Page
 
