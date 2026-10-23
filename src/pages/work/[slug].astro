@@ -1,0 +1,858 @@
+---
+/**
+ * /work/<slug>/ — a real listing laid out deliverable by deliverable.
+ * Written for agents, not buyers: no property specs, just "here is
+ * everything this package produced." Content lives in src/data/work.ts.
+ */
+import type { ImageMetadata } from 'astro';
+import { Image, getImage } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import { breadcrumbs } from '../../lib/schema';
+import { work, type WorkListing, type WorkPhoto } from '../../data/work';
+import Styles from '../../components/direction-1/Styles.astro';
+import Nav from '../../components/direction-1/Nav.astro';
+import Motion from '../../components/direction-1/Motion.astro';
+import Footer from '../../components/direction-1/Footer.astro';
+import FinalCta from '../../components/direction-1/FinalCta.astro';
+import FrameMark from '../../components/direction-1/FrameMark.astro';
+import BunnyVideo from '../../components/direction-1/BunnyVideo.astro';
+
+export function getStaticPaths() {
+  return work.map((listing) => ({ params: { slug: listing.slug }, props: { listing } }));
+}
+
+interface Props {
+  listing: WorkListing;
+}
+
+const { listing } = Astro.props;
+
+const BOOKING_URL = 'https://northvantagemedia.hd.pics/order';
+
+const assets = import.meta.glob<{ default: ImageMetadata }>('/src/assets/work/**/*.{jpg,jpeg,png}', {
+  eager: true,
+});
+function img(folder: string, file: string): ImageMetadata {
+  const mod = assets[`/src/assets/work/${listing.slug}/${folder}/${file}`];
+  if (!mod) throw new Error(`Missing work image: ${listing.slug}/${folder}/${file}`);
+  return mod.default;
+}
+
+// Each photo gets a grid-sized <Image> plus a large WebP for the lightbox.
+async function withFull(folder: string, photos: WorkPhoto[]) {
+  return Promise.all(
+    photos.map(async (p) => {
+      const src = img(folder, p.file);
+      const full = await getImage({ src, width: 2000, format: 'webp', quality: 82 });
+      return { ...p, src, full: full.src };
+    })
+  );
+}
+
+const photos = await withFull('photos', listing.photos);
+const drone = await withFull('drone', listing.drone);
+const plans = await withFull(
+  'plans',
+  listing.floorplans.map((f) => ({ file: f.file, caption: f.label }))
+);
+const hero = img('photos', listing.hero);
+const screenshot = img('website', listing.website.screenshot);
+const share = await getImage({ src: hero, width: 1620, height: 1080, format: 'jpg' });
+
+// The table of contents and the section numbers come from the same list.
+const kit = [
+  { id: 'reel', name: 'Social Media Reel', note: 'Vertical, 9:16' },
+  { id: 'video', name: 'Cinematic Video', note: 'Horizontal, 16:9' },
+  { id: 'photos', name: 'HDR Photos', note: `${photos.length} images` },
+  { id: 'drone', name: 'Drone Photos', note: `${drone.length} aerials` },
+  { id: 'website', name: 'Property Website', note: 'Single-listing site' },
+  { id: 'floor-plans', name: 'Floor Plans', note: `${plans.length} levels + RMS` },
+  { id: 'iguide', name: 'iGuide 3D Tour', note: 'Self-guided' },
+];
+const num = (id: string) => String(kit.findIndex((k) => k.id === id) + 1).padStart(2, '0');
+
+const path = `/work/${listing.slug}/`;
+const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
+---
+
+<Layout
+  title={`${listing.address}: ${listing.packageName} — Northvantage Media`}
+  description={`Everything one ${listing.packageName} shoot delivered for ${listing.address} in ${listing.city}: social reel, cinematic video, ${photos.length} photos, drone, property website, floor plans and an iGuide tour.`}
+  image={share.src}
+  imageAlt={`${listing.address}, ${listing.city}, photographed at twilight`}
+  schema={pageSchema}
+>
+  <Styles />
+
+  <div class="nv-grain" aria-hidden="true"></div>
+
+  <Nav />
+
+  <main>
+    <!-- Hero -->
+    <section class="nv-wk-hero">
+      <div class="nv-wk-hero__media" data-parallax="0.1">
+        <Image
+          src={hero}
+          alt={`${listing.address} at twilight`}
+          widths={[960, 1600, 2000]}
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="nv-wk-hero__scrim" aria-hidden="true"></div>
+      </div>
+
+      <div class="nv-wrap nv-wk-hero__body">
+        <p class="nv-eyebrow" data-reveal="fade">
+          <FrameMark size={12} float />
+          <span>{listing.packageName} · Case Study</span>
+        </p>
+
+        <h1 class="nv-display nv-wk-hero__title" data-reveal="clip">
+          {listing.address.split(' ').slice(0, -1).join(' ')}{' '}
+          <span class="nv-accent-word">{listing.address.split(' ').at(-1)}</span>
+        </h1>
+
+        <p class="nv-micro nv-wk-hero__meta" data-reveal="up" style="--d:120ms">
+          <span>{listing.city}</span>
+          <span>
+            Shot for <a href={listing.agent.url} target="_blank" rel="noopener">{listing.agent.name}</a>
+          </span>
+        </p>
+      </div>
+    </section>
+
+    <!-- What the package produced -->
+    <section class="nv-section nv-wk-intro">
+      <div class="nv-wrap nv-wk-intro__grid">
+        <div>
+          <p class="nv-eyebrow" data-reveal="fade">
+            <FrameMark size={12} />
+            <span>The Listing</span>
+          </p>
+          <p class="nv-lead nv-wk-intro__copy" data-reveal="up">{listing.summary}</p>
+          <p class="nv-body nv-wk-intro__copy" data-reveal="up" style="--d:80ms">
+            Below is everything the {listing.packageName} delivered for it, from one
+            booking. Scroll through, or jump to the piece you care about.
+          </p>
+        </div>
+
+        <ol class="nv-wk-kit" aria-label="What's included">
+          {
+            kit.map((k, i) => (
+              <li data-reveal="up" style={`--d:${i * 60}ms`}>
+                <a href={`#${k.id}`} class="nv-wk-kit__row">
+                  <span class="nv-micro nv-wk-kit__n">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="nv-wk-kit__name">{k.name}</span>
+                  <span class="nv-micro nv-wk-kit__note">{k.note}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <!-- 01 Reel -->
+    <section class="nv-section nv-wk-sec" id="reel">
+      <div class="nv-wrap nv-wk-reel">
+        <header class="nv-wk-head">
+          <p class="nv-micro nv-wk-head__n">{num('reel')}</p>
+          <h2 class="nv-h2" data-reveal="clip">Social Media <span class="nv-accent-word">Reel</span></h2>
+          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+            A fast, vertical cut built to stop the scroll on Instagram, Facebook and TikTok.
+            Scripted for the property, with on-camera coaching for the agent, so the listing
+            and the agent's brand get seen together.
+          </p>
+        </header>
+        <div class="nv-wk-reel__video nv-frame nv-frame--hover" data-reveal="up">
+          <div class="nv-wk-ratio nv-wk-ratio--vert">
+            <BunnyVideo src={listing.reel} title={`${listing.address} property reel`} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 Cinematic video -->
+    <section class="nv-section nv-wk-sec" id="video">
+      <div class="nv-wrap">
+        <header class="nv-wk-head nv-wk-head--row">
+          <p class="nv-micro nv-wk-head__n">{num('video')}</p>
+          <h2 class="nv-h2" data-reveal="clip">Cinematic <span class="nv-accent-word">Property Video</span></h2>
+          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+            The full walkthrough: interior, exterior and drone footage, color graded and cut
+            to music. Made for MLS, YouTube, and sending straight to buyers.
+          </p>
+        </header>
+        <div class="nv-frame nv-frame--hover" data-reveal="up">
+          <div class="nv-wk-ratio nv-wk-ratio--horiz">
+            <iframe
+              src={`https://www.youtube.com/embed/${listing.youtubeId}?rel=0`}
+              title={`${listing.address} cinematic property video`}
+              loading="lazy"
+              allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen"
+              allowfullscreen
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 Photos -->
+    <section class="nv-section nv-wk-sec" id="photos">
+      <div class="nv-wrap">
+        <header class="nv-wk-head nv-wk-head--row">
+          <p class="nv-micro nv-wk-head__n">{num('photos')}</p>
+          <h2 class="nv-h2" data-reveal="clip">
+            {photos.length} <span class="nv-accent-word">HDR Photos</span>
+          </h2>
+          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+            The complete set, edited and delivered next day, including the twilight exterior
+            and a virtually staged room. Tap any photo to see it full size.
+          </p>
+        </header>
+        <ul class="nv-wk-grid" data-lightbox-group>
+          {
+            photos.map((p, i) => (
+              <li class:list={['nv-wk-grid__item', { 'is-wide': p.wide }]}>
+                <a href={p.full} class="nv-wk-shot" data-lightbox data-caption={p.caption}>
+                  <Image
+                    src={p.src}
+                    alt={p.caption}
+                    widths={p.wide ? [800, 1400, 2000] : [600, 900, 1200]}
+                    sizes={p.wide ? '(min-width: 1440px) 1300px, 100vw' : '(min-width: 1440px) 650px, (min-width: 700px) 50vw, 100vw'}
+                    loading={i < 2 ? 'eager' : 'lazy'}
+                  />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- 04 Drone -->
+    <section class="nv-section nv-wk-sec" id="drone">
+      <div class="nv-wrap">
+        <header class="nv-wk-head nv-wk-head--row">
+          <p class="nv-micro nv-wk-head__n">{num('drone')}</p>
+          <h2 class="nv-h2" data-reveal="clip">Drone <span class="nv-accent-word">Photos</span></h2>
+          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+            Aerials that show what ground shots can't: the lot, the green space behind it, and
+            where the home sits in the community, with the property pinned so buyers find it
+            instantly.
+          </p>
+        </header>
+        <ul class="nv-wk-grid nv-wk-grid--drone" data-lightbox-group>
+          {
+            drone.map((p) => (
+              <li class="nv-wk-grid__item">
+                <a href={p.full} class="nv-wk-shot" data-lightbox data-caption={p.caption}>
+                  <Image
+                    src={p.src}
+                    alt={p.caption}
+                    widths={[600, 900, 1200]}
+                    sizes="(min-width: 1440px) 650px, (min-width: 700px) 50vw, 100vw"
+                    loading="lazy"
+                  />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 Website -->
+    <section class="nv-section nv-wk-sec" id="website">
+      <div class="nv-wrap nv-wk-site">
+        <header class="nv-wk-head">
+          <p class="nv-micro nv-wk-head__n">{num('website')}</p>
+          <h2 class="nv-h2" data-reveal="clip">Property <span class="nv-accent-word">Website</span></h2>
+          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+            A dedicated site for the listing that puts every photo, the video, the floor plans
+            and the 3D tour behind one clean link, ready for the sign rider, the brochure QR
+            code and every social post.
+          </p>
+          <a
+            href={listing.website.url}
+            class="nv-link nv-wk-site__link"
+            target="_blank"
+            rel="noopener"
+            data-reveal="up"
+            style="--d:160ms"
+          >
+            Visit {listing.website.label} <span class="nv-arrow" aria-hidden="true">→</span>
+          </a>
+        </header>
+
+        <a
+          href={listing.website.url}
+          target="_blank"
+          rel="noopener"
+          class="nv-wk-browser nv-frame nv-frame--hover"
+          data-reveal="up"
+          aria-label={`Open ${listing.website.label} in a new tab`}
+        >
+          <span class="nv-wk-browser__bar" aria-hidden="true">
+            <span class="nv-wk-browser__dots"><i></i><i></i><i></i></span>
+            <span class="nv-wk-browser__url">{listing.website.label}</span>
+          </span>
+          <Image
+            src={screenshot}
+            alt={`Homepage of ${listing.website.label}`}
+            widths={[800, 1400, 2160]}
+            sizes="(min-width: 1100px) 60vw, 100vw"
+            loading="lazy"
+          />
+        </a>
+      </div>
+    </section>
+
+    <!-- 06 Floor plans -->
+    <section class="nv-section nv-wk-sec" id="floor-plans">
+      <div class="nv-wrap">
+        <header class="nv-wk-head nv-wk-head--row">
+          <p class="nv-micro nv-wk-head__n">{num('floor-plans')}</p>
+          <h2 class="nv-h2" data-reveal="clip">Floor Plans &amp; <span class="nv-accent-word">RMS</span></h2>
+          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+            RECA-standard RMS measurements and a scaled, labelled plan for every level, as
+            images for the listing and as a PDF for buyers.
+            <a href={listing.floorplanPdf} class="nv-link" target="_blank" rel="noopener">
+              Open the PDF <span class="nv-arrow" aria-hidden="true">→</span>
+            </a>
+          </p>
+        </header>
+        <ul class="nv-wk-plans" data-lightbox-group>
+          {
+            plans.map((p, i) => (
+              <li data-reveal="up" style={`--d:${i * 80}ms`}>
+                <a href={p.full} class="nv-wk-plan" data-lightbox data-caption={p.caption}>
+                  <Image
+                    src={p.src}
+                    alt={`${p.caption} floor plan`}
+                    widths={[600, 900, 1200]}
+                    sizes="(min-width: 900px) 33vw, 100vw"
+                    loading="lazy"
+                  />
+                </a>
+                <p class="nv-micro nv-wk-plan__label">{p.caption}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- 07 iGuide -->
+    <section class="nv-section nv-wk-sec" id="iguide">
+      <div class="nv-wrap">
+        <header class="nv-wk-head nv-wk-head--row">
+          <p class="nv-micro nv-wk-head__n">{num('iguide')}</p>
+          <h2 class="nv-h2" data-reveal="clip">iGuide <span class="nv-accent-word">3D Tour</span></h2>
+          <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
+            A walk-through buyers steer themselves, linked to the floor plan so they always know
+            where they're standing. Try it below.
+            <a href={listing.iguide.url} class="nv-link" target="_blank" rel="noopener">
+              Open full screen <span class="nv-arrow" aria-hidden="true">→</span>
+            </a>
+          </p>
+        </header>
+        <div class="nv-frame" data-reveal="up">
+          <div class="nv-wk-ratio nv-wk-ratio--horiz">
+            <iframe
+              src={listing.iguide.embed}
+              title={`${listing.address} iGuide 3D virtual tour`}
+              loading="lazy"
+              allow="fullscreen; xr-spatial-tracking"
+              allowfullscreen
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <FinalCta
+      eyebrow={listing.packageName}
+      copy={`Reel, cinematic video, photos, drone, floor plans and a 3D tour from one booking. The ${listing.packageName} starts at ${listing.packageFrom} + GST, priced by square footage.`}
+      primary={{ label: 'Book a Shoot', href: BOOKING_URL }}
+      secondary={{ label: 'See Pricing', href: '/pricing#packages' }}
+    >
+      <Fragment slot="title">
+        Ready to Give Your Listing <span class="nv-accent-word">This Treatment</span>?
+      </Fragment>
+    </FinalCta>
+  </main>
+
+  <Footer />
+
+  <!-- Lightbox: one dialog shared by every [data-lightbox-group] on the page. -->
+  <dialog class="nv-lb" data-lb aria-label="Photo viewer">
+    <figure class="nv-lb__fig">
+      <img data-lb-img alt="" />
+      <figcaption class="nv-micro nv-lb__cap">
+        <span data-lb-cap></span>
+        <span data-lb-count></span>
+      </figcaption>
+    </figure>
+    <button type="button" class="nv-lb__btn nv-lb__close" data-lb-close aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13" stroke="currentColor" stroke-width="1.4" /></svg>
+    </button>
+    <button type="button" class="nv-lb__btn nv-lb__prev" data-lb-prev aria-label="Previous photo">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.4" /></svg>
+    </button>
+    <button type="button" class="nv-lb__btn nv-lb__next" data-lb-next aria-label="Next photo">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m6 3 5 5-5 5" stroke="currentColor" stroke-width="1.4" /></svg>
+    </button>
+  </dialog>
+
+  <Motion />
+
+  <script>
+    const dialog = document.querySelector('[data-lb]');
+    const image = dialog.querySelector('[data-lb-img]');
+    const cap = dialog.querySelector('[data-lb-cap]');
+    const count = dialog.querySelector('[data-lb-count]');
+    let items = [];
+    let index = 0;
+
+    function show(i) {
+      index = (i + items.length) % items.length;
+      const a = items[index];
+      image.src = a.href;
+      image.alt = a.dataset.caption || '';
+      cap.textContent = a.dataset.caption || '';
+      count.textContent = `${index + 1} / ${items.length}`;
+    }
+
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('[data-lightbox]');
+      if (!a) return;
+      e.preventDefault();
+      items = Array.from(a.closest('[data-lightbox-group]').querySelectorAll('[data-lightbox]'));
+      show(items.indexOf(a));
+      dialog.showModal();
+    });
+
+    dialog.querySelector('[data-lb-prev]').addEventListener('click', () => show(index - 1));
+    dialog.querySelector('[data-lb-next]').addEventListener('click', () => show(index + 1));
+    dialog.querySelector('[data-lb-close]').addEventListener('click', () => dialog.close());
+    // Clicking the dark backdrop (the dialog itself, not its contents) closes it.
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(index - 1);
+      if (e.key === 'ArrowRight') show(index + 1);
+    });
+
+    // Swipe on touch screens.
+    let startX = 0;
+    dialog.addEventListener('touchstart', (e) => (startX = e.touches[0].clientX), { passive: true });
+    dialog.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
+    });
+  </script>
+
+  <style>
+    /* ── Hero ── */
+    .nv-wk-hero {
+      position: relative;
+      overflow: clip;
+      display: flex;
+      align-items: flex-end;
+      min-height: min(92svh, 900px);
+      padding-top: clamp(9rem, 16vw, 12rem);
+      padding-bottom: clamp(3rem, 6vw, 5rem);
+    }
+    .nv-wk-hero__media {
+      position: absolute;
+      inset: -8% 0 -8% 0;
+      z-index: -1;
+      transform: translate3d(0, var(--py, 0px), 0);
+    }
+    .nv-wk-hero__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 55%;
+      filter: saturate(1.02) contrast(1.04) brightness(0.8);
+    }
+    .nv-wk-hero__scrim {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, var(--color-brand-bg) 2%, rgb(10 14 23 / 0.55) 38%, rgb(10 14 23 / 0) 70%),
+        linear-gradient(to right, rgb(10 14 23 / 0.5) 0%, transparent 55%);
+    }
+    .nv-wk-hero__title {
+      margin: clamp(1rem, 2vw, 1.5rem) 0 0;
+    }
+    .nv-wk-hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.4rem;
+      margin: clamp(1.5rem, 2.6vw, 2rem) 0 0;
+      color: rgb(243 239 231 / 0.82);
+    }
+    .nv-wk-hero__meta span + span::before {
+      content: '';
+      display: inline-block;
+      width: 1.4rem;
+      height: 1px;
+      margin-right: 1.4rem;
+      vertical-align: middle;
+      background: var(--color-brand-accent);
+    }
+    .nv-wk-hero__meta a {
+      color: var(--color-brand-text);
+      text-decoration: underline;
+      text-decoration-color: var(--color-brand-accent);
+      text-underline-offset: 0.3em;
+    }
+
+    /* ── Intro + kit list ── */
+    .nv-wk-intro__grid {
+      display: grid;
+      gap: clamp(2.5rem, 6vw, 6rem);
+    }
+    @media (min-width: 960px) {
+      .nv-wk-intro__grid {
+        grid-template-columns: 1.1fr 1fr;
+        align-items: start;
+      }
+    }
+    .nv-wk-intro__copy {
+      max-width: 56ch;
+      margin: 1.5rem 0 0;
+    }
+    .nv-wk-kit {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--nv-hairline-strong);
+    }
+    .nv-wk-kit li {
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-wk-kit__row {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr auto;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 1.05rem 0.25rem;
+      color: var(--color-brand-text);
+      text-decoration: none;
+      transition: color 0.3s ease, padding 0.4s var(--nv-ease);
+    }
+    .nv-wk-kit__row:hover {
+      padding-left: 0.75rem;
+      color: var(--color-brand-accent);
+    }
+    .nv-wk-kit__n {
+      color: var(--color-brand-accent);
+    }
+    .nv-wk-kit__name {
+      font-family: var(--font-heading);
+      font-weight: 350;
+      font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+      letter-spacing: -0.015em;
+    }
+    @media (max-width: 420px) {
+      .nv-wk-kit__row {
+        grid-template-columns: 2rem 1fr;
+      }
+      .nv-wk-kit__note {
+        grid-column: 2;
+      }
+    }
+
+    /* ── Section heads ── */
+    .nv-wk-sec {
+      border-top: 1px solid var(--nv-hairline);
+      scroll-margin-top: 4rem;
+    }
+    .nv-wk-head {
+      margin-bottom: clamp(2rem, 4vw, 3.25rem);
+    }
+    .nv-wk-head__n {
+      margin: 0 0 1rem;
+      color: var(--color-brand-accent);
+    }
+    .nv-wk-head__copy {
+      max-width: 58ch;
+      margin: 1.25rem 0 0;
+    }
+    .nv-wk-head__copy .nv-link {
+      margin-left: 0.35rem;
+      white-space: nowrap;
+    }
+    @media (min-width: 960px) {
+      .nv-wk-head--row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: clamp(2rem, 5vw, 5rem);
+        align-items: end;
+      }
+      .nv-wk-head--row .nv-wk-head__n {
+        grid-column: 1 / -1;
+      }
+      .nv-wk-head--row .nv-wk-head__copy {
+        margin: 0;
+      }
+    }
+
+    /* ── Video frames ── */
+    .nv-wk-ratio {
+      position: relative;
+      overflow: hidden;
+      background: var(--color-brand-surface);
+    }
+    .nv-wk-ratio--horiz {
+      aspect-ratio: 16 / 9;
+    }
+    .nv-wk-ratio--vert {
+      aspect-ratio: 9 / 16;
+    }
+    .nv-wk-ratio iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .nv-wk-reel {
+      display: grid;
+      gap: clamp(2rem, 5vw, 5rem);
+    }
+    .nv-wk-reel__video {
+      width: 100%;
+      max-width: 400px;
+      margin-inline: auto;
+    }
+    @media (min-width: 860px) {
+      .nv-wk-reel {
+        grid-template-columns: 1fr minmax(300px, 400px);
+        align-items: center;
+      }
+      .nv-wk-reel .nv-wk-head {
+        margin: 0;
+      }
+    }
+
+    /* ── Photo grids ── */
+    .nv-wk-grid {
+      display: grid;
+      gap: clamp(0.5rem, 1vw, 0.9rem);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    @media (min-width: 700px) {
+      .nv-wk-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .nv-wk-grid__item.is-wide {
+        grid-column: 1 / -1;
+      }
+    }
+    .nv-wk-shot {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      aspect-ratio: 3 / 2;
+      background: var(--color-brand-surface);
+      cursor: zoom-in;
+    }
+    .nv-wk-grid--drone .nv-wk-shot {
+      aspect-ratio: 4 / 3;
+    }
+    .nv-wk-shot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s var(--nv-ease);
+    }
+    .nv-wk-shot:hover img {
+      transform: scale(1.025);
+    }
+
+    /* ── Website ── */
+    .nv-wk-site {
+      display: grid;
+      gap: clamp(2rem, 5vw, 4.5rem);
+    }
+    @media (min-width: 1100px) {
+      .nv-wk-site {
+        grid-template-columns: 1fr 1.6fr;
+        align-items: center;
+      }
+      .nv-wk-site .nv-wk-head {
+        margin: 0;
+      }
+    }
+    .nv-wk-site__link {
+      display: inline-flex;
+      margin-top: 1.75rem;
+    }
+    .nv-wk-browser {
+      display: block;
+      overflow: hidden;
+      border: 1px solid var(--nv-hairline-strong);
+      border-radius: 6px;
+      background: var(--color-brand-surface);
+      box-shadow:
+        0 20px 40px -12px rgb(0 0 0 / 0.4),
+        0 60px 96px -32px rgb(0 0 0 / 0.5);
+    }
+    .nv-wk-browser__bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid var(--nv-hairline);
+    }
+    .nv-wk-browser__dots {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .nv-wk-browser__dots i {
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 50%;
+      background: var(--nv-hairline-strong);
+    }
+    .nv-wk-browser__url {
+      flex: 1;
+      max-width: 22rem;
+      margin-inline: auto;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      text-align: center;
+      color: var(--color-brand-muted);
+      background: rgb(10 14 23 / 0.6);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .nv-wk-browser img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ── Floor plans ── */
+    .nv-wk-plans {
+      display: grid;
+      gap: clamp(1rem, 2vw, 1.5rem);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    @media (min-width: 760px) {
+      .nv-wk-plans {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .nv-wk-plan {
+      display: block;
+      padding: clamp(0.75rem, 1.5vw, 1.25rem);
+      border-radius: 2px;
+      background: #fff;
+      cursor: zoom-in;
+      transition: transform 0.6s var(--nv-ease);
+    }
+    .nv-wk-plan:hover {
+      transform: translateY(-4px);
+    }
+    .nv-wk-plan img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .nv-wk-plan__label {
+      margin: 0.9rem 0 0;
+    }
+
+    /* ── Lightbox ── */
+    .nv-lb {
+      width: 100vw;
+      max-width: none;
+      height: 100dvh;
+      max-height: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      color: var(--color-brand-text);
+      background: rgb(6 9 15 / 0.96);
+    }
+    .nv-lb::backdrop {
+      background: rgb(6 9 15 / 0.8);
+    }
+    .nv-lb[open] {
+      display: grid;
+      place-items: center;
+    }
+    .nv-lb__fig {
+      display: grid;
+      gap: 0.9rem;
+      margin: 0;
+      padding: 4rem clamp(1rem, 6vw, 5.5rem) 1.5rem;
+      max-width: 100%;
+    }
+    .nv-lb__fig img {
+      max-width: 100%;
+      max-height: calc(100dvh - 8rem);
+      margin-inline: auto;
+      object-fit: contain;
+    }
+    .nv-lb__cap {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .nv-lb__btn {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 1px solid var(--nv-hairline-strong);
+      border-radius: 50%;
+      color: var(--color-brand-text);
+      background: rgb(10 14 23 / 0.6);
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .nv-lb__btn:hover {
+      border-color: var(--color-brand-accent);
+      color: var(--color-brand-accent);
+    }
+    .nv-lb__close {
+      top: 1rem;
+      right: 1rem;
+    }
+    .nv-lb__prev,
+    .nv-lb__next {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .nv-lb__prev {
+      left: 1rem;
+    }
+    .nv-lb__next {
+      right: 1rem;
+    }
+    @media (max-width: 640px) {
+      .nv-lb__prev,
+      .nv-lb__next {
+        top: auto;
+        bottom: 1rem;
+        transform: none;
+      }
+    }
+  </style>
+</Layout>

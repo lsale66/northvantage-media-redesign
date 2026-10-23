@@ -122,6 +122,7 @@ const pageSchema = [
 | Home | none (the business, site and page nodes are enough) |
 | Photography, Videography, Drone, iGuide | `Service` + `BreadcrumbList` |
 | Pricing, Contact | `BreadcrumbList` |
+| Work case studies (`/work/<slug>/`) | `BreadcrumbList`; share image is the listing's hero photo, generated at 1620×1080 |
 | 404 | none (`noindex`) |
 
 ### A new schema type

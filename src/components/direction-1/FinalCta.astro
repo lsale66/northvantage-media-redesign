@@ -1,5 +1,21 @@
 ---
 import FrameMark from './FrameMark.astro';
+
+// Defaults are the site-wide CTA. Pages can swap the copy and buttons; the
+// headline goes in the "title" slot.
+interface Props {
+  eyebrow?: string;
+  copy?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+}
+
+const {
+  eyebrow = "Let's Talk Scope",
+  copy = 'Every property is an opportunity. Great content sells listings faster, attracts higher-tier buyers, and builds your reputation along the way.',
+  primary = { label: 'Call or Text', href: '/contact' },
+  secondary = { label: 'Book Online', href: 'https://northvantagemedia.hd.pics/order' },
+} = Astro.props;
 ---
 
 <!-- Layout ported from Vantage Point's final CTA: a centered, framed card
@@ -13,24 +29,23 @@ import FrameMark from './FrameMark.astro';
       <div class="nv-cta__body">
         <p class="nv-eyebrow nv-cta__eyebrow" data-reveal="fade">
           <FrameMark size={12} float />
-          <span>Let's Talk Scope</span>
+          <span>{eyebrow}</span>
         </p>
 
         <h2 class="nv-display nv-cta__title" data-reveal="clip">
-          Your Next Buyer Is <span class="nv-accent-word">Scrolling</span>. Will They Stop for You?
+          <slot name="title">Your Next Buyer Is <span class="nv-accent-word">Scrolling</span>. Will They Stop for You?</slot>
         </h2>
 
         <p class="nv-lead nv-cta__copy" data-reveal="up" style="--d:120ms">
-          Every property is an opportunity. Great content sells listings faster,
-          attracts higher-tier buyers, and builds your reputation along the way.
+          {copy}
         </p>
 
         <div class="nv-cta__actions" data-reveal="up" style="--d:200ms">
-          <a href="/contact" class="nv-btn nv-btn--solid">
-            <span>Call or Text</span>
+          <a href={primary.href} class="nv-btn nv-btn--solid">
+            <span>{primary.label}</span>
             <FrameMark size={11} dot={false} />
           </a>
-          <a href="https://northvantagemedia.hd.pics/order" class="nv-btn nv-btn--line"><span>Book Online</span></a>
+          <a href={secondary.href} class="nv-btn nv-btn--line"><span>{secondary.label}</span></a>
         </div>
 
         <p class="nv-micro nv-cta__area" data-reveal="fade" style="--d:280ms">
