@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="300" viewBox="-57 -57 114 114">
+	<defs>
+		<radialGradient id="myGradient">
+		<stop offset="50%" stop-color="white" stop-opacity="1.0" />
+		<stop offset="100%" stop-color="white" stop-opacity="0" />
+		</radialGradient>
+	</defs>
+	<circle r="57" stroke="url('#myGradient')" stroke-width="35" fill="none" />
+</svg>

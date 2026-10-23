@@ -1,0 +1,24 @@
+Building,Floor,Room,Type,ID,Width[m],Height[m],Area[m²],Elevation[m]
+Main Building,MAIN FLOOR,2pc Bath,Door,D-23,0.79,2.03,1.6,
+Main Building,MAIN FLOOR,2pc Bath,Window,W-12,0.56,1.22,0.7,0.9
+Main Building,MAIN FLOOR,Dining,Window,W-11,1.75,1.22,2.1,0.9
+Main Building,MAIN FLOOR,Family,Window,W-13,1.78,1.22,2.2,0.9
+Main Building,MAIN FLOOR,Family,Door,D-26,1.78,2.03,3.6,
+Main Building,MAIN FLOOR,Garage,Door,D-28,2.77,2.03,5.6,
+Main Building,MAIN FLOOR,Garage,Door,D-29,0.79,2.03,1.6,
+Main Building,2ND FLOOR,4pc Bath,Door,D-37,0.76,2.03,1.5,
+Main Building,2ND FLOOR,4pc Ensuite,Door,D-30,0.76,2.03,1.5,
+Main Building,2ND FLOOR,4pc Ensuite,Window,W-17,1.17,1.22,1.4,0.9
+Main Building,2ND FLOOR,Bedroom,Door,D-36,1.42,2.03,2.9,
+Main Building,2ND FLOOR,Bedroom,Door,D-35,0.79,2.03,1.6,
+Main Building,2ND FLOOR,Bedroom,Window,W-20,1.78,1.22,2.2,0.9
+Main Building,2ND FLOOR,Bedroom,Door,D-39,1.42,2.03,2.9,
+Main Building,2ND FLOOR,Bedroom,Door,D-38,0.76,2.03,1.5,
+Main Building,2ND FLOOR,Bedroom,Window,W-16,1.78,1.22,2.2,0.9
+Main Building,2ND FLOOR,Laundry,Door,D-31,0.81,2.03,1.7,
+Main Building,2ND FLOOR,Primary,Door,D-30,0.76,2.03,1.5,
+Main Building,2ND FLOOR,Primary,Door,D-33,0.76,2.03,1.5,
+Main Building,2ND FLOOR,Primary,Door,D-32,0.71,2.03,1.4,
+Main Building,2ND FLOOR,Primary,Window,W-18,2.06,1.22,2.5,0.9
+Main Building,2ND FLOOR,Wic,Door,D-32,0.71,2.03,1.4,
+"*These values are for reference only and are not precise enough for ordering windows or doors. Accuracy may vary depending on visibility during scanning (e.g., obstructions such as curtains or blinds). Always take your own measurements before ordering."

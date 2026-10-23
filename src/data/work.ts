@@ -180,11 +180,10 @@ export const work: WorkListing[] = [
       { file: '900-floor_imperial_en_1.jpg', label: 'Main floor' },
       { file: '901-floor_imperial_en_2.jpg', label: 'Second floor' },
     ],
-    floorplanPdf: 'https://youriguide.com/159_greenwich_dr_nw_calgary_ab/doc/floorplan_imperial.pdf',
-    iguide: {
-      embed: 'https://youriguide.com/embed/159_greenwich_dr_nw_calgary_ab?unbranded=1&bgcolor=131B2C',
-      url: 'https://youriguide.com/159_greenwich_dr_nw_calgary_ab',
-    },
+    floorplanPdf: '/tours/159-greenwich-drive-nw/doc/floorplan_imperial_en.pdf',
+    // The live iGuide locked when the property sold; this is iGuide's offline
+    // export, hosted as-is from public/tours/.
+    iguide: { embed: '/tours/159-greenwich-drive-nw/', url: '/tours/159-greenwich-drive-nw/' },
   },
 ];
 
