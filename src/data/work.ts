@@ -23,6 +23,8 @@ export interface WorkListing {
   hero: string;
   /** Bunny embed URL (same format as the videography page). */
   reel: string;
+  /** What this reel was, e.g. agent on camera or property-only. */
+  reelCopy: string;
   youtubeId: string;
   photos: WorkPhoto[];
   drone: WorkPhoto[];
@@ -44,6 +46,8 @@ export const work: WorkListing[] = [
       'A 2010 Astoria custom two-storey in Monterra on Cochrane Lake, backing onto a treed green space. Vaulted great room, chef’s kitchen, a finished lower level with a home theatre, and a heated triple garage. A home like this needs media that keeps up with it.',
     hero: '001-twilight.jpg',
     reel: 'https://iframe.mediadelivery.net/embed/469110/fa91653c-8e19-4a2c-98ef-5fe4e21adec0?autoplay=true&loop=false&muted=true&preload=false&responsive=true',
+    reelCopy:
+      'A fast, vertical cut built to stop the scroll on Instagram, Facebook and TikTok. This one is property-only, with the agent’s name and brokerage built into the edit, so every view points back to them.',
     youtubeId: '03e0BEo2s1c',
     photos: [
       { file: '001-twilight.jpg', caption: 'Front elevation at dusk', wide: true },
