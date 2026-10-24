@@ -185,6 +185,79 @@ export const work: WorkListing[] = [
     // export, hosted as-is from public/tours/.
     iguide: { embed: '/tours/159-greenwich-drive-nw/', url: '/tours/159-greenwich-drive-nw/' },
   },
+  {
+    slug: '342-hawkside-mews-nw',
+    address: '342 Hawkside Mews NW',
+    city: 'Calgary, Alberta',
+    packageName: 'Showcase Package',
+    packageFrom: '$685',
+    agent: { name: 'Lionel Sale', url: 'https://lionelsale.ca/' },
+    summary:
+      'An updated bungalow on a quiet cul-de-sac in the Uplands of Hawkwood, northwest Calgary, on a big lot backing onto a park pathway. Vaulted ceilings and walls of windows upstairs, a fully finished lower level with a bar. The drone work shows what ground shots can’t: the lot, the park behind it and the clubhouse a short walk away.',
+    hero: '001-DSC03016.jpg',
+    reel: {
+      src: 'https://iframe.mediadelivery.net/embed/469110/d06939c7-91da-484b-80ae-00ee67190b93?autoplay=true&loop=false&muted=true&preload=false&responsive=true',
+      copy: 'A fast, vertical cut built to stop the scroll on Instagram, Facebook and TikTok, getting the listing seen before buyers ever open MLS.',
+    },
+    photos: [
+      { file: '001-DSC03016.jpg', caption: 'Front elevation on a quiet cul-de-sac', wide: true },
+      { file: '002-DSC03017-2.jpg', caption: 'Front elevation and double garage' },
+      { file: '003-DSC03125.jpg', caption: 'Front entry hall' },
+      { file: '004-DSC03170.jpg', caption: 'Vaulted great room from the entry', wide: true },
+      { file: '005-DSC03172.jpg', caption: 'Open-concept main floor under a vaulted ceiling' },
+      { file: '006-DSC03128.jpg', caption: 'Kitchen island with glass-front cabinetry' },
+      { file: '007-DSC03157.jpg', caption: 'Kitchen, quartz counters and dual-fuel range' },
+      { file: '008-DSC03136.jpg', caption: 'Dining room with deck access' },
+      { file: '009-DSC03142.jpg', caption: 'Living room, vaulted ceiling', wide: true },
+      { file: '010-DSC03184.jpg', caption: 'Living room and gas fireplace' },
+      { file: '011-DSC03187-Edit.jpg', caption: 'Kitchen and dining from the living room' },
+      { file: '012-DSC03146.jpg', caption: 'Kitchen island and stainless appliances' },
+      { file: '013-DSC03161.jpg', caption: 'Kitchen work space and corner pantry' },
+      { file: '014-DSC03043.jpg', caption: 'Primary bedroom, vaulted ceiling', wide: true },
+      { file: '015-DSC03049.jpg', caption: 'Primary bedroom' },
+      { file: '016-DSC03053.jpg', caption: 'Ensuite with jetted soaker tub' },
+      { file: '017-DSC03055.jpg', caption: 'Ensuite shower and soaker tub' },
+      { file: '018-DSC03063.jpg', caption: 'Ensuite vanity' },
+      { file: '019-DSC03067.jpg', caption: 'Primary walk-in closet' },
+      { file: '020-DSC03074.jpg', caption: 'Den with built-ins' },
+      { file: '021-DSC03079.jpg', caption: 'Updated powder room' },
+      { file: '022-DSC03200.jpg', caption: 'Main-floor laundry' },
+      { file: '023-DSC03089.jpg', caption: 'Lower-level family room', wide: true },
+      { file: '024-DSC03121.jpg', caption: 'Lower-level family room and stairs' },
+      { file: '025-DSC03103.jpg', caption: 'Lower-level bar' },
+      { file: '026-DSC03085.jpg', caption: 'Bar counter and shelving' },
+      { file: '027-DSC03092.jpg', caption: 'Lower-level sitting area' },
+      { file: '028-DSC03094.jpg', caption: 'Lower-level gas fireplace', wide: true },
+      { file: '029-DSC03083.jpg', caption: 'Lower-level bedroom' },
+      { file: '030-DSC03106.jpg', caption: 'Lower-level bedroom' },
+      { file: '031-DSC03109.jpg', caption: 'Updated lower-level full bath' },
+      { file: '032-DSC03202.jpg', caption: 'Insulated, finished garage' },
+      { file: '033-DSC03024.jpg', caption: 'Rear patio', wide: true },
+      { file: '034-DSC03037.jpg', caption: 'Patio and backyard' },
+      { file: '035-DSC03026.jpg', caption: 'Rear elevation and backyard' },
+      { file: '036-DSC03030.jpg', caption: 'Backyard backing onto the park', wide: true },
+      { file: '037-DSC03033.jpg', caption: 'Backyard and mature trees', wide: true },
+    ],
+    drone: [
+      { file: '038-DJI_0524.jpg', caption: 'Aerial view of the backyard and green space' },
+      { file: '039-DJI_0501-outlined.jpg', caption: 'Aerial view with the lot outlined' },
+      { file: '040-DJI_0499.jpg', caption: 'Aerial view of the cul-de-sac' },
+      { file: '041-DJI_0504_pinned.jpg', caption: 'Aerial view with the recreation centre, school and park labelled' },
+      { file: '042-DJI_0509_pinned.jpg', caption: 'Aerial view with the property pinned' },
+      { file: '043-DJI_0514_pinned.jpg', caption: 'Aerial view with the property pinned, downtown beyond' },
+      { file: '044-DJI_0517_pinned.jpg', caption: 'Aerial view with the property pinned beside the park pathway' },
+      { file: '045-DJI_0521_pinned.jpg', caption: 'Aerial view of the Hawkwood Recreation Centre' },
+    ],
+    floorplans: [
+      { file: '900-floor_imperial_en_1.jpg', label: 'Main floor' },
+      { file: '901-floor_imperial_en_2.jpg', label: 'Basement' },
+    ],
+    floorplanPdf: 'https://youriguide.com/342_hawkside_mews_nw_calgary_ab/doc/floorplan_imperial_en.pdf',
+    iguide: {
+      embed: 'https://youriguide.com/embed/342_hawkside_mews_nw_calgary_ab?unbranded=1&bgcolor=131B2C',
+      url: 'https://youriguide.com/342_hawkside_mews_nw_calgary_ab',
+    },
+  },
 ];
 
 // Shown on the /work/ hub as "case study coming soon" cards until their page
@@ -199,10 +272,4 @@ export interface UpcomingListing {
 }
 
 export const upcoming: UpcomingListing[] = [
-  {
-    slug: '342-hawkside-mews-nw',
-    address: '342 Hawkside Mews NW',
-    city: 'Calgary, Alberta',
-    packageName: 'Showcase Package',
-  },
 ];

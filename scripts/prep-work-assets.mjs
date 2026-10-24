@@ -4,7 +4,8 @@
 //   node scripts/prep-work-assets.mjs <slug> --photos <dir> [--plans <dir>] [--site <url>]
 //
 // - Photos are resized to 2000px wide into src/assets/work/<slug>/photos/.
-//   Files whose name contains "DJI" go to drone/ instead.
+//   Files whose name contains "DJI" go to drone/ instead, and files with
+//   "floor" in the name go to plans/ (for exports that mix them in).
 // - Floor plan images are resized to 2400px wide into plans/.
 // - --site takes a 1440×900 (1.5x) screenshot of the property website into
 //   website/desktop.jpg with headless Chrome.
@@ -46,13 +47,14 @@ async function resizeInto(srcDir, files, destDir, width) {
 
 const photoDir = opt('photos');
 const all = fs.readdirSync(photoDir).filter(isImage).sort();
-const photos = await resizeInto(photoDir, all.filter((f) => !/DJI/i.test(f)), path.join(out, 'photos'), 2000);
+const isPlan = (f) => /floor/i.test(f);
+const photos = await resizeInto(photoDir, all.filter((f) => !/DJI/i.test(f) && !isPlan(f)), path.join(out, 'photos'), 2000);
 const drone = await resizeInto(photoDir, all.filter((f) => /DJI/i.test(f)), path.join(out, 'drone'), 2000);
 
-let plans = [];
+let plans = await resizeInto(photoDir, all.filter(isPlan), path.join(out, 'plans'), 2400);
 if (opt('plans')) {
   const planDir = opt('plans');
-  plans = await resizeInto(planDir, fs.readdirSync(planDir).filter(isImage).sort(), path.join(out, 'plans'), 2400);
+  plans = plans.concat(await resizeInto(planDir, fs.readdirSync(planDir).filter(isImage).sort(), path.join(out, 'plans'), 2400));
 }
 
 if (opt('site')) {
