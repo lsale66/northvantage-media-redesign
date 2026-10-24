@@ -24,7 +24,7 @@ The nav's "Work" item, the footer and the old `/gallery` URL all lead to `/work/
 
 1. **Selected Works:** 3 columns of listing cards (hero photo, package tag, address, city). Built case studies come first and link to their page. Listings in the `upcoming` array in `src/data/work.ts` show as "Case study coming soon" and don't link anywhere. Each card uses the `hero` photo if it has one, or a placeholder tile if not. **When you build a case study, move its listing from `upcoming` to `work`.**
 2. **Social Media Property Reels** and 3. **Cinematic Property Showcases:** the same videos as the videography page, from `src/data/videos.ts`. Edit them there and both pages update.
-4. **Photography:** the 12 portfolio photos from `src/data/portfolio.ts` (shared with the home page and `/card/`), 3 columns on desktop, with the lightbox.
+4. **Photography:** the 12 portfolio photos listed in `src/data/portfolio.ts` (shared with the home page and `/card/`), 3 columns on desktop, with the lightbox. The originals live in `public/images/photos/`, which Astro can't resize, so the hub makes its thumbnails from copies in `src/assets/portfolio/`. If you change a portfolio photo, update both folders.
 
 ## Page Layout
 
@@ -36,7 +36,7 @@ Sections render in this order. Every section except photos is optional: leave it
 | | **The Listing**: `summary`, then the numbered "what's included" list linking to each section | `summary` | 2–3 sentences of character, no spec sheet |
 | 01 | **Social Media Reel**: Bunny vertical embed beside the copy | `reel: { src, copy }` | Per listing: say whether the agent was on camera or it was property-only. Never claim scripting or coaching the reel didn't have. |
 | 02 | **Cinematic Property Video**: YouTube 16:9 | `youtubeId` | Fixed |
-| 03 | **HDR Photos**: the full delivered set, 2-column grid, `wide` spans both columns, click opens the lightbox | `photos`, `photosNote` | Fixed, plus an optional `photosNote` for extras such as twilight or virtual staging |
+| 03 | **HDR Photos**: the full delivered set, 2-column grid, `wide` spans both columns, click opens the lightbox (see [Fast-Loading Galleries](#fast-loading-galleries)) | `photos`, `photosNote` | Fixed, plus an optional `photosNote` for extras such as twilight or virtual staging |
 | 04 | **Drone Photos**: 2×2 grid, 4:3, lightbox | `drone` | Fixed |
 | 05 | **Property Website**: desktop screenshot in a browser frame, linked to the live site | `website` | Fixed |
 | 06 | **Floor Plans & RMS**: one white card per level, lightbox, optional PDF link | `floorplans`, `floorplanPdf` | Fixed |
@@ -50,7 +50,7 @@ Package contents are defined in `src/components/direction-1/pricing/Packages.ast
 | Package | Usual sections |
 |---|---|
 | Essential | Photos, floor plans, iGuide. Drone if it was added (+$35). |
-| Showcase | Everything in Essential, plus the reel and drone. |
+| Showcase | Everything in Essential, plus the reel and drone. No cinematic video and no twilight: leave out `youtubeId`, and don't put twilight shots in `photos`. |
 | Luxury | Everything in Showcase, plus the cinematic video. Twilight photos go in `photos` (mention them in `photosNote`). |
 
 `packageFrom` must match the smallest-size price on `/pricing` (Essential $285, Showcase $685, Luxury $999 as of 2026-10-23). Update it when pricing changes.
@@ -63,11 +63,21 @@ Package contents are defined in `src/components/direction-1/pricing/Packages.ast
    ```
    node scripts/prep-work-assets.mjs <slug> --photos "<photo dir>" --plans "<plan dir>" --site https://<listing-site>/
    ```
-   Photos are resized to 2000px. Files with `DJI` in the name go to `drone/`. Plans are resized to 2400px. The website screenshot is 1440×900 at 1.5x. The script warns about any photo that isn't 3:2 (or drone shot that isn't 4:3), because the grid crops to those ratios. Check the screenshot, since a cookie banner or slow-loading hero can ruin it. The slug is the address in kebab case (`34-monterra-link`).
+   Photos are resized to 2000px. Files with `DJI` in the name go to `drone/`, and files with `floor` in the name go to `plans/`, so an export that mixes everything in one folder sorts itself. Plans are resized to 2400px. The website screenshot is 1440×900 at 1.5x. The script warns about any photo that isn't 3:2 (or drone shot that isn't 4:3), because the grid crops to those ratios. Check the screenshot, since a cookie banner or slow-loading hero can ruin it. The slug is the address in kebab case (`34-monterra-link`).
 2. **Add the entry** to `work` in `src/data/work.ts`. Paste the arrays the script printed and replace every `TODO` caption, because captions are the alt text and the lightbox labels.
 3. **Lay out the photo grid.** Mark the strongest shots `wide: true`. Keep an even number of non-wide photos between wide ones, or the 2-column grid leaves a hole.
 4. **Get the video IDs.** For the reel, use the Bunny embed URL (same format as the videography page). If its poster is blank, add the thumbnail filename to the `thumbs` map in `BunnyVideo.astro`; Bunny renames thumbnails when they're changed. For the video, use the YouTube ID.
 5. **Check it** (see below), then commit. Pushing `main` deploys.
+
+## Fast-Loading Galleries
+
+Every grid on these pages (photos, drone and floor plans, plus the hub's Photography section) loads small thumbnails, and the full-size image only loads when someone opens it.
+
+- **Thumbnails:** `THUMB` (400/640/800px) and `THUMB_WIDE` (800/1280px) at quality 70, set at the top of `src/pages/work/[slug].astro`. The browser picks the smallest one that fits the tile.
+- **Full size:** a 2000px WebP made with `getImage()`. It's the link's `href`, so it opens in the lightbox, or as a plain link if JavaScript is off.
+- **Result (as of 2026-10-24):** scrolling the whole Monterra page on a retina screen went from 7.7 MB of images to 3.5 MB, and the hub from 5.1 MB to 1.2 MB.
+
+Don't put full-size images straight into a grid. If an image lives in `public/`, copy it into `src/assets/` so Astro can make thumbnails from it.
 
 ## Self-Hosting an iGuide After the Listing Sells
 

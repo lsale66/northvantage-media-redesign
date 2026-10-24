@@ -25,6 +25,16 @@ import Lightbox from '../../components/direction-1/Lightbox.astro';
 const assets = import.meta.glob<{ default: ImageMetadata }>('/src/assets/work/*/photos/*.{jpg,jpeg,png}', {
   eager: true,
 });
+
+// Optimisable copies of /public/images/photos/. The grid shows thumbnails of
+// these and links each one to its full-size original in /public.
+const portfolio = import.meta.glob<{ default: ImageMetadata }>('/src/assets/portfolio/*.jpg', { eager: true });
+const portfolioImg = (file: string) => {
+  const mod = portfolio[`/src/assets/portfolio/${file}`];
+  if (!mod) throw new Error(`Missing portfolio image: src/assets/portfolio/${file}`);
+  return mod.default;
+};
+
 const heroOf = (slug: string, file?: string) =>
   file ? assets[`/src/assets/work/${slug}/photos/${file}`]?.default : undefined;
 
@@ -67,11 +77,12 @@ const pageSchema = [breadcrumbs([{ name: 'Work', path: '/work/' }])];
     <!-- Hero -->
     <header class="nv-wh-hero">
       <div class="nv-wh-hero__media" data-parallax="0.1">
-        <img
-          src={photoSrc(heroPhoto.file)}
+        <Image
+          src={portfolioImg(heroPhoto.file)}
           alt={heroPhoto.alt}
-          width="1620"
-          height="1080"
+          widths={[960, 1620]}
+          sizes="100vw"
+          loading="eager"
           fetchpriority="high"
         />
         <div class="nv-wh-hero__scrim" aria-hidden="true"></div>
@@ -240,7 +251,14 @@ const pageSchema = [breadcrumbs([{ name: 'Work', path: '/work/' }])];
             photos.map((p, i) => (
               <li data-reveal="up" style={`--d:${(i % 3) * 70}ms`}>
                 <a href={photoSrc(p.file)} class="nv-wh-photo" data-lightbox data-caption={p.alt}>
-                  <img src={photoSrc(p.file)} alt={p.alt} width="1620" height="1080" loading="lazy" decoding="async" />
+                  <Image
+                    src={portfolioImg(p.file)}
+                    alt={p.alt}
+                    widths={[400, 640, 800]}
+                    quality={70}
+                    sizes="(min-width: 1440px) 430px, (min-width: 960px) 33vw, (min-width: 560px) 50vw, 100vw"
+                    loading="lazy"
+                  />
                 </a>
               </li>
             ))

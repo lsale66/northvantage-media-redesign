@@ -39,7 +39,13 @@ function img(folder: string, file: string): ImageMetadata {
   return mod.default;
 }
 
-// Each photo gets a grid-sized <Image> plus a large WebP for the lightbox.
+// Grids load small thumbnails (800px max, 1280px for wide shots) so a big
+// gallery stays light; the full-size WebP only loads when a photo is opened.
+const THUMB = [400, 640, 800];
+const THUMB_WIDE = [800, 1280];
+const THUMB_QUALITY = 70;
+
+// Each photo gets a grid thumbnail plus a full-size WebP for the lightbox.
 async function withFull(folder: string, photos: WorkPhoto[]) {
   return Promise.all(
     photos.map(async (p) => {
@@ -229,7 +235,8 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
                   <Image
                     src={p.src}
                     alt={p.caption}
-                    widths={p.wide ? [800, 1400, 2000] : [600, 900, 1200]}
+                    widths={p.wide ? THUMB_WIDE : THUMB}
+                    quality={THUMB_QUALITY}
                     sizes={p.wide ? '(min-width: 1440px) 1300px, 100vw' : '(min-width: 1440px) 650px, (min-width: 700px) 50vw, 100vw'}
                     loading={i < 2 ? 'eager' : 'lazy'}
                   />
@@ -262,7 +269,8 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
                     <Image
                       src={p.src}
                       alt={p.caption}
-                      widths={[600, 900, 1200]}
+                      widths={THUMB}
+                      quality={THUMB_QUALITY}
                       sizes="(min-width: 1440px) 650px, (min-width: 700px) 50vw, 100vw"
                       loading="lazy"
                     />
@@ -348,8 +356,9 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
                     <Image
                       src={p.src}
                       alt={`${p.caption} floor plan`}
-                      widths={[600, 900, 1200]}
-                      sizes="(min-width: 900px) 33vw, 100vw"
+                      widths={THUMB}
+                      quality={THUMB_QUALITY}
+                      sizes={`(min-width: 760px) ${Math.round(100 / Math.min(plans.length, 3))}vw, 100vw`}
                       loading="lazy"
                     />
                   </a>
