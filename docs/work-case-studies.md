@@ -34,7 +34,7 @@ Sections render in this order. Every section except photos is optional: leave it
 |---|---|---|---|
 | | **Hero**: full-bleed `hero` photo, "<Package> · Case Study", address with the last word accented, city, "Shot for <agent>" linked to the agent's site | `hero`, `address`, `city`, `agent` | Fixed |
 | | **The Listing**: `summary`, then the numbered "what's included" list linking to each section | `summary` | 2–3 sentences of character, no spec sheet |
-| 01 | **Social Media Reel**: Bunny vertical embed beside the copy | `reel: { src, copy }` | Per listing: say whether the agent was on camera or it was property-only. Never claim scripting or coaching the reel didn't have. |
+| 01 | **Social Media Reel**: Bunny vertical embed beside the copy | `reel: { src, copy }` | Per listing: say whether the agent was on camera or it was property-only. Never claim scripting or coaching the reel didn't have. Optional `result: { value, label }` adds a big stat callout (e.g. "30,000 views" / "In just 5 days"); only use numbers the founder supplied. |
 | 02 | **Cinematic Property Video**: YouTube 16:9 | `youtubeId` | Fixed |
 | 03 | **HDR Photos**: the full delivered set, 2-column grid, `wide` spans both columns, click opens the lightbox (see [Fast-Loading Galleries](#fast-loading-galleries)) | `photos`, `photosNote` | Fixed, plus an optional `photosNote` for extras such as twilight or virtual staging |
 | 04 | **Drone Photos**: 2×2 grid, 4:3, lightbox | `drone` | Fixed |

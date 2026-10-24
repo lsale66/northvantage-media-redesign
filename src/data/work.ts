@@ -24,8 +24,11 @@ export interface WorkListing {
   hero: string;
   // Every deliverable except photos is optional: leave it out and its section,
   // its row in the "what's included" list and its mention in the CTA all drop.
-  /** Bunny embed URL (same format as the videography page) + a line on what this reel was. */
-  reel?: { src: string; copy: string };
+  /**
+   * Bunny embed URL (same format as the videography page) + a line on what this
+   * reel was. `result` shows a stat callout; only use numbers the founder gave.
+   */
+  reel?: { src: string; copy: string; result?: { value: string; label: string } };
   /** Cinematic Property Showcase on YouTube. */
   youtubeId?: string;
   photos: WorkPhoto[];
@@ -197,7 +200,8 @@ export const work: WorkListing[] = [
     hero: '001-DSC03016.jpg',
     reel: {
       src: 'https://iframe.mediadelivery.net/embed/469110/d06939c7-91da-484b-80ae-00ee67190b93?autoplay=true&loop=false&muted=true&preload=false&responsive=true',
-      copy: 'A fast, vertical cut built to stop the scroll on Instagram, Facebook and TikTok, getting the listing seen before buyers ever open MLS.',
+      copy: 'A fast, vertical cut built to stop the scroll on Instagram, Facebook and TikTok, with Lionel on camera. We wrote the script and coached him through his lines on site. It was one of our top performers, and the attention turned into several inquiries and new leads for Lionel.',
+      result: { value: '30,000 views', label: 'In just 5 days' },
     },
     photos: [
       { file: '001-DSC03016.jpg', caption: 'Front elevation on a quiet cul-de-sac', wide: true },

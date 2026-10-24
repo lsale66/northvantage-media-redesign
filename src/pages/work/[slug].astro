@@ -177,6 +177,12 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
             <p class="nv-body nv-wk-head__copy" data-reveal="up" style="--d:100ms">
               {listing.reel!.copy}
             </p>
+            {listing.reel!.result && (
+              <p class="nv-wk-stat" data-reveal="up" style="--d:160ms">
+                <span class="nv-wk-stat__value">{listing.reel!.result.value}</span>
+                <span class="nv-micro nv-wk-stat__label">{listing.reel!.result.label}</span>
+              </p>
+            )}
           </header>
           <div class="nv-wk-reel__video nv-frame nv-frame--hover" data-reveal="up">
             <div class="nv-wk-ratio nv-wk-ratio--vert">
@@ -589,6 +595,24 @@ const pageSchema = [breadcrumbs([{ name: listing.address, path }])];
     .nv-wk-reel {
       display: grid;
       gap: clamp(2rem, 5vw, 5rem);
+    }
+    .nv-wk-stat {
+      display: grid;
+      gap: 0.5rem;
+      margin: clamp(1.75rem, 3vw, 2.5rem) 0 0;
+      padding-left: 1.25rem;
+      border-left: 2px solid var(--color-brand-accent);
+    }
+    .nv-wk-stat__value {
+      font-family: var(--font-heading);
+      font-weight: 300;
+      font-size: clamp(2.5rem, 5vw, 3.75rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--color-brand-accent);
+    }
+    .nv-wk-stat__label {
+      color: var(--color-brand-text);
     }
     .nv-wk-reel__video {
       width: 100%;
