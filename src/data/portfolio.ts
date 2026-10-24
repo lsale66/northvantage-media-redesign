@@ -26,12 +26,12 @@ export const workPhotos = [
   byFile('052-DJI_0256_pinned (Large).jpg'),
   byFile('2-summer-Large.jpg'),
   byFile('DJI_0430_1_2_3_4-Large.jpg'),
-  byFile('011-DSC01084 (Large).jpg'),
-  byFile('DSC03866-dh-Edit-Large.jpg'),
   byFile('DSC04417_8_9-SM.jpg'),
+  byFile('DSC03866-dh-Edit-Large.jpg'),
   byFile('DSC04512-dh-Large.jpg'),
   byFile('DSC05410-Large.jpg'),
   byFile('DSC05800-Large.jpg'),
+  byFile('011-DSC01084 (Large).jpg'),
   { file: '037-DSC02730-edit.jpg', alt: 'Interior photograph of a Calgary listing' },
 ];
 
