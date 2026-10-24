@@ -51,11 +51,11 @@ Package contents are defined in `src/components/direction-1/pricing/Packages.ast
 |---|---|
 | Essential | Photos, floor plans, iGuide. Drone if it was added (+$35). |
 | Showcase | Everything in Essential, plus the reel and drone. No cinematic video and no twilight: leave out `youtubeId`, and don't put twilight shots in `photos`. |
-| Luxury | Everything in Showcase, plus the cinematic video. Twilight photos go in `photos` (mention them in `photosNote`). |
+| Luxury | Everything in Showcase, plus the cinematic video and a custom property website. Twilight photos go in `photos` (mention them in `photosNote`). |
 
 `packageFrom` must match the smallest-size price on `/pricing` (Essential $285, Showcase $685, Luxury $999 as of 2026-10-23). Update it when pricing changes.
 
-**Property website:** none of the packages on `/pricing` lists a property website. 34 Monterra Link shows one, and the copy doesn't say it's included. Until the website appears in a package or as a priced add-on, keep that wording, and decide per listing whether to show it at all.
+**Property website:** included in the Luxury Package as a "Custom Property Website" (on `/pricing` since 2026-10-24). Essential and Showcase don't include one, so only show the website section on those if the shoot really had one.
 
 ## Adding a Case Study
 
