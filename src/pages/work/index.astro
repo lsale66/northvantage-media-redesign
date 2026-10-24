@@ -2,8 +2,8 @@
 /**
  * /work/ — the portfolio hub. Selected Works cards link to the per-listing
  * case studies (src/data/work.ts); reels and cinematic videos are the same
- * set as the videography page (src/data/videos.ts); photos are the shared
- * portfolio set (src/data/portfolio.ts).
+ * set as the videography page (src/data/videos.ts); photos are the hub's
+ * own order of the portfolio set (workPhotos in src/data/portfolio.ts).
  */
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
@@ -11,7 +11,7 @@ import Layout from '../../layouts/Layout.astro';
 import { breadcrumbs } from '../../lib/schema';
 import { work, upcoming } from '../../data/work';
 import { reels, cinematic } from '../../data/videos';
-import { photos, photoSrc } from '../../data/portfolio';
+import { workPhotos as photos, photoSrc } from '../../data/portfolio';
 import Styles from '../../components/direction-1/Styles.astro';
 import Nav from '../../components/direction-1/Nav.astro';
 import Motion from '../../components/direction-1/Motion.astro';
@@ -56,8 +56,8 @@ const cards = [
   })),
 ];
 
-// Hero background: photo 9 of the Photography grid below.
-const heroPhoto = photos[8];
+// Hero background: the bright interior with tall windows, from the grid below.
+const heroPhoto = photos.find((p) => p.file === 'DSC04512-dh-Large.jpg')!;
 
 const pageSchema = [breadcrumbs([{ name: 'Work', path: '/work/' }])];
 ---
