@@ -2,16 +2,16 @@
 
 How search and social metadata works on this site, and what to do when you add or change a page.
 
-Four packages handle it. Nothing here needs a separate build step; `astro build` produces all of it.
+Three packages and one static file handle it. Nothing here needs a separate build step; `astro build` produces all of it.
 
 | Piece | Package | Lives in | Output |
 |---|---|---|---|
 | Head tags (title, description, canonical, robots, Open Graph, Twitter) | [`astro-seo`](https://github.com/jonasmerlin/astro-seo#readme) | `src/layouts/Layout.astro` | `<head>` of every page |
 | Schema markup (JSON-LD) | [`astro-seo-schema`](https://github.com/codiume/orbit/tree/main/packages/astro-seo-schema) + `schema-dts` types | `src/lib/schema.ts`, rendered by `Layout` | One `<script type="application/ld+json">` per page |
 | Sitemap | [`@astrojs/sitemap`](https://docs.astro.build/en/guides/integrations-guide/sitemap/) | `astro.config.mjs` | `/sitemap-index.xml` → `/sitemap-0.xml` |
-| robots.txt | [`astro-robots-txt`](https://github.com/alextim/astro-lib/tree/main/packages/astro-robots-txt#readme) | `astro.config.mjs` | `/robots.txt` |
+| robots.txt | none (static file) | `public/robots.txt` | `/robots.txt` |
 
-All three build absolute URLs from `site` in `astro.config.mjs`, which is `https://northvantagemedia.com`. Keep it that way. The `*.workers.dev` URL serves the same build, but it must never become canonical.
+The three packages build absolute URLs from `site` in `astro.config.mjs`, which is `https://northvantagemedia.com`. Keep it that way. The `*.workers.dev` URL serves the same build, but it must never become canonical.
 
 ## Page Metadata (`astro-seo`)
 
@@ -158,12 +158,11 @@ These sit next to `<SEO>` and `<Schema>` in `Layout.astro`:
 
 ## Sitemap and robots.txt
 
-Both are automatic. Every statically built page lands in the sitemap; the 404 is excluded by default.
+The sitemap is automatic. Every statically built page lands in it; the 404 is excluded by default.
 
 - A `noindex` page other than the 404 still appears in the sitemap. Exclude it with `sitemap({ filter: (page) => ... })` in `astro.config.mjs`.
-- `robots.txt` allows everything and points at `https://northvantagemedia.com/sitemap-index.xml`. Policy changes go in `robotsTxt({ policy: [...] })`.
-- Don't add `public/robots.txt` or a hand-written sitemap; they would clash with the integrations.
-- `astro-robots-txt` has had no release since 2023. If an Astro upgrade breaks it, replace it with a static `public/robots.txt` that contains the same three lines.
+- Don't add a hand-written sitemap; it would clash with the integration.
+- `public/robots.txt` is a static file: it allows everything and points at `https://northvantagemedia.com/sitemap-index.xml`. Policy changes are edits to that file. It replaced `astro-robots-txt` on 2026-10-29, which was unmaintained since 2023 and pulled in a vulnerable `zod@3`.
 
 ## Redirects
 

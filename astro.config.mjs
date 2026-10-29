@@ -4,7 +4,6 @@ import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 
 import sitemap from '@astrojs/sitemap';
-import robotsTxt from 'astro-robots-txt';
 
 export default defineConfig({
   // Canonical origin for SEO tags + sitemap. The workers.dev URL serves the
@@ -19,7 +18,6 @@ export default defineConfig({
     react(),
     // /card/ is a noindex QR landing page — keep it out of the sitemap too.
     sitemap({ filter: (page) => !page.endsWith('/card/') }),
-    robotsTxt(),
   ],
   vite: {
     plugins: [tailwindcss()],
