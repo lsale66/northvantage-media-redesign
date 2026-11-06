@@ -3,6 +3,7 @@ import { SEO } from 'astro-seo';
 import { Schema } from 'astro-seo-schema';
 import type { Thing } from 'schema-dts';
 import { pageGraph, webpage } from '../lib/schema';
+import { closure } from '../data/closure';
 import '../styles/global.css';
 
 interface Props {
@@ -58,6 +59,17 @@ const jsonLd = pageGraph(webpage(canonical, title, description), noindex ? [] : 
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <Schema item={jsonLd} />
+
+    <script is:inline define:vars={{ closureEnd: closure.endsAt }}>
+      if (Date.now() >= new Date(closureEnd).getTime()) {
+        document.documentElement.classList.add('nv-closure-over');
+      }
+    </script>
+    <style is:global>
+      .nv-closure-over [data-closure-notice] {
+        display: none !important;
+      }
+    </style>
 
     <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
     <script is:inline define:vars={{ GA_ID }}>

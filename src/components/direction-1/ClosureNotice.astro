@@ -1,0 +1,53 @@
+---
+import { closure } from '../../data/closure';
+---
+
+<aside class="nv-closure" data-closure-notice aria-label="Schedule notice">
+  <p class="nv-closure__eyebrow">Schedule notice</p>
+  <p class="nv-closure__title">
+    Northvantage is unavailable
+    <span class="nv-closure__dates">{closure.datesWithYear}</span>
+  </p>
+  <p class="nv-closure__body">
+    No shoots or bookings during these dates. Need a listing shot before then?
+    Book early so everything is delivered before {closure.bookBefore}.
+  </p>
+</aside>
+
+<style>
+  .nv-closure {
+    max-width: 44rem;
+    padding: clamp(1.25rem, 2.4vw, 1.75rem) clamp(1.25rem, 2.6vw, 2rem);
+    background: var(--color-brand-accent);
+    color: #0a0e17;
+    box-shadow: 0 18px 50px -18px rgb(0 0 0 / 0.65);
+  }
+  .nv-closure p {
+    margin: 0;
+    color: inherit;
+  }
+  .nv-closure .nv-closure__eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .nv-closure .nv-closure__title {
+    margin-top: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: clamp(1.45rem, 3vw, 2.1rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .nv-closure__dates {
+    display: block;
+    white-space: nowrap;
+  }
+  .nv-closure .nv-closure__body {
+    margin-top: 0.7rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+</style>

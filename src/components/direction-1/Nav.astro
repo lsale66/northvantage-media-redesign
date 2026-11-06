@@ -1,5 +1,6 @@
 ---
 import FrameMark from './FrameMark.astro';
+import { closure } from '../../data/closure';
 
 const HOME = '/';
 const BOOKING_URL = 'https://northvantagemedia.hd.pics/order';
@@ -23,6 +24,10 @@ const links = [
 ---
 
 <header class="nv-nav" id="nv-nav" data-nav>
+  <p class="nv-closure-band" data-closure-notice>
+    <strong>Unavailable {closure.dates}</strong>
+    <span>No shoots or bookings</span>
+  </p>
   <div class="nv-nav__inner nv-wrap">
     <a href="/" class="nv-brand" aria-label="Northvantage Media — home">
       <img
@@ -170,6 +175,24 @@ const links = [
       backdrop-filter 0.7s var(--nv-ease),
       box-shadow 0.7s var(--nv-ease);
   }
+  .nv-closure-band {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.1rem 0.75rem;
+    margin: 0;
+    padding: 0.55rem var(--nv-gutter);
+    background: var(--color-brand-accent);
+    color: #0a0e17;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: center;
+  }
+  .nv-closure-band strong {
+    font-weight: 700;
+  }
+
   .nv-nav.is-scrolled {
     background: rgb(10 14 23 / 0.82);
     backdrop-filter: blur(18px) saturate(1.2);
@@ -473,7 +496,7 @@ const links = [
     justify-content: center;
     gap: 2rem;
     height: 100%;
-    padding: 6rem var(--nv-gutter) 3rem;
+    padding: 8rem var(--nv-gutter) 3rem;
   }
   .nv-menu__eyebrow {
     color: var(--color-brand-muted);

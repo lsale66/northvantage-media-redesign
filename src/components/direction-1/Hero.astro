@@ -1,5 +1,6 @@
 ---
 import FrameMark from './FrameMark.astro';
+import ClosureNotice from './ClosureNotice.astro';
 ---
 
 <section class="nv-hero" id="top">
@@ -25,6 +26,8 @@ import FrameMark from './FrameMark.astro';
   </div>
 
   <div class="nv-hero__body nv-wrap">
+    <div class="nv-hero__closure"><ClosureNotice /></div>
+
     <p class="nv-eyebrow nv-hero__eyebrow">
       <FrameMark size={12} float />
       <span>Calgary &amp; Area · Listing Media Production</span>
@@ -90,10 +93,14 @@ import FrameMark from './FrameMark.astro';
     display: flex;
     align-items: flex-end;
     min-height: 100svh;
-    padding-top: 8rem;
+    padding-top: 10rem;
     padding-bottom: clamp(2.5rem, 5vw, 4rem);
     overflow: hidden;
     isolation: isolate;
+  }
+
+  .nv-hero__closure {
+    margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
   }
 
   /* ── Media ── */
