@@ -453,6 +453,18 @@ import ClosureNotice from './ClosureNotice.astro';
   const shell = document.querySelector('.nv-hero__video');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // YouTube can load captions after the player is ready, and it honours a
+  // viewer's own "always show captions" setting over cc_load_policy. So this
+  // runs every time captions could come back, not just once at startup.
+  const captionsOff = (p) => {
+    try {
+      p.setOption('captions', 'track', {});
+      p.setOption('cc', 'track', {});
+      p.unloadModule('captions');
+      p.unloadModule('cc');
+    } catch (_) {}
+  };
+
   if (mount && shell && !reduced && !shell.querySelector('iframe')) {
     const boot = () => {
       const player = new YT.Player(MOUNT, {
@@ -475,14 +487,13 @@ import ClosureNotice from './ClosureNotice.astro';
         events: {
           onReady: (e) => {
             e.target.mute();
-            try {
-              e.target.unloadModule('captions');
-              e.target.unloadModule('cc');
-            } catch (_) {}
+            captionsOff(e.target);
             e.target.playVideo();
           },
+          onApiChange: (e) => captionsOff(e.target),
           onStateChange: (e) => {
             if (e.data === YT.PlayerState.PLAYING) {
+              captionsOff(e.target);
               shell.classList.add('is-playing');
             }
             if (e.data === YT.PlayerState.ENDED) {
