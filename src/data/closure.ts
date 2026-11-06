@@ -4,7 +4,7 @@
 export const closure = {
   dates: 'Nov 17 – Dec 2',
   datesWithYear: 'Nov 17 – Dec 2, 2026',
-  bookBefore: 'November 17',
-  /** The day after the closure ends, Calgary time (MST). */
+  back: 'December 3',
+  /** The day services resume, Calgary time (MST). */
   endsAt: '2026-12-03T00:00:00-07:00',
 };
